@@ -1,0 +1,8 @@
+{
+  "name": "rowapa-website",
+  "private": true,
+  "version": "1.0.0",
+  "description": "ROWAPA 2027: Effekte und Gestaltung der Webflow-Seiten (ausgeliefert über jsDelivr)",
+  "scripts": { "build": "node build.mjs" },
+  "devDependencies": { "esbuild": "0.24.2", "postcss": "8.4.49", "postcss-selector-parser": "7.0.0" }
+}
