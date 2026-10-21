@@ -107,10 +107,12 @@
    el.style.transform=`translate(${x.toFixed(1)}px,${y.toFixed(1)}px) scale(${scl.toFixed(3)})`;el.style.opacity=op.toFixed(3);el.style.zIndex=String(10+Math.round(depth*10));el.style.setProperty("--lab",lab.toFixed(3));el.style.pointerEvents=op>.5?"":"none";el.classList.toggle("on",k===ai)});
   cards.forEach((c,k)=>c.classList.toggle("on",k===ai));lis.forEach((c,k)=>c.classList.toggle("on",k===ai));
   if(o&&o.core){glow.style.setProperty("--gx",o.core.x.toFixed(1)+"px");glow.style.setProperty("--gy",o.core.y.toFixed(1)+"px");glow.style.setProperty("--gr",Math.max(120,o.core.rad*3.6).toFixed(1)+"px");
-   core.style.transform=`translate(${o.core.x.toFixed(1)}px,${(o.core.y+o.core.rad+26).toFixed(1)}px)`}
+   core.style.transform=`translate(${o.core.x.toFixed(1)}px,${(o.core.y+o.core.rad*1.14+34).toFixed(1)}px)`}
   const coreOp=clamp((pb-.6)/.25,0,1)*(1-sm(clamp(m/.3,0,1)));core.style.opacity=coreOp.toFixed(3);glow.style.opacity=(clamp(pb*1.4,0,1)).toFixed(3);
   /* Karten und Fundament */
-  if(mode==="b"){const cq=sm(clamp((m-.3)/.55,0,1));cards.forEach(c=>{c.style.setProperty("--q",cq.toFixed(3))});base.style.setProperty("--q",sm(clamp((m-.55)/.4,0,1)).toFixed(3));sec.classList.toggle("dg-done",m>.99)}
+  if(mode==="b"){const cq=sm(clamp((m-.3)/.55,0,1));cards.forEach(c=>{c.style.setProperty("--q",cq.toFixed(3))});base.style.setProperty("--q",sm(clamp((m-.55)/.4,0,1)).toFixed(3));sec.classList.toggle("dg-done",m>.99);
+   /* Ausstieg: sobald der Halt endet, blendet der ganze Block aus, bevor «Aktuelles» kommt */
+   const bR2=base.getBoundingClientRect();const out=mot?sm(clamp((bR2.bottom-ih*.6)/(ih*.32),0,1)):1;lay.style.opacity=out<1?out.toFixed(3):""}
   else{cards.forEach((c,k)=>{const q=mot?clamp((ih*.97-c.getBoundingClientRect().top)/(ih*.3)-k*.12,0,1):1;c.style.setProperty("--q",sm(q).toFixed(3))});lis.forEach((l,k)=>{const q=mot?clamp((ih*.95-l.getBoundingClientRect().top)/(ih*.25),0,1):1;l.style.setProperty("--q",sm(q).toFixed(3))});
    const bq=mot?clamp((ih*.98-base.getBoundingClientRect().top)/(ih*.3),0,1):1;base.style.setProperty("--q",sm(bq).toFixed(3));sec.classList.toggle("dg-done",true)}
  });

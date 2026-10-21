@@ -315,16 +315,16 @@ footer{padding-block:70px 40px;font-size:.9rem;background:var(--c-manganese);col
 
 /* ===== Themen Variante B: Liste wie «Klarheit», Punktfigur folgt der Maus ===== */
 /* ===== Meine persönliche Entwicklung: gestapelte Karten ===== */
-.pfade .pfB{display:none}.pfade[data-pfv=b] .pfB{display:grid}
+.pfade .pfb{display:none}.pfade[data-pfv=b] .pfb{display:grid}
 /* B: links Wegweiser, rechts schmaler Kartenstapel */
-.pfB{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(30px,5vw,80px);align-items:start}
-.pfB-nav{position:sticky;top:calc(72px + 60px)}
-.pfB-nav ol{list-style:none;margin:0;padding:0;border-left:2px solid rgba(29,49,73,.12)}
-.pfB-nav li{padding:14px 0 14px 22px;margin-left:-2px;border-left:2px solid transparent;cursor:pointer;transition:border-color .4s}
-.pfB-nav li b{display:block;font-size:clamp(1.3rem,2vw,1.8rem);letter-spacing:-.02em;color:rgba(29,49,73,.45);transition:color .4s}
-.pfB-nav li span{display:flex;align-items:center;gap:8px;font-family:var(--fx);font-weight:800;font-size:.72rem;letter-spacing:.14em;color:rgba(29,49,73,.5)}
-.pfB-nav li span .ic{width:18px;height:18px}
-.pfB-nav li.on{border-color:var(--c-plum)}.pfB-nav li.on b{color:var(--c-manganese)}.pfB-nav li.on span{color:var(--c-plum)}
+.pfb{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(30px,5vw,80px);align-items:start}
+.pfb-nav{position:sticky;top:calc(72px + 60px)}
+.pfb-nav ol{list-style:none;margin:0;padding:0;border-left:2px solid rgba(29,49,73,.12)}
+.pfb-nav li{padding:14px 0 14px 22px;margin-left:-2px;border-left:2px solid transparent;cursor:pointer;transition:border-color .4s}
+.pfb-nav li b{display:block;font-size:clamp(1.3rem,2vw,1.8rem);letter-spacing:-.02em;color:rgba(29,49,73,.45);transition:color .4s}
+.pfb-nav li span{display:flex;align-items:center;gap:8px;font-family:var(--fx);font-weight:800;font-size:.72rem;letter-spacing:.14em;color:rgba(29,49,73,.5)}
+.pfb-nav li span .ic{width:18px;height:18px}
+.pfb-nav li.on{border-color:var(--c-plum)}.pfb-nav li.on b{color:var(--c-manganese)}.pfb-nav li.on span{color:var(--c-plum)}
 .pcard{position:sticky;top:calc(72px + 40px + var(--i) * 26px);border-radius:24px;overflow:hidden;background:#fff;box-shadow:0 20px 50px rgba(29,49,73,.12);margin-bottom:70px;transform-origin:50% 0;will-change:transform;display:block;color:var(--c-manganese)}
 .pcard .im{position:relative;aspect-ratio:16/8;overflow:hidden}
 .pcard .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.68) contrast(1.06) brightness(1.03)}
@@ -340,7 +340,7 @@ footer{padding-block:70px 40px;font-size:.9rem;background:var(--c-manganese);col
 .pcard:nth-child(2){background:var(--c-manganese);color:#fff}.pcard:nth-child(2) p{color:rgba(232,233,233,.8)}.pcard:nth-child(2) li{background:rgba(160,196,223,.16)}.pcard:nth-child(2) .lnk .b{background:#fff;color:var(--c-manganese)}
 .pcard:nth-child(3){background:var(--c-sea)}.pcard:nth-child(3) p{color:rgba(29,49,73,.8)}.pcard:nth-child(3) li{background:rgba(255,255,255,.6)}
 @media (max-width:860px){
- .pfade[data-pfv=b] .pfB{display:block}.pfB-nav{display:none}.pcard{position:relative;top:auto;margin-bottom:18px}.pcard .cb{grid-template-columns:1fr}.pcard .lnk{grid-column:1;grid-row:auto}
+ .pfade[data-pfv=b] .pfb{display:block}.pfb-nav{display:none}.pcard{position:relative;top:auto;margin-bottom:18px}.pcard .cb{grid-template-columns:1fr}.pcard .lnk{grid-column:1;grid-row:auto}
 }
 
 /* Fotos wie «Neue Richtung»: Duotone in der Kartenfarbe */
@@ -854,3 +854,11 @@ footer{position:relative;overflow:hidden}
 .kc .bd small,.news .nk{display:flex;align-items:center;gap:8px}
 .w-condition-invisible{display:none!important}
 .burger{padding:0;line-height:1}
+
+/* ---------- Korrekturen nach Feedback 21.10.2026 ---------- */
+/* Vorgehen: Halt während der vier Phasen (Desktop, Länge über Variable «Halt Vorgehen») */
+.vg-sp{display:none}
+@media (min-width:861px){:root.vg-pin-on .vorgehen[data-vg=d] .vg-pin{position:sticky;top:72px;z-index:1}
+ :root.vg-pin-on .vorgehen[data-vg=d] .vg-sp{display:block;height:var(--_rowapa-startseite---halt-vorgehen,150svh)}}
+/* Wege-Karten: Bildausschnitt eher oben, damit Köpfe im Bild bleiben */
+.pcard .im img{object-position:50% 28%}
