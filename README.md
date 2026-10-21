@@ -4,20 +4,20 @@ Dieses Repository liefert die Gestaltung (`dist/rowapa.css`) und die Bewegungen 
 Alle **Inhalte** (Texte, Bilder, Links, Logos, Werkzeuge, Zitate, FAQ) stehen in Webflow: im Designer oder im CMS.
 Hier steckt nur, was Webflow selbst nicht kann: Punktemeer, 3D-Punktfiguren, Zoom in die Themenlinien, Farbfluss, Orbit von ROWAPA Digital.
 
-## Einbindung in Webflow (Site Settings → Custom Code)
+## Einbindung in Webflow (Seite Home → Einstellungen → Custom Code)
 
 Head:
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ROWAPA-Konzepte/rowapa-website@v1.0.0/dist/rowapa.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ROWAPA-Konzepte/rowapa-website@<COMMIT>/dist/rowapa.css">
 <script>document.documentElement.classList.add("fluid","sl","dk")</script>
 ```
 Footer (vor `</body>`):
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/ROWAPA-Konzepte/rowapa-website@v1.0.0/dist/rowapa.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/ROWAPA-Konzepte/rowapa-website@<COMMIT>/dist/rowapa.js"></script>
 ```
-Neue Fassung: Änderung committen, `npm run build`, neuen Tag setzen (z. B. `v1.0.1`) und die Versionsnummer in Webflow anpassen.
+Statt `<COMMIT>` steht in Webflow die volle Commit-Kennung (40 Zeichen). Neue Fassung: Änderung committen, `npm run build`, pushen und die Kennung in Webflow (Seite Home → Custom Code) ersetzen. So bleibt jede Fassung unveränderlich und ein Zurückwechseln ist jederzeit möglich.
 
 ## Was das Team ohne Code einstellen kann
 
