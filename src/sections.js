@@ -37,10 +37,10 @@ R.reveal(".fx");
 /* ---------- Was uns antreibt: Wörter färben sich ein, Zahlen zählen mit dem Scroll ---------- */
 (function(){const sec=document.getElementById("antrieb");if(!sec)return;const rv=sec.querySelector(".ab-rv");if(!rv)return;
  /* Wörter einzeln; ein Element mit data-to (die Zahl im Satz) bleibt ein eigenes Wort */
- if(!rv.querySelector(".w")){const parts=[];[...rv.childNodes].forEach(nd=>{if(nd.nodeType===3){nd.textContent.split(/(\s+)/).forEach(w=>{if(!w)return;if(/^\s+$/.test(w))parts.push(document.createTextNode(w));else{const sp=document.createElement("span");sp.className="w";sp.textContent=w;parts.push(sp)}})}else if(nd.nodeType===1){nd.classList.add("w");parts.push(nd)}});rv.innerHTML="";parts.forEach(p=>rv.appendChild(p))}
- const n20=rv.querySelector("[data-to]");if(n20)n20.classList.add("n20");
+ if(!rv.querySelector(".w")){const parts=[];const walk=nodes=>nodes.forEach(nd=>{if(nd.nodeType===3){nd.textContent.split(/(\s+)/).forEach(w=>{if(!w)return;if(/^\s+$/.test(w))parts.push(document.createTextNode(w));else{const sp=document.createElement("span");sp.className="w";sp.textContent=w;parts.push(sp)}})}else if(nd.nodeType===1&&(nd.classList.contains("n20")||nd.hasAttribute("data-to"))){nd.classList.add("w");parts.push(nd)}else if(nd.nodeType===1){walk([...nd.childNodes])}});walk([...rv.childNodes]);rv.innerHTML="";parts.forEach(p=>rv.appendChild(p))}
+ const n20=rv.querySelector(".n20,[data-to]");if(n20)n20.classList.add("n20");const num=e=>{const v=parseFloat(e.dataset.to);return isFinite(v)?v:(parseFloat(e.textContent)||0)};if(n20&&!n20.dataset.to)n20.dataset.to=String(num(n20));
  const ws=[...rv.querySelectorAll(".w")];const n=ws.length;
- const cis=[...sec.querySelectorAll(".ab-ci")],nums=cis.map(c=>c.querySelector("b"));
+ const cis=[...sec.querySelectorAll(".ab-ci")],nums=cis.map(c=>c.querySelector("b"));nums.forEach(b=>{if(b&&!b.dataset.to)b.dataset.to=String(num(b))});
  R.loops.push(()=>{if(sec.offsetParent===null)return;const r=sec.getBoundingClientRect(),ih=innerHeight;if(r.bottom<0||r.top>ih)return;
   const p=R.motion?clamp((ih*.9-r.top)/(ih*.8),0,1):1;
   const a0=.04,a1=.72,fw=.12;ws.forEach((w,i)=>{const s=a0+(a1-a0-fw)*i/Math.max(1,n-1);const q=clamp((p-s)/fw,0,1);w.style.setProperty("--o",(.14+.86*sm(q)).toFixed(3))});

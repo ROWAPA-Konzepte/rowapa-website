@@ -39,9 +39,13 @@ return R})();
  for(const k in R.ICONS)defs+=`<symbol id="i-${k}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">${R.ICONS[k]}</symbol>`;
  sp.innerHTML="<defs>"+defs+"</defs>";document.body.prepend(sp);
  R.icon=(n,c)=>`<svg class="ic${c?" "+c:""}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
- R.fillIcons=(scope)=>(scope||document).querySelectorAll("[data-icon]").forEach(s=>{const n=s.getAttribute("data-icon");if(!n||s.dataset.done)return;const cls=(s.getAttribute("class")||"ic").split(/\s+/).filter(Boolean);
-  if(cls.includes("ic")){const t=document.createElement("template");t.innerHTML=R.icon(n,cls.filter(c=>c!=="ic").join(" "));s.replaceWith(t.content.firstChild)}else{s.innerHTML=R.icon(n);s.dataset.done="1"}});
+ /* Symbol-Platzhalter: <span class="ic i-arrow-right">→</span> (Klasse i-NAME) oder <span class="ic" data-icon="NAME"> */
+ R.fillIcons=(scope)=>(scope||document).querySelectorAll("[data-icon],.ic[class*='i-']").forEach(s=>{if(s.tagName==="svg"||s.dataset.done)return;const cls=(s.getAttribute("class")||"ic").split(/\s+/).filter(Boolean);const ic=cls.find(c=>c.indexOf("i-")===0);const n=s.getAttribute("data-icon")||(ic&&ic.slice(2));if(!n||!R.ICONS[n])return;
+  if(cls.includes("ic")){const t=document.createElement("template");t.innerHTML=R.icon(n,cls.filter(c=>c!=="ic"&&c!==ic).join(" "));s.replaceWith(t.content.firstChild)}else{s.innerHTML=R.icon(n);s.dataset.done="1"}});
  R.fillIcons();
+ /* Kleine Zierelemente, die Webflow als leere Inline-Elemente verlieren kann */
+ const need=(sel,tag,cls,first)=>document.querySelectorAll(sel).forEach(e=>{if([...e.children].some(c=>c.tagName===tag.toUpperCase()&&(!cls||c.classList.contains(cls))))return;const n=document.createElement(tag);if(cls)n.className=cls;first?e.prepend(n):e.append(n)});
+ need("#h1 .ln","i","",false);need(".bd","i","",true);need(".burger","span","",false);need(".fq summary","span","pl",false);
  /* 3 · Logos: <span data-logo="shield|word|full"> */
  document.querySelectorAll("[data-logo]").forEach(e=>{const k=e.getAttribute("data-logo");if(k==="full")e.innerHTML='<svg class="sh" aria-hidden="true"><use href="#s-shield"/></svg><svg class="wd" aria-hidden="true"><use href="#s-word"/></svg>';else if(k==="word")e.innerHTML='<svg viewBox="0 0 309.5 55.6" preserveAspectRatio="xMidYMin meet" aria-hidden="true"><use href="#s-word" width="309.5" height="55.6"/></svg>';else e.innerHTML='<svg aria-hidden="true"><use href="#s-'+k+'"/></svg>'});
 })();
