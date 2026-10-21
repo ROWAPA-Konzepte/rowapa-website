@@ -853,3 +853,4 @@ footer{position:relative;overflow:hidden}
 .news .ph{display:block;margin-top:6px}
 .kc .bd small,.news .nk{display:flex;align-items:center;gap:8px}
 .w-condition-invisible{display:none!important}
+.burger{padding:0;line-height:1}

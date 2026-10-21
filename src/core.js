@@ -49,6 +49,9 @@ return R})();
  /* Kleine Zierelemente, die Webflow als leere Inline-Elemente verlieren kann */
  const need=(sel,tag,cls,first)=>document.querySelectorAll(sel).forEach(e=>{if([...e.children].some(c=>c.tagName===tag.toUpperCase()&&(!cls||c.classList.contains(cls))))return;const n=document.createElement(tag);if(cls)n.className=cls;first?e.prepend(n):e.append(n)});
  need("#h1 .ln","i","",false);need(".tsl .bd","i","",true);need(".burger","span","",false);need(".fq summary","span","pl",false);
+ /* Symbole, die Webflow in Links und Inline-Elementen nicht speichert, ergänzt der Code */
+ const addIc=(sel,name,first)=>document.querySelectorAll(sel).forEach(e=>{if(e.querySelector("svg.ic"))return;const t=document.createElement("template");t.innerHTML=R.icon(name);first?e.prepend(t.content.firstChild):e.append(t.content.firstChild)});
+ addIc('#mm .panel[data-p="tun"] .it',"arrow-right",false);addIc(".tsl-bar i","arrow-right",false);addIc(".nl b","mail",true);
  {const ni=document.getElementById("nmail");if(ni&&!ni.getAttribute("placeholder"))ni.setAttribute("placeholder","name@firma.ch")}
  /* 3 · Logos: <span data-logo="shield|word|full"> */
  document.querySelectorAll("[data-logo]").forEach(e=>{const k=e.getAttribute("data-logo");if(k==="full")e.innerHTML='<svg class="sh" aria-hidden="true"><use href="#s-shield"/></svg><svg class="wd" aria-hidden="true"><use href="#s-word"/></svg>';else if(k==="word")e.innerHTML='<svg viewBox="0 0 309.5 55.6" preserveAspectRatio="xMidYMin meet" aria-hidden="true"><use href="#s-word" width="309.5" height="55.6"/></svg>';else e.innerHTML='<svg aria-hidden="true"><use href="#s-'+k+'"/></svg>'});
