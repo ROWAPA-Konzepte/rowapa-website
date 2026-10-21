@@ -60,7 +60,7 @@ function shots(){if(shotsDone||innerWidth>860||!R.HAS3D||!mob)return;shotsDone=t
   fragmentShader:`varying vec3 vC;varying float vA;void main(){vec2 q=gl_PointCoord-.5;float d=length(q);if(d>.5)discard;gl_FragColor=vec4(vC,vA*smoothstep(.5,.25,d));}`});
  const pts=new THREE.Points(g,mat),grp=new THREE.Group();grp.add(pts);sc.add(grp);
  {let y0=1e9,y1=-1e9;const P0=SH[0].P;for(let i=1;i<P0.length;i+=3){if(P0[i]<y0)y0=P0[i];if(P0[i]>y1)y1=P0[i]}pts.position.y=-(y0+y1)/2}
- const PAL=["#1D3149","#486EA3","#6F96C2","#AA1351"].map(h=>new THREE.Color(h));
+ const PAL=[R.c("var(--c-manganese)"),R.c("var(--c-serpent)"),R.c(R.MX("var(--c-serpent)",53,"var(--c-sea)")),R.c("var(--c-plum)")].map(h=>new THREE.Color(h));
  r.setSize(560,460,false);cam.aspect=560/460;const d=11*Math.max(1,1.05/cam.aspect);cam.position.set(0,.5*d/11,d);cam.lookAt(0,0,0);cam.updateProjectionMatrix();grp.rotation.set(.12,-.5,0);
  const imgs=[...mob.querySelectorAll("img[data-shot]")];
  for(let k=0;k<5;k++){const A=SH[k];pos.set(A.P);for(let i=0;i<N;i++){const c=PAL[A.K[i]];col[i*3]=c.r;col[i*3+1]=c.g;col[i*3+2]=c.b}g.attributes.position.needsUpdate=true;g.attributes.color.needsUpdate=true;r.render(sc,cam);const url=cv.toDataURL("image/png");imgs.filter(m=>+m.dataset.shot===k).forEach(m=>m.src=url)}
@@ -75,7 +75,7 @@ addEventListener("resize",()=>requestAnimationFrame(fitT));setTimeout(fitT,50);i
  const cv=tsl.querySelector(".tsl-gl");let r;try{r=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true})}catch(e){return}
  const DPR=Math.min(devicePixelRatio||1,2);r.setPixelRatio(DPR);r.setScissorTest(true);r.autoClear=false;
  const SH=R.makeShapes();const figs=[...tsl.querySelectorAll(".tsl-fig")];
- const PALL=["#FFFFFF","#A0C4DF","#7FA6D2","#E0457F"].map(h=>new THREE.Color(h)),PALD=["#1D3149","#486EA3","#6F96C2","#AA1351"].map(h=>new THREE.Color(h));
+ const PALL=["#FFFFFF",R.c("var(--c-sea)"),R.c(R.MX("var(--c-serpent)",31,"var(--c-sea)")),R.c(R.MX("var(--c-plum)",80,"#fff"))].map(h=>new THREE.Color(h)),PALD=[R.c("var(--c-manganese)"),R.c("var(--c-serpent)"),R.c(R.MX("var(--c-serpent)",53,"var(--c-sea)")),R.c("var(--c-plum)")].map(h=>new THREE.Color(h));
  const VS=`attribute vec3 color;attribute float rnd;attribute float sz;uniform float uS,uT;varying vec3 vC;varying float vA;void main(){vec3 p=position+.018*vec3(sin(uT*1.1+rnd*40.),cos(uT*.9+rnd*30.),sin(uT*.7+rnd*20.));vec4 mv=modelViewMatrix*vec4(p,1.);gl_Position=projectionMatrix*mv;float dz=clamp((-mv.z-8.)/5.,0.,1.);gl_PointSize=uS*(.55+rnd*.45)*(1.15-.35*dz)/-mv.z*sz;vC=color;vA=(1.-.4*dz)*min(sz*1.6,1.);}`;
  const FS=`varying vec3 vC;varying float vA;void main(){vec2 q=gl_PointCoord-.5;float d=length(q);if(d>.5)discard;gl_FragColor=vec4(vC,vA*smoothstep(.5,.25,d));}`;
  const F=figs.map((el,k)=>{const big=k===0;const n=big?(innerWidth>1200?5200:4200):1500;const S=SH[k],NS=S.K.length;

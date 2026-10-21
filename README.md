@@ -25,17 +25,20 @@ Webflow → Variablen → Sammlung **«ROWAPA Startseite»**:
 
 | Variable | Wirkung | Standard |
 |---|---|---|
-| Farbe Manganese Black, Great Serpent, Sea Cliff, Plum Perfect, Snowbank, Tiefsee | CI-Farben der ganzen Seite | CI |
+| Farbe Manganese Black, Great Serpent, Sea Cliff, Plum Perfect, Snowbank | CI-Farben der ganzen Seite. Manganese Black ist die Masterfarbe: alle Zwischentöne, Verläufe und die Farben der 3D-Punkte werden daraus und aus den übrigen CI-Farben gemischt (color-mix) | CI |
+| Farbe Tiefsee | dunkler Grund (ROWAPA Digital, Kontakt, Footer), abgeleitet: Manganese Black 60 % mit Schwarz | abgeleitet |
 | Abstand Abschnitt oben min/max, unten min/max | Luft zwischen den Kapiteln (Handy = min, grosser Bildschirm = max) | 48/70 px, 30/44 px |
 | Titel Abschnitt min/max | Grösse aller Kapiteltitel | 2.05 / 3.5 rem |
 | Titel Karte gross min/max, Titel Karte klein | Kartentitel (Wege, CAS, Themen-Karte / News, Wissen, Werkzeuge, FAQ) | 1.6 / 2.2 rem, 1.5 rem |
 | Seitenbreite max | maximale Inhaltsbreite | 1360 px |
 | Scroll Weichheit | 0.08 sehr weich, 0.16 Standard, 1 normales Browser-Scrollen | 0.16 |
 | Zoom Laenge Themen | Länge des Zooms in die Themenlinien (1 = grosszügig) | 0.72 |
-| Halt ROWAPA Digital | Länge des Halts, 0 = kein Halt | 110 svh |
+| Halt ROWAPA Digital | Länge des Halts, 0 = kein Halt | 190 svh |
+| Halt Was uns antreibt | Wie lange der Leitsatz stehen bleibt, während er sich Wort für Wort aufbaut, 0 = kein Halt | 120 svh |
 | Halt Vorgehen | Wie lange «Unser Vorgehen» stehen bleibt, während die vier Phasen durchlaufen, 0 = kein Halt | 150 svh |
 | Zitat Wechsel Sekunden, Headerzeile Wechsel Sekunden | Tempo der Wechsel | 6.5 / 3.8 |
 
+Der Farbfluss zwischen den Kapiteln ist stetig: jedes Kapitel hat eine ruhige Fläche, dazwischen ein weicher Übergang (hell/dunkel über einen Blauton aus Sea Cliff und Great Serpent). Kurze Abschnitte wie das Logoband haben keine eigene Farbe.
 Jede Grundfarbe eines Kapitels steuert das Attribut `data-tone` am Abschnitt (white, snow, sea, ink, deep, plum, serpent).
 Werte als Attribut am Element gehen den Variablen vor (z. B. `data-zoom="1"` an `#themen`).
 

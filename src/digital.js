@@ -40,7 +40,7 @@
    fragmentShader:`varying vec3 vC;varying float vA;void main(){vec2 q=gl_PointCoord-.5;float d=length(q);if(d>.5)discard;gl_FragColor=vec4(vC*vA,vA*smoothstep(.5,.15,d));}`});
   grp.add(new THREE.Points(g,mat));
   /* Farben auf Dunkel: Sea, Serpent hell, Serpent, Plum (aufgehellt für den dunklen Grund) */
-  const C=["#A0C4DF","#6F95C6","#486EA3","#D2407E"].map(h=>new THREE.Color(h)),Cw=new THREE.Color("#E8F1F9"),Cd=new THREE.Color("#2F4E78");
+  const C=[R.c("var(--c-sea)"),R.c(R.MX("var(--c-serpent)",50,"var(--c-sea)")),R.c("var(--c-serpent)"),R.c(R.MX("var(--c-plum)",85,"#fff"))].map(h=>new THREE.Color(h)),Cw=new THREE.Color(R.c(R.MX("var(--c-sea)",23,"#fff"))),Cd=new THREE.Color(R.c(R.MX("var(--c-manganese)",51,"var(--c-serpent)")));
   let mx=0,my=0,smx=0,smy=0;stage.addEventListener("pointermove",e=>{const b=stage.getBoundingClientRect();mx=(e.clientX-b.left)/b.width-.5;my=(e.clientY-b.top)/b.height-.5});stage.addEventListener("pointerleave",()=>{mx=my=0});
   const v3=new THREE.Vector3(),TP=Array.from({length:K},()=>[0,0,0]);
   /* o: {pb Aufbau, e Austritt der Werkzeuge, m Verwandlung, th Bahnwinkel, sa Kugeldrehung, ai aktiv, t Zeit, fit Kameraabstand} */

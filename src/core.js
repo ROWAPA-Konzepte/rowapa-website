@@ -10,6 +10,9 @@ const R=Object.assign(window.R||{},{motion:!reduce,lenis:null,loops:[]});
 R.clamp=(v,a,b)=>Math.max(a,Math.min(b,v));R.lerp=(a,b,t)=>a+(b-a)*t;R.ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;R.sm=x=>x*x*(3-2*x);
 R.num=(el,attr,def)=>{const v=el&&el.getAttribute(attr);const n=parseFloat(v);return isFinite(n)?n:def};
 /* Einstellung lesen: zuerst Attribut am Element, dann Webflow-Variable (Sammlung «ROWAPA Startseite»), sonst Standard */
+/* CI-Farbe für die 3D-Punkte: liest die Webflow-Farbvariablen (auch Mischungen), z. B. R.c("var(--c-serpent)") */
+R.c=(x,fb="#1D3149")=>{try{const e=document.createElement("i");e.style.cssText="position:absolute;visibility:hidden;color:"+x;document.body.appendChild(e);const v=getComputedStyle(e).color;e.remove();let m=v.match(/rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)/),r;if(m)r=[+m[1],+m[2],+m[3]];else{m=v.match(/color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)/);if(m)r=[m[1]*255,m[2]*255,m[3]*255]}if(!r)return fb;return"#"+r.map(n=>Math.round(n).toString(16).padStart(2,"0")).join("")}catch(_){return fb}};
+const MX=(a,p,b)=>`color-mix(in srgb,${a} ${p}%,${b})`;R.MX=MX;
 R.cfg=(el,attr,v,def)=>{const a=parseFloat(el&&el.getAttribute(attr));if(isFinite(a))return a;const c=parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--_rowapa-startseite---"+v));return isFinite(c)?c:def};
 /* Grundzustand: eigenständige Startseite im Farbfluss, kompakte Dichte */
 root.classList.add("fluid","sl");

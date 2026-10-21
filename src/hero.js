@@ -7,14 +7,26 @@
 
 /* ---------- Farbfluss: Abschnitt in der Bildmitte bestimmt die Grundfarbe, Übergänge werden gemischt ---------- */
 const toned=[...document.querySelectorAll("[data-tone]")].filter(e=>e!==root);let tone="";
-const COL={white:[255,255,255],snow:[232,233,233],sea:[160,196,223],ink:[29,49,73],deep:[17,29,44],plum:[170,19,81],serpent:[72,110,163],cream:[247,247,245]};
+/* Grundfarben aus den CI-Variablen; Manganese Black ist die Masterfarbe, Tiefsee und Creme sind daraus abgeleitet */
+const hx=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+const COL={white:[255,255,255],snow:hx(R.c("var(--c-snow)","#E8E9E9")),sea:hx(R.c("var(--c-sea)","#A0C4DF")),ink:hx(R.c("var(--c-manganese)")),deep:hx(R.c("var(--c-tiefsee)","#111D2C")),plum:hx(R.c("var(--c-plum)","#AA1351")),serpent:hx(R.c("var(--c-serpent)","#486EA3")),cream:hx(R.c(R.MX("var(--c-manganese)",4,"#fff"),"#F7F7F5"))};
+/* Übergang hell/dunkel nicht über Grau, sondern über einen Blauton aus Sea Cliff und Great Serpent */
+const MID=hx(R.c(R.MX("var(--c-sea)",75,"var(--c-serpent)"),"#8AAED0")),lum=c=>.2126*c[0]+.7152*c[1]+.0722*c[2];
+const mixFlow=(a,b,k)=>{if(Math.abs(lum(a)-lum(b))<110)return a.map((v,j)=>v+(b[j]-v)*k);const u=1-k;return a.map((v,j)=>{const M=2*MID[j]-(v+b[j])/2;return Math.max(0,Math.min(255,u*u*v+2*u*k*M+k*k*b[j]))})};
 const sm=R.sm;const toneOf=s=>s.id==="themen"?"cream":(s.dataset.tone||"white");let lastCol="";
+/* stetiger Verlauf über Farbstopps: jeder Abschnitt hat eine ruhige Fläche, dazwischen ein weicher Übergang.
+   Kurze Abschnitte (z. B. das Logoband) haben keine eigene Farbe, sie stehen auf der Farbe des Abschnitts davor. */
 R.loops.push(()=>{const ih=innerHeight,c=ih*.5;
  let t=toned.length?toned[0].dataset.tone:"white";for(const el of toned){const r=el.getBoundingClientRect();if(r.top<=c&&r.bottom>c){t=el.dataset.tone;break}}if(t!==tone){tone=t;root.dataset.tone=t}
- const S=toned.filter(s=>(s.tagName==="SECTION"||s.tagName==="FOOTER")&&s.id!=="hero"&&s.offsetParent!==null);const Z=ih*.55;let a=COL.white,b=a,k=0;
- for(let i=0;i<S.length;i++){const r=S[i].getBoundingClientRect();if(r.top<=c&&r.bottom>c){a=COL[toneOf(S[i])]||a;const db=r.bottom-c,dt=c-r.top;
-  if(db<Z&&S[i+1]){b=COL[toneOf(S[i+1])]||a;k=sm(.5*(1-db/Z)*2)/2}else if(dt<Z&&S[i-1]){b=COL[toneOf(S[i-1])]||a;k=sm(.5*(1-dt/Z)*2)/2}break}}
- const m=a.map((v,j)=>Math.round(v+(b[j]-v)*k));const col=`rgb(${m.join(",")})`;if(col!==lastCol){lastCol=col;document.body.style.backgroundColor=col}});
+ const S=toned.filter(s=>(s.tagName==="SECTION"||s.tagName==="FOOTER")&&s.id!=="hero"&&s.offsetParent!==null);
+ const G=[];S.forEach(s=>{const r=s.getBoundingClientRect(),col=COL[toneOf(s)]||COL.white;const L=G[G.length-1];
+  if(L&&(r.height<ih*.35||L.col===col)){L.bot=Math.max(L.bot,r.bottom)}else G.push({top:r.top,bot:r.bottom,col})});
+ const Z=ih*.45,st=[];G.forEach((g,i)=>{const h=g.bot-g.top;const wi=i?Math.min(Z,h*.45,(G[i-1].bot-G[i-1].top)*.45):0,wo=G[i+1]?Math.min(Z,h*.45,(G[i+1].bot-G[i+1].top)*.45):0;st.push([g.top+wi,g.col],[g.bot-wo,g.col])});
+ /* am Seitenende muss der letzte Übergang abgeschlossen sein (Kontakt und Footer ganz in ihrer Farbe) */
+ if(st.length>=4){const lim=document.scrollingElement.scrollHeight-scrollY-ih*.5-ih*.06,n=st.length;if(st[n-2][0]>lim){st[n-2][0]=lim;st[n-3][0]=Math.min(st[n-3][0],lim-ih*.55)}}
+ let m=st.length?st[0][1]:COL.white;
+ for(let i=0;i<st.length;i++){if(c<st[i][0]){if(i>0){const [y0,a]=st[i-1],[y1,b]=st[i];const k=sm(clamp((c-y0)/Math.max(1,y1-y0),0,1));m=mixFlow(a,b,k)}else m=st[0][1];break}m=st[i][1]}
+ const col=`rgb(${m.map(Math.round).join(",")})`;if(col!==lastCol){lastCol=col;document.body.style.backgroundColor=col;root.style.setProperty("--flow",col)}});
 
 /* ---------- Headerzeilen: Weiss, Blau, Grau wandern ---------- */
 const hero=document.getElementById("hero");
@@ -44,7 +56,7 @@ function horizon(sec,cv,o){if(!R.HAS3D||!sec||!cv)return;const r=R.renderer(cv);
  R.loops.push(now=>{if(!vis.v||!R.fit(r,cam,cv))return;const t=(now-t0)/1000;const hp=clamp(scrollY/(sec.clientHeight*.8),0,1);const u=mat.uniforms;
   u.uT.value=R.motion?t:2;u.uAmp.value=lerp(o.amp,.6,ease(hp));u.uDis.value=Math.max(0,1-(R.heroIntro??1));if(isHero)sec.style.setProperty("--hf","0");rip*=.985;u.uRip.value=R.motion?rip:0;u.uM.value.lerp(mT,.08);
   const mob=innerWidth<700;cam.fov=mob?75:58;cam.position.set(0,lerp(o.camY,o.camY+1.3,hp),7);cam.lookAt(0,o.look,-14);cam.updateProjectionMatrix();r.render(sc,cam)})}
-const SEA={c1:"#486EA3",c2:"#FFFFFF",c3:"#D2306F"};
+const SEA={c1:R.c("var(--c-serpent)"),c2:"#FFFFFF",c3:R.c(R.MX("var(--c-plum)",85,"#fff"))};
 horizon(hero,document.getElementById("cH"),Object.assign({nx:320,nz:200,size:54,alpha:1,amp:1.1,camY:4.6,look:-3.8},SEA));
 horizon(document.getElementById("kontakt"),document.getElementById("cK"),Object.assign({nx:260,nz:150,size:50,alpha:.8,amp:1,camY:4.2,look:-3.4},SEA));
 

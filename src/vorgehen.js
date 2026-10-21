@@ -40,7 +40,7 @@ if(vgM&&!vgM.children.length)vgM.innerHTML=S.map((s,i)=>`<li data-i="${i}"><span
    vertexShader:`attribute vec3 color;attribute float rnd;attribute float sz;uniform float uS,uT;varying vec3 vC;varying float vA;void main(){vec3 p=position+.015*vec3(sin(uT*1.1+rnd*40.),cos(uT*.9+rnd*30.),sin(uT*.7+rnd*20.));vec4 mv=modelViewMatrix*vec4(p,1.);gl_Position=projectionMatrix*mv;gl_PointSize=uS*(.55+rnd*.45)/-mv.z*sz;vC=color;vA=min(1.,sz*1.4);}`,
    fragmentShader:`varying vec3 vC;varying float vA;void main(){vec2 q=gl_PointCoord-.5;float d=length(q);if(d>.5)discard;gl_FragColor=vec4(vC,vA*smoothstep(.5,.25,d));}`});
   grp.add(new THREE.Points(g,mat));
-  const C=["#1D3149","#486EA3","#7FA6D2","#AA1351"].map(h=>new THREE.Color(h)),Cdim=new THREE.Color("#A9BCD0");
+  const C=[R.c("var(--c-manganese)"),R.c("var(--c-serpent)"),R.c(R.MX("var(--c-serpent)",31,"var(--c-sea)")),R.c("var(--c-plum)")].map(h=>new THREE.Color(h)),Cdim=new THREE.Color(R.c(R.MX("var(--c-serpent)",38,"var(--c-snow)")));
   let mx=0,my=0,smx=0,smy=0;cv.addEventListener("pointermove",e=>{const b=cv.getBoundingClientRect();mx=(e.clientX-b.left)/b.width-.5;my=(e.clientY-b.top)/b.height-.5});cv.addEventListener("pointerleave",()=>{mx=my=0});
   const sm=x=>x*x*(3-2*x);
   /* Markierung wie bei «Klarheit»: Stab mit Plum-Kopf, springt auf die aktive Stufe */
@@ -76,7 +76,7 @@ if(vgM&&!vgM.children.length)vgM.innerHTML=S.map((s,i)=>`<li data-i="${i}"><span
   /* Halt: der Abschnitt bleibt stehen, während die vier Phasen nacheinander aktiv werden; danach läuft er weiter.
      Länge über die Webflow-Variable «Halt Vorgehen» (0 = kein Halt). */
   const pinned=root.classList.contains("vg-pin-on")&&vsp&&vsp.offsetHeight>20;
-  if(pinned){const tp=Math.min(72,ih-vpin.offsetHeight);vpin.style.top=tp.toFixed(0)+"px";
+  if(pinned){const ph=vpin.offsetHeight,tp=ph<ih-72?72+(ih-72-ph)*.5:ih-ph;vpin.style.top=tp.toFixed(0)+"px";
    if(R.motion){const p=clamp((tp-r.top)/vsp.offsetHeight,0,1);const si=Math.min(3,Math.floor(p*4.0001));if(si!==dS){dS=si;setL(si)}}}
   else if(R.motion){if(vpin)vpin.style.top="";const gb0=vgD.getBoundingClientRect();const sp=clamp((ih*.62-gb0.top)/(gb0.height*.75),0,1);const si=Math.min(3,Math.floor(sp*4.0001));if(si!==dS){dS=si;setL(si)}}
   const gb=vgD.getBoundingClientRect();const pb=R.motion?clamp((ih*.92-gb.top)/(ih*.55),0,1):1;const tl=dL===3?1:0;bl+=Math.max(-dt*2.4,Math.min(dt*1.4,tl-bl));if(!R.motion)bl=tl;

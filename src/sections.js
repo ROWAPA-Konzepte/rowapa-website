@@ -41,8 +41,12 @@ R.reveal(".fx");
  const n20=rv.querySelector(".n20,[data-to]");if(n20)n20.classList.add("n20");const num=e=>{const v=parseFloat(e.dataset.to);return isFinite(v)?v:(parseFloat(e.textContent)||0)};if(n20&&!n20.dataset.to)n20.dataset.to=String(num(n20));
  const ws=[...rv.querySelectorAll(".w")];const n=ws.length;
  const cis=[...sec.querySelectorAll(".ab-ci")],nums=cis.map(c=>c.querySelector("b"));nums.forEach(b=>{if(b&&!b.dataset.to)b.dataset.to=String(num(b))});
+ const root=document.documentElement,abPin=sec.querySelector(".ab-pin");let abSp=sec.querySelector(".ab-sp");if(abPin&&!abSp){abSp=document.createElement("div");abSp.className="ab-sp";abSp.setAttribute("aria-hidden","true");abPin.after(abSp)}
+ const abOK=()=>root.classList.toggle("ab-pin-on",R.motion&&innerWidth>860);abOK();addEventListener("resize",abOK);
  R.loops.push(()=>{if(sec.offsetParent===null)return;const r=sec.getBoundingClientRect(),ih=innerHeight;if(r.bottom<0||r.top>ih)return;
-  const p=R.motion?clamp((ih*.9-r.top)/(ih*.8),0,1):1;
+  let p;const pinned=root.classList.contains("ab-pin-on")&&abSp&&abSp.offsetHeight>20;
+  if(pinned){const ph=abPin.offsetHeight,tp=ph<ih-72?72+(ih-72-ph)*.5:ih-ph;abPin.style.setProperty("top",tp.toFixed(0)+"px","important");p=R.motion?clamp((tp-r.top)/abSp.offsetHeight/.9,0,1):1}
+  else{if(abPin)abPin.style.removeProperty("top");p=R.motion?clamp((ih*.9-r.top)/(ih*.8),0,1):1}
   const a0=.04,a1=.72,fw=.12;ws.forEach((w,i)=>{const s=a0+(a1-a0-fw)*i/Math.max(1,n-1);const q=clamp((p-s)/fw,0,1);w.style.setProperty("--o",(.14+.86*sm(q)).toFixed(3))});
   const W=[[a0,a0+(a1-a0)*.5],[a0+(a1-a0)*.25,a0+(a1-a0)*.75],[a0+(a1-a0)*.5,a1]];
   nums.forEach((b,k)=>{if(!b)return;const w=W[Math.min(k,2)];const q=clamp((p-w[0])/(w[1]-w[0]),0,1);const v=String(Math.round(+b.dataset.to*sm(q)));if(b.textContent!==v)b.textContent=v;cis[k].style.setProperty("--o",sm(clamp(q*1.6,0,1)).toFixed(3))});
