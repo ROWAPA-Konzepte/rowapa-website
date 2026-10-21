@@ -26,7 +26,7 @@ Webflow → Variablen → Sammlung **«ROWAPA Startseite»**:
 | Variable | Wirkung | Standard |
 |---|---|---|
 | Farbe Manganese Black, Great Serpent, Sea Cliff, Plum Perfect, Snowbank | CI-Farben der ganzen Seite. Manganese Black ist die Masterfarbe: alle Zwischentöne, Verläufe und die Farben der 3D-Punkte werden daraus und aus den übrigen CI-Farben gemischt (color-mix) | CI |
-| Farbe Tiefsee | dunkler Grund (ROWAPA Digital, Kontakt, Footer), abgeleitet: Manganese Black 60 % mit Schwarz | abgeleitet |
+| Farbe Tiefsee | dunkler Grund (ROWAPA Digital, Kontakt, Footer) = Manganese Black 60 % mit Schwarz. Webflow speichert hier keine Formel: wird Manganese Black geändert, Tiefsee von Hand nachziehen | #111D2C |
 | Abstand Abschnitt oben min/max, unten min/max | Luft zwischen den Kapiteln (Handy = min, grosser Bildschirm = max) | 48/70 px, 30/44 px |
 | Titel Abschnitt min/max | Grösse aller Kapiteltitel | 2.05 / 3.5 rem |
 | Titel Karte gross min/max, Titel Karte klein | Kartentitel (Wege, CAS, Themen-Karte / News, Wissen, Werkzeuge, FAQ) | 1.6 / 2.2 rem, 1.5 rem |
