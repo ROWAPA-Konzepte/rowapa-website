@@ -48,6 +48,9 @@ R.reveal(".fx");
   nums.forEach((b,k)=>{if(!b)return;const w=W[Math.min(k,2)];const q=clamp((p-w[0])/(w[1]-w[0]),0,1);const v=String(Math.round(+b.dataset.to*sm(q)));if(b.textContent!==v)b.textContent=v;cis[k].style.setProperty("--o",sm(clamp(q*1.6,0,1)).toFixed(3))});
   if(n20){const v=String(n20.dataset.to);if(n20.textContent!==v)n20.textContent=v}})})();
 
+/* ---------- FAQ: Nummern 01, 02, … ---------- */
+document.querySelectorAll(".fqs .fq").forEach((f,i)=>{const n=f.querySelector(".n");if(n&&!n.textContent.trim())n.textContent=String(i+1).padStart(2,"0")});
+
 /* ---------- Kundenstimmen: wechseln von selbst, Punkte zum Springen ---------- */
 (function(){const box=document.getElementById("qs");if(!box)return;const qs=[...box.querySelectorAll(".q")];if(!qs.length)return;const qnav=document.getElementById("qnav");const IV=R.cfg(box,"data-interval","zitat-wechsel-sekunden",6.5);
  qs.forEach((q,i)=>q.classList.toggle("on",i===0));

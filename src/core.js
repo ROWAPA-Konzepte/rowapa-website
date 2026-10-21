@@ -25,7 +25,10 @@ return R})();
  /* 1 · CMS-Listen: Webflow legt um jede Liste zwei Hüllen und um jeden Eintrag eine. Der Code braucht die Einträge direkt im Behälter. */
  document.querySelectorAll("[data-cms]").forEach(box=>{const list=box.querySelector(".w-dyn-items");if(!list)return;
   const items=[...list.querySelectorAll(":scope > .w-dyn-item")];const frag=document.createDocumentFragment();
-  items.forEach(it=>{const kids=[...it.children];if(kids.length===1&&!it.classList.contains("keep")){/* Eintrag hat genau ein Element: dieses übernimmt die Klassen des Eintrags nicht, es IST die Karte */frag.appendChild(kids[0])}else{frag.appendChild(it)}});
+  let cards=items.map(it=>{const kids=[...it.children];return (kids.length===1&&!it.classList.contains("keep"))?kids[0]:it});
+  /* Reihenfolge aus dem CMS-Feld «Reihenfolge» (Attribut data-order), sonst wie geliefert */
+  if(cards.some(c=>c.hasAttribute("data-order")))cards=cards.map((c,i)=>[c,i]).sort((a,b)=>((parseFloat(a[0].dataset.order)||9999)-(parseFloat(b[0].dataset.order)||9999))||a[1]-b[1]).map(x=>x[0]);
+  cards.forEach(c=>frag.appendChild(c));
   const wrap=box.querySelector(".w-dyn-list");(wrap||list).replaceWith(frag);
   box.querySelectorAll(".w-dyn-empty").forEach(e=>e.remove())});
  /* leere CMS-Felder (z. B. fehlender Link) */
@@ -45,7 +48,7 @@ return R})();
  R.fillIcons();
  /* Kleine Zierelemente, die Webflow als leere Inline-Elemente verlieren kann */
  const need=(sel,tag,cls,first)=>document.querySelectorAll(sel).forEach(e=>{if([...e.children].some(c=>c.tagName===tag.toUpperCase()&&(!cls||c.classList.contains(cls))))return;const n=document.createElement(tag);if(cls)n.className=cls;first?e.prepend(n):e.append(n)});
- need("#h1 .ln","i","",false);need(".bd","i","",true);need(".burger","span","",false);need(".fq summary","span","pl",false);
+ need("#h1 .ln","i","",false);need(".tsl .bd","i","",true);need(".burger","span","",false);need(".fq summary","span","pl",false);
  /* 3 · Logos: <span data-logo="shield|word|full"> */
  document.querySelectorAll("[data-logo]").forEach(e=>{const k=e.getAttribute("data-logo");if(k==="full")e.innerHTML='<svg class="sh" aria-hidden="true"><use href="#s-shield"/></svg><svg class="wd" aria-hidden="true"><use href="#s-word"/></svg>';else if(k==="word")e.innerHTML='<svg viewBox="0 0 309.5 55.6" preserveAspectRatio="xMidYMin meet" aria-hidden="true"><use href="#s-word" width="309.5" height="55.6"/></svg>';else e.innerHTML='<svg aria-hidden="true"><use href="#s-'+k+'"/></svg>'});
 })();
