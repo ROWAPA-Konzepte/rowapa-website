@@ -77,7 +77,13 @@ if(hero&&card)R.loops.push(()=>{const ih=innerHeight,iw=innerWidth;
  if(hwrap)hwrap.style.opacity=clamp(1-p/.5,0,1).toFixed(3);R.zoomP=p;R.zoomS=p;
  const fo=clamp((p-.965)/.035,0,1);hero.style.opacity=(1-fo).toFixed(3);hero.style.visibility=fo>=1?"hidden":"visible"});
 
-/* ---------- Titel stehen ruhig (kein Buchstabenaufbau); der Header blendet nur sein Punktemeer ein ---------- */
+/* ---------- Header-Titel baut sich beim ersten Laden Wort für Wort auf (wie der Leitsatz bei «Was uns antreibt») ---------- */
+(function(){const h1=document.getElementById("h1");if(!h1||!R.motion)return;const ws=[];
+ h1.querySelectorAll(".ln .tx").forEach(tx=>{if(tx.querySelector(".hw"))return;const parts=tx.textContent.split(/(\s+)/);tx.textContent="";
+  parts.forEach(p=>{if(!p)return;if(/^\s+$/.test(p)){tx.appendChild(document.createTextNode(p));return}const w=document.createElement("span");w.className="hw";w.textContent=p;tx.appendChild(w);ws.push(w)})});
+ ws.forEach((w,i)=>{w.style.transitionDelay=(.3+i*.17).toFixed(2)+"s"});h1.classList.add("hw-pre");
+ requestAnimationFrame(()=>requestAnimationFrame(()=>h1.classList.add("hw-on")))})();
+/* ---------- übrige Titel stehen ruhig (kein Buchstabenaufbau); der Header blendet sein Punktemeer ein ---------- */
 R.heroIntro=R.motion?0:1;
 if(R.motion)setTimeout(()=>{const t0=performance.now(),DUR=1550;const st=()=>{const q=Math.min(1,(performance.now()-t0)/DUR);R.heroIntro=1-Math.pow(1-q,2.2);if(q<1)requestAnimationFrame(st)};requestAnimationFrame(st)},350);
 })();
