@@ -988,3 +988,5 @@ footer{position:relative;overflow:hidden}
 #kontakt .kp-name{font-size:1.25rem;font-weight:700;color:#fff;margin-top:6px}
 #kontakt .kp-i{margin:0;display:flex;gap:6px;align-items:baseline}
 #kontakt .kp-t{color:color-mix(in srgb,#fff 60%,transparent)}
+/* Porträt liegt in Webflow neben dem Ring; sichtbar erst, wenn der Code es in den Ring setzt */
+#kontakt .wrap>.kp-photo{display:none}
