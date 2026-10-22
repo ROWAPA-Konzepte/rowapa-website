@@ -990,3 +990,10 @@ footer{position:relative;overflow:hidden}
 #kontakt .kp-t{color:color-mix(in srgb,#fff 60%,transparent)}
 /* Porträt liegt in Webflow neben dem Ring; sichtbar erst, wenn der Code es in den Ring setzt */
 #kontakt .wrap>.kp-photo{display:none}
+/* Einheitlicher Hover wie bei «Aktuelles»: Karte färbt sich in Sea Cliff ein (Persönliche Entwicklung, Wissen & Impulse) */
+.kc{transition:background .4s,transform .4s}
+.kc:hover,.kc:focus-visible{background:var(--c-sea)!important}
+.kc:hover p,.pcard:hover p{color:color-mix(in srgb,var(--c-manganese) 80%,transparent)!important}
+.pfade .pcard{transition:background .4s,opacity 1s cubic-bezier(.2,.7,.1,1) var(--d,0s),translate 1.1s cubic-bezier(.2,.7,.1,1) var(--d,0s)}
+.pfade .pcard:hover,.pfade .pcard:focus-visible{background:var(--c-sea)!important;background-image:none!important}
+.pfade .pcard .im{transition:none}
