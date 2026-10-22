@@ -57,7 +57,9 @@ def rechne(key):
     base = ['ffmpeg', '-v', 'error', '-y', *ins, '-filter_complex', ';'.join(fg), '-map', '[o]', '-an']
     o = os.path.join(OUT, key)
     subprocess.run(base + ['-c:v','libx264','-preset','slow','-crf',str(28+cb),'-profile:v','high','-pix_fmt','yuv420p','-movflags','+faststart', o+'.mp4'], check=True)
-    subprocess.run(base + ['-c:v','libvpx-vp9','-b:v','0','-crf',str(40+cb),'-row-mt','1','-deadline','good','-cpu-used','2', o+'.webm'], check=True)
+    for extra in (0, 4, 8):   # WebM soll kleiner sein als MP4, sonst stärker komprimieren
+        subprocess.run(base + ['-c:v','libvpx-vp9','-b:v','0','-crf',str(40+cb+extra),'-row-mt','1','-deadline','good','-cpu-used','2', o+'.webm'], check=True)
+        if os.path.getsize(o+'.webm') < os.path.getsize(o+'.mp4') * .95: break
     print(key, round(L - XF, 2), 's', os.path.getsize(o+'.webm')//1024, 'KB webm')
 
 def aktiv():
