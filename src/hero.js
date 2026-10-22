@@ -21,7 +21,8 @@ R.loops.push(()=>{const ih=innerHeight,c=ih*.5;
  const S=toned.filter(s=>(s.tagName==="SECTION"||s.tagName==="FOOTER")&&s.id!=="hero"&&s.offsetParent!==null);
  const G=[];S.forEach(s=>{const r=s.getBoundingClientRect(),col=COL[toneOf(s)]||COL.white;const L=G[G.length-1];
   if(L&&(r.height<ih*.35||L.col===col)){L.bot=Math.max(L.bot,r.bottom)}else G.push({top:r.top,bot:r.bottom,col})});
- const Z=ih*.45,st=[];G.forEach((g,i)=>{const h=g.bot-g.top;const wi=i?Math.min(Z,h*.45,(G[i-1].bot-G[i-1].top)*.45):0,wo=G[i+1]?Math.min(Z,h*.45,(G[i+1].bot-G[i+1].top)*.45):0;st.push([g.top+wi,g.col],[g.bot-wo,g.col])});
+ /* hell/dunkel wechselt zügiger (Text bleibt lesbar), ähnliche Töne fliessen langsam */
+ const Zp=(a,b)=>Math.abs(lum(a)-lum(b))>110?ih*.2:ih*.45,st=[];G.forEach((g,i)=>{const h=g.bot-g.top;const wi=i?Math.min(Zp(G[i-1].col,g.col),h*.45,(G[i-1].bot-G[i-1].top)*.45):0,wo=G[i+1]?Math.min(Zp(g.col,G[i+1].col),h*.45,(G[i+1].bot-G[i+1].top)*.45):0;st.push([g.top+wi,g.col],[g.bot-wo,g.col])});
  /* am Seitenende muss der letzte Übergang abgeschlossen sein (Kontakt und Footer ganz in ihrer Farbe) */
  if(st.length>=4){const lim=document.scrollingElement.scrollHeight-scrollY-ih*.5-ih*.06,n=st.length;if(st[n-2][0]>lim){st[n-2][0]=lim;st[n-3][0]=Math.min(st[n-3][0],lim-ih*.55)}}
  let m=st.length?st[0][1]:COL.white;
@@ -76,15 +77,7 @@ if(hero&&card)R.loops.push(()=>{const ih=innerHeight,iw=innerWidth;
  if(hwrap)hwrap.style.opacity=clamp(1-p/.5,0,1).toFixed(3);R.zoomP=p;R.zoomS=p;
  const fo=clamp((p-.965)/.035,0,1);hero.style.opacity=(1-fo).toFixed(3);hero.style.visibility=fo>=1?"hidden":"visible"});
 
-/* ---------- Titel bauen sich Buchstabe für Buchstabe auf ---------- */
-function split(el){const walk=n=>{[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(w=>{if(!w)return;if(/^\s+$/.test(w)){f.appendChild(document.createTextNode(w));return}const wd=document.createElement("span");wd.className="lw";[...w].forEach(ch=>{const l=document.createElement("span");l.className="lt";l.textContent=ch;wd.appendChild(l)});f.appendChild(wd)});c.replaceWith(f)}else if(c.nodeType===1&&c.tagName!=="I"&&c.tagName!=="BR"&&!c.classList.contains("lt"))walk(c)})};walk(el);
- const L=[...el.querySelectorAll(".lt")];L.forEach(l=>l.style.transitionDelay=(Math.random()*.62).toFixed(3)+"s");el.classList.add("lr");return L}
-const play=el=>{el.classList.remove("lr-off");el.classList.add("lr-on")},reset=el=>{el.classList.remove("lr-on");el.classList.add("lr-off")};
-const h1=document.getElementById("h1");
-if(h1){split(h1);[...h1.querySelectorAll(".ln")].forEach((ln,li)=>ln.querySelectorAll(".lt").forEach(l=>l.style.transitionDelay=(li*.42+Math.random()*.5).toFixed(3)+"s"));
- reset(h1);const D0=R.motion?350:0,DUR=1550;R.heroIntro=R.motion?0:1;
- setTimeout(()=>{play(h1);if(!R.motion)return;const t0=performance.now();const st=()=>{const q=Math.min(1,(performance.now()-t0)/DUR);R.heroIntro=1-Math.pow(1-q,2.2);if(q<1)requestAnimationFrame(st)};requestAnimationFrame(st)},D0)}
-const hs=[...document.querySelectorAll("main section h2")].filter(h=>!h.closest(".tsl,.tw-pin,#hzoom,.hero"));
-hs.forEach(h=>{split(h);if(R.motion)reset(h)});
-if(R.motion){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)play(e.target);else if(e.boundingClientRect.top>0)reset(e.target)}),{threshold:.35,rootMargin:"0px 0px -8% 0px"});hs.forEach(h=>io.observe(h))}
+/* ---------- Titel stehen ruhig (kein Buchstabenaufbau); der Header blendet nur sein Punktemeer ein ---------- */
+R.heroIntro=R.motion?0:1;
+if(R.motion)setTimeout(()=>{const t0=performance.now(),DUR=1550;const st=()=>{const q=Math.min(1,(performance.now()-t0)/DUR);R.heroIntro=1-Math.pow(1-q,2.2);if(q<1)requestAnimationFrame(st)};requestAnimationFrame(st)},350);
 })();

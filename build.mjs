@@ -1,7 +1,7 @@
 // Baut dist/rowapa.js und dist/rowapa.css aus src/. Aufruf: npm run build
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { transform } from "esbuild";
-const ORDER = ["icons", "core", "hero", "themen", "sections", "vorgehen", "digital", "ende"];
+const ORDER = ["icons", "core", "hero", "themen", "sections", "vorgehen", "digital", "ende", "ruhe"];
 const banner = `/* ROWAPA 2027 · Startseite · ${new Date().toISOString().slice(0, 10)} · Quelle: github.com/ROWAPA-Konzepte/rowapa-website */\n`;
 mkdirSync("dist", { recursive: true });
 const js = ORDER.map(f => readFileSync(`src/${f}.js`, "utf8")).join("\n;\n");

@@ -68,7 +68,7 @@ if(vgM&&!vgM.children.length)vgM.innerHTML=S.map((s,i)=>`<li data-i="${i}"><span
  const tagsD=[...vgD.querySelectorAll(".tag")];const setL=i=>{dL=i;dss.forEach((e,k)=>{e.classList.toggle("on",k===i);e.classList.toggle("done",k<i)})};setL(0);
  dss.forEach((e,i)=>{e.addEventListener("mouseenter",()=>setL(i));e.addEventListener("focus",()=>setL(i));e.addEventListener("click",()=>setL(i))});
  const vpin=sec.querySelector(".vg-pin");let vsp=sec.querySelector(".vg-sp");if(vpin&&!vsp){vsp=document.createElement("div");vsp.className="vg-sp";vsp.setAttribute("aria-hidden","true");vpin.after(vsp)}
- const vgPinOK=()=>root.classList.toggle("vg-pin-on",R.motion&&innerWidth>860);vgPinOK();addEventListener("resize",vgPinOK);
+ const vgPinOK=()=>root.classList.toggle("vg-pin-on",false);vgPinOK();addEventListener("resize",vgPinOK);
  const mls=vgM?[...vgM.querySelectorAll("li[data-i]")]:[];
  R.loops.push(()=>{if(sec.offsetParent===null)return;const r=sec.getBoundingClientRect(),ih=innerHeight;if(r.bottom<-50||r.top>ih+50)return;
   if(innerWidth<=860){mls.forEach(li=>{const q=li.getBoundingClientRect();li.classList.toggle("on",q.top<ih*.62)});return}
@@ -78,7 +78,7 @@ if(vgM&&!vgM.children.length)vgM.innerHTML=S.map((s,i)=>`<li data-i="${i}"><span
   const pinned=root.classList.contains("vg-pin-on")&&vsp&&vsp.offsetHeight>20;
   if(pinned){const ph=vpin.offsetHeight,tp=ph<ih-72?72+(ih-72-ph)*.5:ih-ph;vpin.style.top=tp.toFixed(0)+"px";
    if(R.motion){const p=clamp((tp-r.top)/vsp.offsetHeight,0,1);const si=Math.min(3,Math.floor(p*4.0001));if(si!==dS){dS=si;setL(si)}}}
-  else if(R.motion){if(vpin)vpin.style.top="";const gb0=vgD.getBoundingClientRect();const sp=clamp((ih*.62-gb0.top)/(gb0.height*.75),0,1);const si=Math.min(3,Math.floor(sp*4.0001));if(si!==dS){dS=si;setL(si)}}
+  else if(R.motion){if(vpin)vpin.style.top="";let si=0;dss.forEach((d,k)=>{if(d.getBoundingClientRect().top<ih*.58)si=k});if(si!==dS){dS=si;setL(si)}}
   const gb=vgD.getBoundingClientRect();const pb=R.motion?clamp((ih*.92-gb.top)/(ih*.55),0,1):1;const tl=dL===3?1:0;bl+=Math.max(-dt*2.4,Math.min(dt*1.4,tl-bl));if(!R.motion)bl=tl;
   if(D3)D3.draw(pb,dL,bl,now,dt,tagsD);sec.classList.toggle("vg-done",bl>.95)});
 })();

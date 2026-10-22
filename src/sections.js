@@ -31,7 +31,7 @@ R.reveal(".fx");
  const navs=nav?[...nav.children]:[];
  navs.forEach((n,i)=>n.addEventListener("click",()=>{const c=pcs[i];if(!c)return;const y=c.parentElement.getBoundingClientRect().top+scrollY+i*(c.offsetHeight+parseFloat(getComputedStyle(c).marginBottom))-130;R.goTo(y)}));
  function stack(cards,k){for(let i=0;i<cards.length;i++){const c=cards[i],n=cards[i+1];let s=1,b=1;if(n&&R.motion){const nr=n.getBoundingClientRect(),cr=c.getBoundingClientRect();const p=clamp(1-(nr.top-cr.top)/(cr.height*.9),0,1);s=1-p*k;b=1-p*.22}c.style.transform=s<1?`scale(${s.toFixed(4)})`:"";c.style.filter=b<1?`brightness(${b.toFixed(3)})`:""}}
- R.loops.push(()=>{if(innerWidth<=860){pcs.forEach(c=>{c.style.transform="";c.style.filter=""});return}const r=sec.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;
+ R.loops.push(()=>{if(innerWidth<=860||sec.dataset.pfv!=="b"){pcs.forEach(c=>{c.style.transform="";c.style.filter=""});return}const r=sec.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;
   stack(pcs,.05);let a=0;pcs.forEach((c,i)=>{if(c.getBoundingClientRect().top<innerHeight*.5)a=i});navs.forEach((n,i)=>n.classList.toggle("on",i===a))})})();
 
 /* ---------- Was uns antreibt: Wörter färben sich ein, Zahlen zählen mit dem Scroll ---------- */

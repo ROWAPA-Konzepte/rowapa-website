@@ -888,3 +888,45 @@ footer{position:relative;overflow:hidden}
  :root.ab-pin-on .antrieb .ab-sp{display:block;height:var(--_rowapa-startseite---halt-was-uns-antreibt,120svh)}}
 /* Kontakt: Punktemeer läuft nach unten weich aus, kein Abbruch vor dem Footer */
 :root.fluid .ksea{-webkit-mask-image:linear-gradient(180deg,#000 50%,transparent 100%);mask-image:linear-gradient(180deg,#000 50%,transparent 100%)}
+
+/* ---------- Feedback 22.10.2026: ruhiger, einheitlich ---------- */
+/* Einheitliche Fotobehandlung: CI-Duoton für alle Fotos (Filter #rw-duo entsteht im Code aus den CI-Variablen) */
+:root.duo .pcard .im img,:root.duo .cas img,:root.duo .video img,:root.duo .kc .im img,:root.duo .prev img{filter:url(#rw-duo) contrast(1.04)!important;mix-blend-mode:normal!important}
+:root.duo .pcard .im::after,:root.duo .kc .im::after{display:none!important}
+:root.duo .pcard .im{background:var(--c-manganese)!important}
+/* Wege: drei ruhige Varianten (Attribut data-pfv an #pfade: r = Reihe, u = untereinander, b = Stapel) */
+.pfade[data-pfv=r] .pfb,.pfade[data-pfv=u] .pfb{display:block}
+.pfade[data-pfv=r] .pfb-deck{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,1.8vw,26px);align-items:stretch}
+.pfade[data-pfv=r] .pcard,.pfade[data-pfv=u] .pcard{position:relative!important;top:auto!important;margin:0!important;transform:none!important;filter:none!important;display:flex;flex-direction:column}
+.pfade[data-pfv=r] .pcard .im{height:auto!important;aspect-ratio:4/4.4}
+.pfade[data-pfv=r] .pcard .cb{flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:24px 26px 28px}
+.pfade[data-pfv=r] .pcard h3{font-size:clamp(1.4rem,1.9vw,1.9rem)!important;max-width:16ch}
+.pfade[data-pfv=r] .pcard .lnk{margin-top:auto;padding-top:8px}
+.pfade[data-pfv=u] .pfb-deck{display:flex;flex-direction:column;gap:clamp(18px,2vw,28px)}
+.pfade[data-pfv=u] .pcard{display:grid!important;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
+.pfade[data-pfv=u] .pcard:nth-child(2){grid-template-columns:minmax(0,1fr) minmax(0,1.25fr)}
+.pfade[data-pfv=u] .pcard:nth-child(2) .im{order:2}
+.pfade[data-pfv=u] .pcard .im{height:auto!important;min-height:clamp(300px,42svh,460px)}
+.pfade[data-pfv=u] .pcard .cb{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:14px;padding:clamp(26px,3vw,48px)}
+.pfade[data-pfv=r] .pcard .im img,.pfade[data-pfv=u] .pcard .im img{will-change:transform}
+.pcard{transition:opacity 1s cubic-bezier(.2,.7,.1,1) var(--d,0s),translate 1.1s cubic-bezier(.2,.7,.1,1) var(--d,0s)}
+.pcard.pf-pre{opacity:0;translate:0 26px}
+@media (max-width:860px){.pfade[data-pfv=r] .pfb-deck{grid-template-columns:1fr}.pfade[data-pfv=u] .pcard,.pfade[data-pfv=u] .pcard:nth-child(2){grid-template-columns:1fr!important}.pfade[data-pfv=u] .pcard:nth-child(2) .im{order:0}}
+/* Ab «Aktuelles»: Tiefe statt Einblenden per Zeit */
+.dz{transition:none!important;will-change:transform,opacity;transform-origin:50% 60%}
+:root[data-late-fx=lines] .dz{position:relative}
+:root[data-late-fx=lines] #faq .fq.dz{border-top-color:transparent!important}
+:root[data-late-fx=lines] .dz::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:var(--c-manganese);opacity:.25;transform-origin:0 50%;transform:scaleX(var(--e,1));pointer-events:none;z-index:3}
+:root[data-late-fx=lines] .cas.dz::before,:root[data-late-fx=lines] .video.dz::before{background:var(--c-plum);height:3px;opacity:1}
+/* Kundenstimmen aus Referenzschreiben: längere Zitate, ruhigere Grösse */
+.q blockquote{font-size:clamp(1.55rem,2.35vw,2.35rem)!important;line-height:1.18!important;letter-spacing:-.022em!important}
+.q cite .co{display:block;margin-top:4px;font-size:.9rem}
+.q cite .fn::before{content:"";}
+.q cite b{display:block}
+/* Video-Ebene */
+.vlb{position:fixed;inset:0;z-index:1000;background:color-mix(in srgb,var(--c-tiefsee) 92%,transparent);display:grid;place-items:center;padding:clamp(16px,4vw,60px)}
+.vlb-in{width:min(1200px,100%);display:flex;flex-direction:column;gap:12px}
+.vlb iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:16px;background:#000}
+.vlb-alt{align-self:flex-end;color:color-mix(in srgb,#fff 70%,transparent);font-size:.85rem;text-decoration:underline}
+.vlb-x{position:absolute;top:18px;right:22px;width:46px;height:46px;border-radius:50%;border:1.5px solid color-mix(in srgb,#fff 50%,transparent);background:transparent;color:#fff;font-size:1.6rem;line-height:1;cursor:pointer}
+.vlb-x:hover{background:var(--c-plum);border-color:var(--c-plum)}
