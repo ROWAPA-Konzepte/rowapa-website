@@ -22,6 +22,7 @@ SA  = 'headervideo_sales_v1 (1080p).mp4'
 LE  = 'headervideo_leadership_v1 (1080p).mp4'
 FB  = 'feedback___cas_professional_leadership_for_finance_v1 (1080p).mp4'
 GW  = ',eq=contrast=1.2:brightness=-0.035:gamma=0.97'      # flaches Material aus «Wer wir sind»
+GT  = ',eq=contrast=1.12:gamma=0.98'                     # Trailer
 GF  = ',eq=contrast=1.06:gamma=1.14:brightness=0.015'       # dunkles Material aus dem CAS-Feedbackfilm
 # Einstellung: (Datei, von s, bis s, Ausschnitt x, Nachbearbeitung)
 VARIANTEN = {
@@ -35,10 +36,11 @@ VARIANTEN = {
  'broker-v3': dict(xf=.4, crf=3, shots=[(FUE,30.3,31.34,420,''),(FUE,25.7,26.82,560,''),(FUE,32.46,33.7,700,''),(FUE,48.82,49.94,500,''),(FUE,49.98,51.1,620,''),(FUE,69.58,70.74,450,''),(FUE,74.18,75.3,420,'')], info='Trainer im blauen Anzug, Führungstraining'),
  'broker-v4': dict(xf=.6, shots=[(WWS,61.6,65.0,800,GW),(WWS,77.9,81.2,280,GW),(WWS,52.4,55.4,470,GW)], info='Trainer im blauen Anzug, heller Seminarraum (Wer wir sind)'),
  'broker-v5': dict(xf=.6, crf=5, shots=[(ST,20.0,22.7,760,''),(ST,24.5,26.9,470,''),(SA,25.6,28.3,280,''),(LE,8.3,11.0,700,'')], info='Training in Aktion: Übung an der Flipchart, Austausch im Stehen, Coaching am Tisch, Trainer an der Flipchart'),
+ 'broker-v6': dict(xf=.6, shots=[(TR,13.0,15.8,380,GT),(TR,18.2,20.9,420,GT),(TR,23.0,25.6,650,GT),(TR,38.2,40.9,700,GT)], info='Berater bei der Arbeit: Kundentermin zu Hause, Gespräch am Tisch, Telefonberatung (Trailer)'),
  'female-v1': dict(xf=.6, shots=[(WWS,29.95,32.8,170,''),(WWS,36.9,39.65,330,''),(FUE,12.0,14.9,470,'')], info='Teilnehmerin nachdenklich, Frau im Gespräch, Jennifer Boek'),
  'female-v2': dict(xf=.6, shots=[(FUE,14.6,17.3,470,''),(FUE,22.76,24.9,380,''),(WWS,36.9,39.65,330,GW)], info='Jennifer Boek, Frau im Gespräch'),
 }
-AKTIV = {'privat': 'privat-v5', 'broker': 'broker-v5', 'female': 'female-v1'}
+AKTIV = {'privat': 'privat-v5', 'broker': 'broker-v6', 'female': 'female-v1'}
 
 def rechne(key):
     v = VARIANTEN[key]; shots = v['shots']; XF = v.get('xf', .6); cb = v.get('crf', 0)
