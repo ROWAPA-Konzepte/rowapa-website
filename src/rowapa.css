@@ -1004,3 +1004,5 @@ footer{position:relative;overflow:hidden}
 :root.fluid #h1:not(.hw-pre) .tx{opacity:.14;animation:hwfb .6s 3s forwards}
 @keyframes hwfb{to{opacity:1}}
 @media (prefers-reduced-motion:reduce){:root.fluid #h1:not(.hw-pre) .tx{opacity:1;animation:none}}
+/* FAQ: «Weitere Fragen? Schreiben Sie uns» mit Abstand zur letzten Frage */
+#faq .fqs+div{margin-top:clamp(28px,3vw,44px)}
