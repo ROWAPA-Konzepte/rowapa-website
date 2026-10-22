@@ -86,8 +86,16 @@ return R})();
   if(burger)burger.addEventListener("click",e=>{e.preventDefault();setM(!nav.classList.contains("mopen"))});if(mnav)mnav.addEventListener("click",e=>{if(e.target.closest("a"))setM(false)});
   addEventListener("keydown",e=>{if(e.key==="Escape"){closeMM();setM(false)}});
  }
- R.goTo=t=>{if(R.lenis)R.lenis.scrollTo(t,{offset:-10});else if(typeof t==="number")scrollTo({top:t,behavior:R.motion?"smooth":"auto"});else t.scrollIntoView({behavior:R.motion?"smooth":"auto"})};
- document.addEventListener("click",e=>{const a=e.target.closest('a[href^="#"]');if(!a||a.hasAttribute("data-mm"))return;const id=a.getAttribute("href");if(id.length<2){e.preventDefault();return}let t=null;try{t=document.querySelector(id)}catch(_){}if(!t)return;e.preventDefault();if(R.closeMM)R.closeMM();R.goTo(t)});
+ /* Sprung zu einem Abschnitt: eine ruhige Fahrt (Dauer nach Distanz), Abschnitt landet direkt unter der Navigation */
+ const navH=()=>{const n=document.querySelector("header.nav,.nav");return n?n.offsetHeight:0};
+ const tgt=t=>typeof t==="number"?t:t.getBoundingClientRect().top+scrollY-navH();
+ const io3=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+ R.goTo=t=>{const y=tgt(t);
+  if(R.lenis&&R.motion){const d=Math.abs(y-scrollY),dur=Math.min(2.2,Math.max(.8,.6+d/6000));
+   R.lenis.scrollTo(y,{duration:dur,easing:io3,lock:true,force:true,onComplete:()=>{if(typeof t==="number")return;const y2=tgt(t);if(Math.abs(y2-scrollY)>3)R.lenis.scrollTo(y2,{duration:.45,easing:io3,force:true})}})}
+  else if(R.lenis)R.lenis.scrollTo(y,{immediate:true,force:true});else scrollTo({top:y,behavior:"auto"})};
+ /* Abfangen in der Capture-Phase, damit das Webflow-eigene Ankerscrollen nicht zusätzlich läuft */
+ window.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||a.hasAttribute("data-mm"))return;const id=a.getAttribute("href");if(id.length<2){e.preventDefault();return}let t=null;try{t=document.querySelector(id)}catch(_){}if(!t)return;e.preventDefault();e.stopImmediatePropagation();if(R.closeMM)R.closeMM();R.goTo(t)},true);
  /* Bilder sanft einblenden */
  R.reveal=function(sel){const els=[...document.querySelectorAll(sel)];els.forEach(el=>{if(el.getBoundingClientRect().top>innerHeight*.95)el.classList.add("pre")});const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove("pre");io.unobserve(e.target)}}),{rootMargin:"0px 0px -8% 0px"});els.forEach(el=>io.observe(el))};
  /* Hauptschleife */
