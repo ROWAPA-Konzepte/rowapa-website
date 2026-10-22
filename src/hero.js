@@ -81,7 +81,7 @@ if(hero&&card)R.loops.push(()=>{const ih=innerHeight,iw=innerWidth;
 (function(){const h1=document.getElementById("h1");if(!h1||!R.motion)return;const ws=[];
  h1.querySelectorAll(".ln .tx").forEach(tx=>{if(tx.querySelector(".hw"))return;const parts=tx.textContent.split(/(\s+)/);tx.textContent="";
   parts.forEach(p=>{if(!p)return;if(/^\s+$/.test(p)){tx.appendChild(document.createTextNode(p));return}const w=document.createElement("span");w.className="hw";w.textContent=p;tx.appendChild(w);ws.push(w)})});
- ws.forEach((w,i)=>{w.style.transitionDelay=(.3+i*.17).toFixed(2)+"s"});h1.classList.add("hw-pre");
+ ws.forEach((w,i)=>{w.style.transitionDelay=(.3+i*.26).toFixed(2)+"s"});h1.classList.add("hw-pre");
  requestAnimationFrame(()=>requestAnimationFrame(()=>h1.classList.add("hw-on")))})();
 /* ---------- übrige Titel stehen ruhig (kein Buchstabenaufbau); der Header blendet sein Punktemeer ein ---------- */
 R.heroIntro=R.motion?0:1;
