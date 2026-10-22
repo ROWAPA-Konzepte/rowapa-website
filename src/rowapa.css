@@ -805,7 +805,7 @@ footer{position:relative;overflow:hidden}
 :root.fluid.dk .antrieb{height:auto!important}
 :root.fluid.dk .antrieb .ab-pin{position:relative!important;top:auto!important}
 /* ROWAPA Digital: Halt etwas kürzer */
-@media (min-width:861px){:root.dg-pin-on.dk .digi[data-dg=b] .dg-sp{height:var(--halt,var(--_rowapa-startseite---halt-rowapa-digital,190svh))}}
+@media (min-width:861px){:root.dg-pin-on.dk .digi[data-dg=b] .dg-sp{height:var(--halt,var(--_rowapa-startseite---halt-rowapa-digital,170svh))}}
 :root.fluid.dk #kontakt{padding-top:calc(var(--gt) - 24px)}
 :root.fluid.dk .logos{padding-top:calc(var(--gt) - 35px)!important}
 
@@ -930,3 +930,38 @@ footer{position:relative;overflow:hidden}
 .vlb-alt{align-self:flex-end;color:color-mix(in srgb,#fff 70%,transparent);font-size:.85rem;text-decoration:underline}
 .vlb-x{position:absolute;top:18px;right:22px;width:46px;height:46px;border-radius:50%;border:1.5px solid color-mix(in srgb,#fff 50%,transparent);background:transparent;color:#fff;font-size:1.6rem;line-height:1;cursor:pointer}
 .vlb-x:hover{background:var(--c-plum);border-color:var(--c-plum)}
+
+/* ---------- Feedback 22.10.2026, Runde 2 ---------- */
+/* Kontakt ohne Untertitel, Abstand Titel bis Buttons bleibt wie vorher */
+#kontakt .h2+.row{margin-top:clamp(96px,8.2vw,118px)}
+/* Wege: keine Aufzählungs-Chips */
+.pfade[data-pfv=r] .pcard ul{display:none}
+/* Newsletter: drei ruhigere Varianten (Attribut data-nl an #wissen) */
+#wissen[data-nl] .nl{color:var(--c-manganese);box-shadow:none}
+#wissen[data-nl] .nl p{opacity:1;color:color-mix(in srgb,var(--c-manganese) 72%,transparent)}
+#wissen[data-nl] .nl input{background:#fff;border:1px solid color-mix(in srgb,var(--c-manganese) 18%,transparent);color:var(--c-manganese)}
+#wissen[data-nl] .nl input::placeholder{color:color-mix(in srgb,var(--c-manganese) 45%,transparent)}
+#wissen[data-nl] .nl input:focus{border-color:var(--c-serpent)}
+#wissen[data-nl] .nl .w-form-done{background:color-mix(in srgb,var(--c-sea) 30%,#fff);color:var(--c-manganese)}
+/* A · Zeile: keine Fläche, zwei feine Linien wie bei den FAQ */
+#wissen[data-nl=a] .nl{background:transparent;border-radius:0!important;border-block:1px solid color-mix(in srgb,var(--c-manganese) 16%,transparent);padding:28px 0;margin-top:40px}
+/* B · Karte: vierte Karte im Wissens-Raster */
+@media (min-width:861px){
+ #wissen[data-nl=b] .wrap{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);column-gap:clamp(16px,1.6vw,22px);align-items:stretch}
+ #wissen[data-nl=b] .head{grid-column:1/-1}
+ #wissen[data-nl=b] .kgrid{grid-column:1;min-width:0}
+ #wissen[data-nl=b] .nl{grid-column:2;margin-top:0;align-self:stretch}}
+#wissen[data-nl=b] .nl{background:#fff;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:18px;padding:26px 24px;border:1px solid color-mix(in srgb,var(--c-manganese) 8%,transparent)}
+#wissen[data-nl=b] .nl b{font-size:1.35rem}
+#wissen[data-nl=b] .nl .w-form{justify-content:stretch;min-width:0;margin-top:auto}
+#wissen[data-nl=b] .nl form{flex-direction:column;min-width:0}
+#wissen[data-nl=b] .nl input{min-width:0;width:100%}
+/* C · Helle Fläche in Sea Cliff mit Punktemuster */
+#wissen[data-nl=c] .nl{background:color-mix(in srgb,var(--c-sea) 26%,#fff);position:relative;overflow:hidden;isolation:isolate}
+#wissen[data-nl=c] .nl::after{content:"";position:absolute;inset:0 0 0 55%;z-index:-1;background-image:radial-gradient(color-mix(in srgb,var(--c-serpent) 45%,transparent) 1.2px,transparent 1.6px);background-size:14px 14px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 70%);mask-image:linear-gradient(90deg,transparent,#000 70%)}
+#wissen[data-nl] .nl input[type=submit]{background:var(--c-plum);border-color:var(--c-plum);color:#fff;flex:none;min-width:0;padding-inline:1.6em}
+#wissen[data-nl] .nl input[type=submit]:hover{background:var(--c-manganese);border-color:var(--c-manganese)}
+#wissen[data-nl=b] .nl input{padding:.8em 1.1em}
+#wissen[data-nl=b] .nl input[type=submit]{width:100%}
+#wissen[data-nl=b] .nl input,#wissen[data-nl=b] .nl form{flex:none!important}
+#wissen[data-nl=b] .nl form{gap:8px}

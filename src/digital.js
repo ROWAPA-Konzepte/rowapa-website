@@ -85,7 +85,7 @@
   const sr=stage.getBoundingClientRect();let pb=mot?clamp((ih*.98-sr.top)/(ih*.62),0,1):1;
   let e=1,m=0;
   if(mode==="b"){const hd=sec.querySelector(".dg-head");stage.style.setProperty("--st",(hd.offsetTop+hd.offsetHeight+6)+"px");const padT=parseFloat(getComputedStyle(sec).paddingTop)||0,rng=sp.offsetHeight||ih;const stT=parseFloat(getComputedStyle(lay).top)||72;const p=clamp((stT-(rr.top+padT))/rng,0,1);
-   e=clamp(p/.5,0,1);m=sm(clamp((p-.56)/.34,0,1));pb=Math.max(pb,clamp((ih-rr.top-padT)/(ih*.7),0,1))}
+   /* durchgehend: erst bauen sich die Werkzeuge auf, ohne Pause fliegen sie danach in die Karten; kein toter Scrollweg */e=clamp(p/.46,0,1);m=sm(clamp((p-.46)/.54,0,1));pb=Math.max(pb,clamp((ih-rr.top-padT)/(ih*.7),0,1))}
   for(let k=0;k<K;k++){const ee=mode==="b"?sm(clamp((e-k*.17)/.32,0,1)):1;ek[k]=ee;tk[k]=mode==="b"?Math.min(ee*1.6,1)*clamp((pb-.5)/.2,0,1):clamp((pb-.52-k*.06)/.16,0,1)}
   /* Drehung: A und B langsam umlaufend, C dreht das gewählte Werkzeug nach vorn */
   if(mode==="c"){const tg=Math.PI/2-.7-act*TAU/K;let d=((tg-th)%TAU+TAU*1.5)%TAU-TAU/2;th+=mot?d*Math.min(1,dt*3.2):d}
@@ -112,7 +112,7 @@
   /* Karten und Fundament */
   if(mode==="b"){const cq=sm(clamp((m-.3)/.55,0,1));cards.forEach(c=>{c.style.setProperty("--q",cq.toFixed(3))});base.style.setProperty("--q",sm(clamp((m-.55)/.4,0,1)).toFixed(3));sec.classList.toggle("dg-done",m>.99);
    /* Ausstieg: sobald der Halt endet, blendet der ganze Block aus, bevor «Aktuelles» kommt */
-   const bR2=base.getBoundingClientRect();const out=mot?sm(clamp((bR2.bottom-ih*.6)/(ih*.32),0,1)):1;lay.style.opacity=out<1?out.toFixed(3):""}
+   const bR2=base.getBoundingClientRect();const out=mot?sm(clamp((bR2.bottom-ih*.25)/(ih*.45),0,1)):1;lay.style.opacity=out<1?out.toFixed(3):""}
   else{cards.forEach((c,k)=>{const q=mot?clamp((ih*.97-c.getBoundingClientRect().top)/(ih*.3)-k*.12,0,1):1;c.style.setProperty("--q",sm(q).toFixed(3))});lis.forEach((l,k)=>{const q=mot?clamp((ih*.95-l.getBoundingClientRect().top)/(ih*.25),0,1):1;l.style.setProperty("--q",sm(q).toFixed(3))});
    const bq=mot?clamp((ih*.98-base.getBoundingClientRect().top)/(ih*.3),0,1):1;base.style.setProperty("--q",sm(bq).toFixed(3));sec.classList.toggle("dg-done",true)}
  });
