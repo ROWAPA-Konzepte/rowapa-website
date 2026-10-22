@@ -21,7 +21,29 @@
  if(R.motion){cards.forEach(c=>c.classList.add("pf-pre"));const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove("pf-pre");io.unobserve(e.target)}}),{rootMargin:"0px 0px -12% 0px"});cards.forEach(c=>io.observe(c))}
  /* sanfte Parallaxe im Foto: das Bild bewegt sich etwas langsamer als die Karte */
  R.loops.push(()=>{if(!calm()||!R.motion)return;const ih=innerHeight;const r=sec.getBoundingClientRect();if(r.bottom<0||r.top>ih)return;
-  cards.forEach(c=>{const im=c.querySelector(".im img");if(!im)return;const q=c.getBoundingClientRect();const p=clamp((ih-q.top)/(ih+q.height),0,1);im.style.transform=`translateY(${((p-.5)*-7).toFixed(2)}%) scale(1.12)`})})})();
+  cards.forEach(c=>{const ims=c.querySelectorAll(".im img,.im video.hv");if(!ims.length)return;const q=c.getBoundingClientRect();const p=clamp((ih-q.top)/(ih+q.height),0,1);const tf=`translateY(${((p-.5)*-7).toFixed(2)}%) scale(1.12)`;ims.forEach(im=>{im.style.transform=tf})})})})();
+
+/* ---------- 2b · Wege: kurze Filmschleife, solange die Maus auf der Karte liegt ----------
+   Ruhezustand bleibt das Foto. Nur auf Geräten mit Maus und ab Desktop-Breite, nicht bei reduzierter Bewegung.
+   Quelle: Attribut data-hv an der Karte (URL einer MP4), sonst die Dateien aus dem Repo (WebM, Ersatz MP4) passend zum Etikett der Karte. */
+(function(){const sec=document.getElementById("pfade");if(!sec)return;const cards=[...sec.querySelectorAll(".pcard")];if(!cards.length)return;
+ const ok=()=>R.motion&&matchMedia("(hover:hover) and (pointer:fine) and (min-width:992px)").matches;
+ const base=(()=>{const s=[...document.scripts].map(x=>x.src).find(u=>/rowapa-website@[^/]+\/dist\/rowapa\.js/.test(u));return s?s.replace(/dist\/rowapa\.js.*$/,"assets/video/"):""})();
+ const KEY=[[/privat/i,"privat"],[/broker/i,"broker"],[/female|frauen/i,"female"]];
+ const src=c=>{if(c.dataset.hv)return c.dataset.hv;if(!base)return"";const t=(c.querySelector(".tag")||c).textContent;const k=KEY.find(([r])=>r.test(t));return k?base+"rw-weg-"+k[1]+".mp4":""};
+ const mk=c=>{let v=c.querySelector("video.hv");if(v)return v;const u=src(c);if(!u)return null;const im=c.querySelector(".im"),img=im&&im.querySelector("img");if(!img)return null;
+  v=document.createElement("video");v.className="hv";v.muted=true;v.defaultMuted=true;v.loop=true;v.playsInline=true;v.preload="auto";
+  ["muted","playsinline","loop","disablepictureinpicture","aria-hidden"].forEach(a=>v.setAttribute(a,a==="aria-hidden"?"true":""));v.tabIndex=-1;const alt=c.dataset.hv?"":u.replace(/\.mp4$/,".webm");[[alt,"video/webm"],[u,"video/mp4"]].forEach(([x,t])=>{if(!x)return;const so=document.createElement("source");so.src=x;so.type=t;v.appendChild(so)});img.after(v);
+  v.addEventListener("playing",()=>{if(c.classList.contains("hv-in"))c.classList.add("hv-on")});return v};
+ /* Ladezeit: nichts wird vorab geladen. Die Datei der jeweiligen Karte (ca. 200 KB) wird erst geholt, wenn die Maus auf der Karte liegt;
+    bis der Film läuft, bleibt das Standbild stehen. Handy, Tablet und reduzierte Bewegung laden nie einen Film. */
+ cards.forEach(c=>{let tm=0;
+  const on=()=>{if(!ok())return;const v=mk(c);if(!v)return;clearTimeout(tm);c.classList.add("hv-in");const p=v.play();if(p&&p.catch)p.catch(()=>{});if(!v.paused&&v.readyState>2)c.classList.add("hv-on")};
+  const off=()=>{c.classList.remove("hv-in","hv-on");const v=c.querySelector("video.hv");if(v){clearTimeout(tm);tm=setTimeout(()=>{if(!c.classList.contains("hv-in"))v.pause()},600)}};
+  c.addEventListener("pointerenter",e=>{if(e.pointerType==="mouse")on()});c.addEventListener("pointerleave",off);
+  c.addEventListener("focusin",on);c.addEventListener("focusout",off)});
+ /* ausserhalb des Bildes nie weiterlaufen lassen */
+ addEventListener("visibilitychange",()=>{if(document.hidden)cards.forEach(c=>{const v=c.querySelector("video.hv");if(v)v.pause()})})})();
 
 /* ---------- 3 · Ab «Aktuelles»: ruhige Tiefe ---------- */
 (function(){const host=document.querySelector("[data-late]");const mode=()=>(document.querySelector("[data-late]")||{dataset:{}}).dataset.late||"depth";
@@ -39,7 +61,8 @@
    else if(m==="focus"){e.style.filter=t<.999?`blur(${((1-t)*9).toFixed(2)}px)`:"";e.style.transform=`scale(${(1.025-.025*t).toFixed(4)})`;e.style.opacity=(.2+.8*t).toFixed(3)}
    else if(m==="lines"){e.style.setProperty("--e",t.toFixed(3));e.style.opacity=(.2+.8*clamp(t*1.4-.2,0,1)).toFixed(3);e.style.transform=`translateY(${((1-t)*14).toFixed(1)}px)`}})})})();
 
-/* ---------- 4 · Video in einer Ebene über der Seite ---------- */
+/* ---------- 4 · Video in einer Ebene über der Seite ----------
+   Ladezeit: Vimeo lädt erst beim Klick. Beim Überfahren wird nur die Verbindung zu Vimeo vorbereitet, damit der Film schneller startet. */
 (function(){const vs=[...document.querySelectorAll("[data-video]")];if(!vs.length)return;
  const embed=u=>{const m=String(u).match(/vimeo\.com\/(?:video\/)?(\d+)/);if(m)return`https://player.vimeo.com/video/${m[1]}?autoplay=1&title=0&byline=0&portrait=0&dnt=1`;const y=String(u).match(/(?:youtu\.be\/|v=)([\w-]{11})/);if(y)return`https://www.youtube-nocookie.com/embed/${y[1]}?autoplay=1&rel=0`;return u};
  let box=null;const close=()=>{if(!box)return;box.remove();box=null;if(R.lenis)R.lenis.start()};
@@ -47,7 +70,8 @@
   box.innerHTML=`<div class="vlb-in"><iframe src="${embed(u)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Video"></iframe><a class="vlb-alt" href="${u}" target="_blank" rel="noopener">Video startet nicht? Auf Vimeo ansehen</a></div><button type="button" class="vlb-x" aria-label="Schliessen">×</button>`;
   box.addEventListener("click",e=>{if(e.target===box||e.target.classList.contains("vlb-x"))close()});document.body.appendChild(box);if(R.lenis)R.lenis.stop();box.querySelector(".vlb-x").focus()};
  addEventListener("keydown",e=>{if(e.key==="Escape")close()});
- vs.forEach(v=>{v.style.cursor="pointer";v.setAttribute("tabindex","0");v.setAttribute("role","button");v.addEventListener("click",e=>{e.preventDefault();open(v.dataset.video)});v.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();open(v.dataset.video)}})})})();
+ let warm=false;const pre=()=>{if(warm)return;warm=true;["https://player.vimeo.com","https://i.vimeocdn.com","https://f.vimeocdn.com"].forEach(h=>{const l=document.createElement("link");l.rel="preconnect";l.href=h;l.crossOrigin="";document.head.appendChild(l)})};
+ vs.forEach(v=>{v.addEventListener("pointerenter",pre,{once:true});v.addEventListener("focus",pre,{once:true});v.style.cursor="pointer";v.setAttribute("tabindex","0");v.setAttribute("role","button");v.addEventListener("click",e=>{e.preventDefault();open(v.dataset.video)});v.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();open(v.dataset.video)}})})})();
 
 /* ---------- 5 · Newsletter Variante C: Punktemeer wie im Header, bewegt sich, wenn die Maus darüberfährt ---------- */
 (function(){const w=document.getElementById("wissen");if(!w)return;const nl=w.querySelector(".nl");if(!nl)return;
