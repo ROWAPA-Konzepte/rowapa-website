@@ -38,10 +38,11 @@ VARIANTEN = {
  'broker-v5': dict(xf=.6, crf=5, shots=[(ST,20.0,22.7,760,''),(ST,24.5,26.9,470,''),(SA,25.6,28.3,280,''),(LE,8.3,11.0,700,'')], info='Training in Aktion: Übung an der Flipchart, Austausch im Stehen, Coaching am Tisch, Trainer an der Flipchart'),
  'broker-v6': dict(xf=.6, shots=[(TR,13.0,15.8,380,GT),(TR,18.2,20.9,420,GT),(TR,23.0,25.6,650,GT),(TR,38.2,40.9,700,GT)], info='Berater bei der Arbeit: Kundentermin zu Hause, Gespräch am Tisch, Telefonberatung (Trailer)'),
  'broker-v7': dict(xf=.4, crf=3, shots=[(FUE,32.46,33.7,700,''),(WWS,61.8,63.8,800,GW),(FB,7.45,8.9,200,GF),(FUE,49.98,51.1,620,''),(LE,8.4,10.4,560,'')], info='Trainingssequenzen mit verschiedenen Trainern'),
+ 'broker-v8': dict(xf=.4, crf=6, shots=[(FUE,18.7,19.95,60,''),(FUE,61.38,62.54,700,''),(FUE,20.0,22.7,470,''),(WWS,77.9,80.4,420,GW),(LE,8.4,10.4,560,'')], info='Fröhliche Trainingsmomente mit verschiedenen Trainern, ohne den Trainer im grauen Sakko'),
  'female-v1': dict(xf=.6, shots=[(WWS,29.95,32.8,170,''),(WWS,36.9,39.65,330,''),(FUE,12.0,14.9,470,'')], info='Teilnehmerin nachdenklich, Frau im Gespräch, Jennifer Boek'),
  'female-v2': dict(xf=.6, shots=[(FUE,14.6,17.3,470,''),(FUE,22.76,24.9,380,''),(WWS,36.9,39.65,330,GW)], info='Jennifer Boek, Frau im Gespräch'),
 }
-AKTIV = {'privat': 'privat-v5', 'broker': 'broker-v7', 'female': 'female-v1'}
+AKTIV = {'privat': 'privat-v5', 'broker': 'broker-v8', 'female': 'female-v1'}
 
 def rechne(key):
     v = VARIANTEN[key]; shots = v['shots']; XF = v.get('xf', .6); cb = v.get('crf', 0)
