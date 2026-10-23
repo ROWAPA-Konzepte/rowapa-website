@@ -1221,7 +1221,7 @@ html[data-ende=a] #faq .head{grid-column:1;grid-row:1/3}
 }
 
 /* A · Newsletter «Impulse per E-Mail» kräftig: Manganese-Fläche, Punktemeer in Sea, Plum-Button */
-html[data-ende=a] #wissen[data-nl] .nl{background:var(--c-manganese);color:#fff}
+html[data-ende=a] #wissen[data-nl] .nl{background:var(--c-manganese);color:#fff;--nl-hi:var(--c-sea);--nl-lo:var(--c-serpent)}
 html[data-ende=a] #wissen[data-nl] .nl b{color:#fff}
 html[data-ende=a] #wissen[data-nl] .nl p{color:rgba(255,255,255,.84)}
 html[data-ende=a] #wissen[data-nl] .nl input{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.3);color:#fff}

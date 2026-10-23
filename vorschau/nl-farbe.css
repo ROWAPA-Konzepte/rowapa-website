@@ -1,0 +1,13 @@
+/* Vorschau Newsletter-Fläche: 1 Great Serpent, 2 Sea Cliff voll */
+html[data-ende=a][data-nlf="1"] #wissen[data-nl] .nl{background:var(--c-serpent);color:#fff;--nl-hi:var(--c-sea);--nl-lo:color-mix(in srgb,#fff 70%,var(--c-serpent))}
+html[data-ende=a][data-nlf="1"] #wissen[data-nl] .nl p{color:rgba(255,255,255,.9)}
+html[data-ende=a][data-nlf="1"] #wissen[data-nl] .nl input{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.45)}
+html[data-ende=a][data-nlf="1"] #wissen[data-nl] .nl input::placeholder{color:rgba(255,255,255,.75)}
+html[data-ende=a][data-nlf="2"] #wissen[data-nl] .nl{background:var(--c-sea);color:var(--c-manganese);--nl-hi:var(--c-serpent);--nl-lo:var(--c-manganese)}
+html[data-ende=a][data-nlf="2"] #wissen[data-nl] .nl b{color:var(--c-manganese)}
+html[data-ende=a][data-nlf="2"] #wissen[data-nl] .nl p{color:color-mix(in srgb,var(--c-manganese) 86%,transparent)}
+html[data-ende=a][data-nlf="2"] #wissen[data-nl] .nl input{background:#fff;border-color:color-mix(in srgb,var(--c-manganese) 20%,transparent);color:var(--c-manganese)}
+html[data-ende=a][data-nlf="2"] #wissen[data-nl] .nl input::placeholder{color:color-mix(in srgb,var(--c-manganese) 50%,transparent)}
+html[data-ende=a][data-nlf="2"] #wissen[data-nl] .nl input:focus{border-color:var(--c-serpent)}
+html[data-ende=a][data-nlf] #wissen[data-nl] .nl input[type=submit]{background:var(--c-plum);border-color:var(--c-plum);color:#fff}
+html[data-ende=a][data-nlf="2"] #wissen[data-nl] .nl input[type=submit]:hover{background:var(--c-manganese);border-color:var(--c-manganese);color:#fff}
