@@ -1220,16 +1220,16 @@ html[data-ende=a] #faq .fqs{grid-column:2;border-top:1px solid var(--line)}
 html[data-ende=a] #faq .head{grid-column:1;grid-row:1/3}
 }
 
-/* A · Newsletter «Impulse per E-Mail» kräftig: Manganese-Fläche, Punktemeer in Sea, Plum-Button */
-html[data-ende=a] #wissen[data-nl] .nl{background:var(--c-manganese);color:#fff;--nl-hi:var(--c-sea);--nl-lo:var(--c-serpent)}
-html[data-ende=a] #wissen[data-nl] .nl b{color:#fff}
-html[data-ende=a] #wissen[data-nl] .nl p{color:rgba(255,255,255,.84)}
-html[data-ende=a] #wissen[data-nl] .nl input{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.3);color:#fff}
-html[data-ende=a] #wissen[data-nl] .nl input::placeholder{color:rgba(255,255,255,.6)}
-html[data-ende=a] #wissen[data-nl] .nl input:focus{border-color:var(--c-sea)}
+/* A · Newsletter «Impulse per E-Mail»: Sea Cliff voll, dunkle Schrift, Punktemeer in Great Serpent, Button Plum (freigegeben 23.10.2026) */
+html[data-ende=a] #wissen[data-nl] .nl{background:var(--c-sea);color:var(--c-manganese);--nl-hi:var(--c-serpent);--nl-lo:var(--c-manganese)}
+html[data-ende=a] #wissen[data-nl] .nl b{color:var(--c-manganese)}
+html[data-ende=a] #wissen[data-nl] .nl p{color:color-mix(in srgb,var(--c-manganese) 86%,transparent)}
+html[data-ende=a] #wissen[data-nl] .nl input{background:#fff;border-color:color-mix(in srgb,var(--c-manganese) 20%,transparent);color:var(--c-manganese)}
+html[data-ende=a] #wissen[data-nl] .nl input::placeholder{color:color-mix(in srgb,var(--c-manganese) 50%,transparent)}
+html[data-ende=a] #wissen[data-nl] .nl input:focus{border-color:var(--c-serpent)}
 html[data-ende=a] #wissen[data-nl] .nl input[type=submit]{background:var(--c-plum);border-color:var(--c-plum);color:#fff}
-html[data-ende=a] #wissen[data-nl] .nl input[type=submit]:hover{background:#fff;border-color:#fff;color:var(--c-manganese)}
-html[data-ende=a] #wissen[data-nl] .nl .w-form-done{background:rgba(255,255,255,.1);color:#fff}
+html[data-ende=a] #wissen[data-nl] .nl input[type=submit]:hover{background:var(--c-manganese);border-color:var(--c-manganese);color:#fff}
+html[data-ende=a] #wissen[data-nl] .nl .w-form-done{background:#fff;color:var(--c-manganese)}
 /* Mobil: Kundenstimmen dürfen die Spalte nicht verbreitern (horizontales Scrollen bei 390px) */
 #ergebnisse .rgrid>*{min-width:0}
 @media (max-width:991px){#ergebnisse .rgrid{grid-template-columns:minmax(0,1fr)!important}}
