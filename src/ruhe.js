@@ -30,8 +30,8 @@
    Ruhezustand bleibt das Foto. Nur auf Geräten mit Maus und ab Desktop-Breite, nicht bei reduzierter Bewegung.
    Quelle: Attribut data-hv an der Karte (URL einer MP4), sonst die Dateien aus dem Repo (WebM, Ersatz MP4) passend zum Etikett der Karte. */
 (function(){const sec=document.getElementById("pfade");if(!sec)return;const cards=[...sec.querySelectorAll(".pcard")];if(!cards.length)return;
- const ok=()=>R.motion&&matchMedia("(hover:hover) and (pointer:fine) and (min-width:992px)").matches;
- const base=(()=>{const s=[...document.scripts].map(x=>x.src).find(u=>/rowapa-website@[^/]+\/dist\/rowapa\.js/.test(u));return s?s.replace(/dist\/rowapa\.js.*$/,"assets/video/"):""})();
+ const ok=()=>R.motion&&matchMedia("(any-hover:hover) and (any-pointer:fine) and (min-width:992px)").matches;
+ const base=(()=>{const s=[...document.scripts].map(x=>x.src).find(u=>/rowapa-website@[^/]+\/dist\/rowapa\.js/.test(u));/* feste Version für die Filmdateien: bleibt im CDN-Cache warm, auch wenn der Code eine neue Version bekommt */return s?"https://cdn.jsdelivr.net/gh/ROWAPA-Konzepte/rowapa-website@c411bbad791b96bfc30576c102becd78f4539510/assets/video/":""})();
  const KEY=[[/privat/i,"privat"],[/broker/i,"broker"],[/female|frauen/i,"female"]];
  const src=c=>{if(c.dataset.hv)return c.dataset.hv;if(!base)return"";const t=(c.querySelector(".tag")||c).textContent;const k=KEY.find(([r])=>r.test(t));return k?base+"rw-weg-"+k[1]+".mp4":""};
  const mk=c=>{let v=c.querySelector("video.hv");if(v)return v;const u=src(c);if(!u)return null;const im=c.querySelector(".im"),img=im&&im.querySelector("img");if(!img)return null;

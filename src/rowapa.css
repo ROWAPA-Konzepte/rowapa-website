@@ -1014,7 +1014,7 @@ footer{position:relative;overflow:hidden}
 /* Wege: Filmschleife beim Überfahren mit der Maus (CI-Duoton ist in die Datei eingebrannt, daher ohne Filter) */
 .pcard .im video.hv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;opacity:0;transition:opacity .55s cubic-bezier(.4,0,.2,1);pointer-events:none;filter:none!important;will-change:transform,opacity}
 .pcard.hv-on .im video.hv{opacity:1}
-@media (prefers-reduced-motion:reduce),(hover:none),(max-width:991px){.pcard .im video.hv{display:none}}
+@media (prefers-reduced-motion:reduce),(any-hover:none),(max-width:991px){.pcard .im video.hv{display:none}}
 
 /* Video «Wer wir sind»: Abspielknopf in Plum Perfect */
 .video .pbtn{background:var(--c-plum);box-shadow:0 14px 40px color-mix(in srgb,var(--c-plum) 38%,transparent)}
@@ -1443,3 +1443,5 @@ html.hz .kick::before{background:var(--c-plum)!important}
 @media (min-width:861px){:root.t212 .tsl-t{grid-template-columns:minmax(0,1.6fr) minmax(0,.7fr)!important}:root.t212 .tsl-t .tx{overflow:visible!important}:root.t212 .tsl-t h3{white-space:nowrap!important;font-size:clamp(1.2rem,1.55vw,1.6rem)!important}}
 /* CMS-Träger (Erfolge-Bilder, Blickpunkt, Insights) sind nur Datenquelle */
 html.hz .q img,html.hz [data-bp],html.hz [data-ins],html.hz #cas .w-dyn-empty,html.hz #wissen .w-dyn-empty{display:none!important}
+/* ROWAPA Digital: kurzer Halteweg, damit nach dem Verteilen keine Pause entsteht (24.10.2026) */
+@media (min-width:861px){:root.hz.dg-pin-on .digi[data-dg=b] .dg-sp{height:95svh!important}}
