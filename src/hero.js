@@ -22,7 +22,7 @@ R.loops.push(()=>{const ih=innerHeight,c=ih*.5;
  const G=[];S.forEach(s=>{const r=s.getBoundingClientRect(),col=COL[toneOf(s)]||COL.white;const L=G[G.length-1];
   if(L&&(r.height<ih*.35||L.col===col)){L.bot=Math.max(L.bot,r.bottom)}else G.push({top:r.top,bot:r.bottom,col})});
  /* hell/dunkel wechselt zügiger (Text bleibt lesbar), ähnliche Töne fliessen langsam */
- const Zp=(a,b)=>Math.abs(lum(a)-lum(b))>110?ih*.28:ih*.45,st=[];G.forEach((g,i)=>{const h=g.bot-g.top;const wi=i?Math.min(Zp(G[i-1].col,g.col),h*.45,(G[i-1].bot-G[i-1].top)*.45):0,wo=G[i+1]?Math.min(Zp(g.col,G[i+1].col),h*.45,(G[i+1].bot-G[i+1].top)*.45):0;st.push([g.top+wi,g.col],[g.bot-wo,g.col])});
+ const Zp=(a,b)=>Math.abs(lum(a)-lum(b))>150?ih*.3:ih*.5,st=[];G.forEach((g,i)=>{const h=g.bot-g.top;const wi=i?Math.min(Zp(G[i-1].col,g.col),h*.45,(G[i-1].bot-G[i-1].top)*.45):0,wo=G[i+1]?Math.min(Zp(g.col,G[i+1].col),h*.45,(G[i+1].bot-G[i+1].top)*.45):0;st.push([g.top+wi,g.col],[g.bot-wo,g.col])});
  /* am Seitenende muss der letzte Übergang abgeschlossen sein (Kontakt und Footer ganz in ihrer Farbe) */
  if(st.length>=4){const lim=document.scrollingElement.scrollHeight-scrollY-ih*.5-ih*.06,n=st.length;if(st[n-2][0]>lim){st[n-2][0]=lim;st[n-3][0]=Math.min(st[n-3][0],lim-ih*.55)}}
  let m=st.length?st[0][1]:COL.white;

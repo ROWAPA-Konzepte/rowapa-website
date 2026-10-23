@@ -85,7 +85,7 @@
   const sr=stage.getBoundingClientRect();let pb=mot?clamp((ih*.98-sr.top)/(ih*.62),0,1):1;
   let e=1,m=0;
   /* zeitgesteuert (Entscheid 23.10.2026): Kugel und fünf Werkzeuge bauen sich von selbst auf, sobald sichtbar; nur das Verteilen in die Karten folgt dem Scroll */
-  if(R.timed&&mot){if(sec._t0==null&&sr.top<ih*.75)sec._t0=now;}let tE=(R.timed&&mot)?(sec._t0==null?0:(now-sec._t0)/1000):-1;
+  if(R.timed&&mot){/* Start erst, wenn der Abschnitt steht (gepinnt): der Aufbau läuft dann sichtbar als Animation, nicht während des Hereinscrollens */const lyT=lay.getBoundingClientRect().top;if(sec._t0==null&&(pinned?lyT<=96:sr.top<ih*.75))sec._t0=now;}let tE=(R.timed&&mot)?(sec._t0==null?0:(now-sec._t0)/1000):-1;
   if(mode==="b"){const hd=sec.querySelector(".dg-head");stage.style.setProperty("--st",(hd.offsetTop+hd.offsetHeight+6)+"px");const padT=parseFloat(getComputedStyle(sec).paddingTop)||0,rng=sp.offsetHeight||ih;const stT=parseFloat(getComputedStyle(lay).top)||72;const p=clamp((stT-(rr.top+padT))/rng,0,1);
    /* durchgehend: erst bauen sich die Werkzeuge auf, ohne Pause fliegen sie danach in die Karten; kein toter Scrollweg */if(tE>=0&&tE<.05&&p>.5&&sec._p0==null){/* von unten hereingescrollt: Aufbau gilt als fertig */sec._t0=now-3e3;sec._p0=.1;tE=3}
    if(tE>=0){/* Aufbau läuft als Animation zu Ende; erst danach verteilt der Scroll die Werkzeuge, ab der Stelle, an der der Aufbau fertig war */e=clamp(tE/2.8,0,1);pb=clamp(tE/1.3,0,1);if(tE>=2.9&&sec._p0==null)sec._p0=clamp(Math.max(.1,p),.1,.72);if(sec._p0!=null){m=sm(clamp((p-sec._p0)/(1-sec._p0),0,1));if(m>0){e=1;pb=1}}else m=0}else{e=clamp(p/.46,0,1);m=sm(clamp((p-.46)/.54,0,1));pb=Math.max(pb,clamp((ih-rr.top-padT)/(ih*.7),0,1))}}
