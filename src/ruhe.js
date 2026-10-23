@@ -109,4 +109,18 @@
 
 /* ---------- 7 · Textlinks: Pfeil-Symbol ergänzen, wo Webflow es nicht speichern kann ---------- */
 document.querySelectorAll("a.lnk").forEach(a=>{if(!a.querySelector(".b")){const b=document.createElement("span");b.className="b";b.innerHTML=R.icon("arrow-right");a.prepend(b)}});
+
+/* ---------- 8 · Footer: Impulse abonnieren (nutzt das Webflow-Formular im Abschnitt Wissen) ---------- */
+(function(){const box=document.querySelector("[data-fnl]");const src=document.querySelector("#wissen .nl form");if(!box||!src)return;
+ box.innerHTML='<form class="fnl-form" novalidate><label class="sr" for="fnl-mail">E-Mail-Adresse</label><input id="fnl-mail" type="email" required autocomplete="email" placeholder="name@firma.ch"><button class="btn pl" type="submit">Abonnieren</button></form><p class="fnl-msg" role="status" hidden></p>';
+ const f=box.querySelector("form"),inp=f.querySelector("input"),msg=box.querySelector(".fnl-msg");
+ f.addEventListener("submit",e=>{e.preventDefault();if(!inp.checkValidity()){inp.reportValidity();return}
+  const t=src.querySelector('input[type=email]');t.value=inp.value;
+  const wrap=src.closest(".w-form"),done=wrap&&wrap.querySelector(".w-form-done"),fail=wrap&&wrap.querySelector(".w-form-fail");
+  msg.hidden=false;msg.textContent="Einen Moment …";
+  if(src.requestSubmit)src.requestSubmit();else src.submit();
+  let n=0;const iv=setInterval(()=>{n++;const ok=done&&getComputedStyle(done).display!=="none",ko=fail&&getComputedStyle(fail).display!=="none";
+   if(ok){clearInterval(iv);msg.textContent="Danke! Die nächsten Impulse kommen direkt in Ihr Postfach.";f.hidden=true}
+   else if(ko||n>40){clearInterval(iv);msg.textContent="Das hat leider nicht geklappt. Bitte prüfen Sie die E-Mail-Adresse."}},250)})})();
+document.documentElement.lang=document.documentElement.lang&&document.documentElement.lang!=="en"?document.documentElement.lang:"de";
 })();

@@ -1145,3 +1145,21 @@ footer .fadr a{display:inline!important;padding:0!important;margin:0!important;b
 .team-h .lnk{align-self:end}
 .ab-ci b .suf{font-size:.55em;margin-left:.06em;vertical-align:.35em}
 .ab-ci b .suf{display:inline!important;color:inherit!important;font-size:.5em!important;max-width:none!important;margin:0 0 0 .06em!important;line-height:1}
+
+/* ROWAPA Digital: Bereich gross, Werkzeugname klein darüber (Entscheid 23.10.2026) */
+.dg-card{display:flex;flex-direction:column}
+.dg-card .ic0{order:0}
+.digi .dg-card h3{order:1;margin-top:20px!important;font-family:var(--fx)!important;font-weight:800!important;font-size:.7rem!important;letter-spacing:.16em!important;text-transform:uppercase;color:var(--c-sea)!important;line-height:1.3!important}
+.digi .dg-card .sub{order:2;margin-top:6px!important;font-family:var(--f)!important;font-weight:700!important;font-size:clamp(1.02rem,1.22vw,1.28rem)!important;letter-spacing:-.01em!important;text-transform:none!important;color:#fff!important;line-height:1.15!important;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+.dg-card p{order:3}
+@media (max-width:600px){.dg-card{display:grid}.dg-card .ic0{grid-row:1/4}}
+/* Footer: Impulse abonnieren */
+.fnl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:24px;align-items:center;margin-top:clamp(30px,5svh,48px);padding:22px 0;border-top:1px solid rgba(255,255,255,.12)}
+.fnl-t b{display:block;color:#fff;font-size:1.1rem}
+.fnl-t span{display:block;color:rgba(255,255,255,.7);font-size:.92rem;margin-top:4px}
+.fnl-form{display:flex;gap:8px}
+.fnl-form input{flex:1;min-width:0;font:inherit;font-size:1rem;color:var(--c-manganese);background:#fff;border:1px solid transparent;border-radius:4px;padding:12px 14px}
+.fnl-form input:focus{outline:2px solid var(--c-sea);outline-offset:1px}
+.fnl-form .btn{flex:none}
+.fnl-msg{margin:10px 0 0;color:var(--c-sea);font-size:.92rem}
+@media (max-width:767px){.fnl{grid-template-columns:1fr}}
