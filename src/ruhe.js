@@ -80,7 +80,7 @@
 (function(){const w=document.getElementById("wissen");if(!w)return;const nl=w.querySelector(".nl");if(!nl)return;
  let box=nl.querySelector(".nl-sea");if(!box){box=document.createElement("div");box.className="nl-sea";box.setAttribute("aria-hidden","true");box.innerHTML="<canvas></canvas>";nl.prepend(box)}
  const cv=box.querySelector("canvas"),ctx=cv.getContext("2d");if(!ctx)return;
- const hx=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));const CM=hx(R.c("var(--c-manganese)")),CS=hx(R.c("var(--c-serpent)")),CP=hx(R.c("var(--c-plum)"));
+ const hx=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));const CM=hx(R.c("var(--c-manganese)")),CS=hx(R.c("var(--c-serpent)")),CP=hx(R.c("var(--c-plum)")),CW=hx(R.c("var(--c-sea)")),CS2=CS;
  const NX=190,NZ=30,P=[];for(let j=0;j<NZ;j++)for(let i=0;i<NX;i++)P.push([i/(NX-1)*2-1,j/(NZ-1),Math.random()]);
  let t=Math.random()*10,sp=0,hov=0,mx=-9,my=-9,last=performance.now(),W=0,H=0,DPR=1;
  nl.addEventListener("pointerenter",()=>{hov=1});nl.addEventListener("pointerleave",()=>{hov=0;mx=my=-9});
@@ -98,7 +98,7 @@
    if(sp>.01&&mx>-9){const d=Math.hypot(sx-mx,sy-my);if(d<150){const a=(1-d/150);Y+=sp*.6*a*a*Math.sin(d*.07-t*6);sy=hy+(cam-Y)/z*vs}}
    if(sx<-4||sx>W+4||sy<-4||sy>H+4)continue;
    const depth=1-(z-1)/5.5,al=.18+Math.pow(depth,.9)*.72;
-   const c=p[2]<.035?CP:(Y>.18?CS:CM);const rad=Math.max(.6,1.9/z);
+   const dk=document.documentElement.dataset.ende==="a";const c=p[2]<.035?CP:(Y>.18?(dk?CW:CS2):(dk?CS2:CM));const rad=Math.max(.6,1.9/z);
    ctx.fillStyle=`rgba(${c[0]},${c[1]},${c[2]},${al.toFixed(3)})`;ctx.beginPath();ctx.arc(sx,sy,rad,0,6.2832);ctx.fill()}})})();
 
 /* ---------- 6 · Kontakt: Porträt der Ansprechperson in der Mitte des Werte-Rings ---------- */

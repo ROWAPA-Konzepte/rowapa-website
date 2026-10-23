@@ -1195,3 +1195,44 @@ footer .fadr a{display:inline!important;padding:0!important;margin:0!important;b
 :root:root:root:root.ts footer a{color:rgba(255,255,255,.86)}
 :root:root:root:root.ts .vg-ds .d{color:color-mix(in srgb,var(--c-manganese) 82%,transparent)!important}
 :root:root:root:root.ts .digi[data-dg] .dg-card .sub{font-size:clamp(1.12rem,1.4vw,1.38rem)!important}
+
+/* ===== Abschluss der Startseite: Variante A «Editorial» (freigegeben 23.10.2026), aktiv über html[data-ende=a] ===== */
+@media (min-width:992px){
+html[data-ende=a] #ergebnisse .rgrid{grid-template-columns:minmax(0,1.3fr) minmax(0,.9fr);align-items:start}
+html[data-ende=a] #ergebnisse .qs{min-height:470px}
+html[data-ende=a] .q .qk{font-size:clamp(2.3rem,3.5vw,3.5rem)!important;line-height:1.06!important;max-width:19ch!important;margin-bottom:28px!important}
+html[data-ende=a] .q .qk::before{content:"«";color:var(--c-plum);margin-right:.06em}
+html[data-ende=a] .q .qk::after{content:"»";color:var(--c-plum);margin-left:.04em}
+html[data-ende=a] .q blockquote{max-width:46ch;border-left:3px solid var(--c-plum);padding-left:20px}
+html[data-ende=a] #ergebnisse .video{aspect-ratio:4/5}
+html[data-ende=a] #branche .marks.mlogos{display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr));gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+html[data-ende=a] #branche .mlogos .ml{background:transparent!important;border-radius:0!important;border-right:1px solid var(--line);border-bottom:1px solid var(--line);height:120px}
+html[data-ende=a] #cas .agrid{grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:clamp(24px,3vw,48px)}
+html[data-ende=a] #cas .news{background:transparent!important;border-radius:0!important;padding:22px 0!important;border-top:1px solid var(--line)}
+html[data-ende=a] #cas .side .news:last-child{border-bottom:1px solid var(--line)}
+html[data-ende=a] #wissen .kgrid{gap:clamp(24px,3vw,44px)}
+html[data-ende=a] #wissen .kc{background:transparent!important;border-radius:0!important;overflow:visible}
+html[data-ende=a] #wissen .kc .im{border-radius:8px}
+html[data-ende=a] #wissen .kc .bd{padding:20px 0 0!important}
+html[data-ende=a] #faq .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);column-gap:clamp(40px,6vw,96px);align-items:start}
+html[data-ende=a] #faq .head{position:sticky;top:110px;display:block}
+html[data-ende=a] #faq .fqs{grid-column:2;border-top:1px solid var(--line)}
+html[data-ende=a] #faq .head{grid-column:1;grid-row:1/3}
+}
+
+/* A · Newsletter «Impulse per E-Mail» kräftig: Manganese-Fläche, Punktemeer in Sea, Plum-Button */
+html[data-ende=a] #wissen[data-nl] .nl{background:var(--c-manganese);color:#fff}
+html[data-ende=a] #wissen[data-nl] .nl b{color:#fff}
+html[data-ende=a] #wissen[data-nl] .nl p{color:rgba(255,255,255,.84)}
+html[data-ende=a] #wissen[data-nl] .nl input{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.3);color:#fff}
+html[data-ende=a] #wissen[data-nl] .nl input::placeholder{color:rgba(255,255,255,.6)}
+html[data-ende=a] #wissen[data-nl] .nl input:focus{border-color:var(--c-sea)}
+html[data-ende=a] #wissen[data-nl] .nl input[type=submit]{background:var(--c-plum);border-color:var(--c-plum);color:#fff}
+html[data-ende=a] #wissen[data-nl] .nl input[type=submit]:hover{background:#fff;border-color:#fff;color:var(--c-manganese)}
+html[data-ende=a] #wissen[data-nl] .nl .w-form-done{background:rgba(255,255,255,.1);color:#fff}
+/* Mobil: Kundenstimmen dürfen die Spalte nicht verbreitern (horizontales Scrollen bei 390px) */
+#ergebnisse .rgrid>*{min-width:0}
+@media (max-width:991px){#ergebnisse .rgrid{grid-template-columns:minmax(0,1fr)!important}}
+#digi{overflow-x:clip}
+@media (max-width:600px){footer .fnl,footer .fnl>*{min-width:0;max-width:100%}footer .fnl{flex-wrap:wrap}}
+html[data-ende=a] #wissen[data-nl] .nl{border-radius:8px!important}
