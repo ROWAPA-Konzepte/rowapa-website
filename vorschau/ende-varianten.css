@@ -1,0 +1,66 @@
+/* ===== Abschluss der Startseite: drei Gestaltungsrichtungen (Vorschau 23.10.2026)
+   html[data-ende=a] Editorial · [data-ende=b] Klare Flächen · [data-ende=c] Roter Faden
+   Alle Richtungen bleiben ruhig: gleiche Inhalte, gleiche Reihenfolge, nur Gewichtung und Anordnung ändern sich. */
+
+/* ---------- A · Editorial: Typografie führt, viel Weissraum, Linien statt Kästen ---------- */
+@media (min-width:992px){
+html[data-ende=a] #ergebnisse .rgrid{grid-template-columns:minmax(0,1.3fr) minmax(0,.9fr);align-items:start}
+html[data-ende=a] #ergebnisse .qs{min-height:470px}
+html[data-ende=a] .q .qk{font-size:clamp(2.3rem,3.5vw,3.5rem)!important;line-height:1.06!important;max-width:19ch!important;margin-bottom:28px!important}
+html[data-ende=a] .q .qk::before{content:"«";color:var(--c-plum);margin-right:.06em}
+html[data-ende=a] .q .qk::after{content:"»";color:var(--c-plum);margin-left:.04em}
+html[data-ende=a] .q blockquote{max-width:46ch;border-left:3px solid var(--c-plum);padding-left:20px}
+html[data-ende=a] #ergebnisse .video{aspect-ratio:4/5}
+html[data-ende=a] #branche .marks.mlogos{display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr));gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+html[data-ende=a] #branche .mlogos .ml{background:transparent!important;border-radius:0!important;border-right:1px solid var(--line);border-bottom:1px solid var(--line);height:120px}
+html[data-ende=a] #cas .agrid{grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:clamp(24px,3vw,48px)}
+html[data-ende=a] #cas .news{background:transparent!important;border-radius:0!important;padding:22px 0!important;border-top:1px solid var(--line)}
+html[data-ende=a] #cas .side .news:last-child{border-bottom:1px solid var(--line)}
+html[data-ende=a] #wissen .kgrid{gap:clamp(24px,3vw,44px)}
+html[data-ende=a] #wissen .kc{background:transparent!important;border-radius:0!important;overflow:visible}
+html[data-ende=a] #wissen .kc .im{border-radius:8px}
+html[data-ende=a] #wissen .kc .bd{padding:20px 0 0!important}
+html[data-ende=a] #faq .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);column-gap:clamp(40px,6vw,96px);align-items:start}
+html[data-ende=a] #faq .head{position:sticky;top:110px;display:block}
+html[data-ende=a] #faq .fqs{grid-column:2;border-top:1px solid var(--line)}
+html[data-ende=a] #faq .head{grid-column:1;grid-row:1/3}
+}
+
+/* ---------- B · Klare Flächen: deutlich getrennte Bänder, das Bild führt ---------- */
+@media (min-width:992px){
+html[data-ende=b] #ergebnisse .rgrid{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+html[data-ende=b] #ergebnisse .video{aspect-ratio:16/11}
+html[data-ende=b] .q .qk{font-size:clamp(2.2rem,3.4vw,3.4rem)!important}
+html[data-ende=b] #wissen .kc{position:relative;min-height:440px;color:#fff;justify-content:flex-end;background:var(--c-manganese)!important}
+html[data-ende=b] #wissen .kc .im{position:absolute!important;inset:0;aspect-ratio:auto!important;border-radius:0}
+html[data-ende=b] #wissen .kc .im img{height:100%!important}
+html[data-ende=b] #wissen .kc .im::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 25%,color-mix(in srgb,var(--c-manganese) 92%,transparent) 78%);display:block!important}
+html[data-ende=b] #wissen .kc .bd{position:relative;z-index:2;flex:none!important;color:#fff}
+html[data-ende=b] #wissen .kc .bd *{color:#fff!important}
+html[data-ende=b] #wissen .kc .bd .lnk .b{background:#fff;color:var(--c-manganese)!important}
+html[data-ende=b] #wissen .kc .bd .lnk .b *{color:var(--c-manganese)!important}
+html[data-ende=b] #wissen .kc,html[data-ende=b] #cas .news{border-radius:8px!important}
+html[data-ende=b] #faq .fqs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(30px,4vw,64px);border-top:0}
+html[data-ende=b] #faq .fq{border-top:1px solid var(--line)}
+html[data-ende=b] #branche .marks.mlogos{display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr));gap:14px}
+html[data-ende=b] #branche .mlogos .ml{background:var(--c-snow)!important;border-radius:8px;flex:none!important;width:auto!important}
+}
+
+/* ---------- C · Roter Faden: eine Plum-Linie verbindet die Abschnitte, Bento-Raster, dezentes Punktraster ---------- */
+@media (min-width:992px){
+html[data-ende=c] .rf{position:relative}
+html[data-ende=c] .rf::before{content:"";position:absolute;z-index:3;top:0;bottom:0;left:max(8px,calc((100vw - var(--maxw,1360px))/2 - 4px));width:2px;background:var(--c-plum);transform-origin:top;transform:scaleY(var(--fd,0));opacity:.9;pointer-events:none}
+html[data-ende=c] .rf::after{content:"";position:absolute;z-index:3;top:var(--ky,120px);left:calc(max(8px,calc((100vw - var(--maxw,1360px))/2 - 4px)) - 5px);width:12px;height:12px;background:var(--c-plum);opacity:var(--kn,0);transition:opacity .4s;pointer-events:none}
+html[data-ende=c] #ergebnisse,html[data-ende=c] #faq{background-image:radial-gradient(color-mix(in srgb,var(--c-serpent) 22%,transparent) 1px,transparent 1.2px);background-size:22px 22px}
+html[data-ende=c] .q .qk{font-size:clamp(2.2rem,3.6vw,3.6rem)!important;color:var(--c-manganese)!important}
+html[data-ende=c] .q .qk::first-line{color:var(--c-plum)}
+html[data-ende=c] #cas .agrid{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
+html[data-ende=c] #wissen .kgrid{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);grid-template-rows:auto auto}
+html[data-ende=c] #wissen .kgrid>.kc:first-child{grid-row:1/3}
+html[data-ende=c] #wissen .kgrid>.kc:first-child .im{aspect-ratio:4/3.3}
+html[data-ende=c] #wissen .kgrid>.kc:not(:first-child){flex-direction:row}
+html[data-ende=c] #wissen .kgrid>.kc:not(:first-child) .im{flex:0 0 42%;aspect-ratio:auto}
+html[data-ende=c] #wissen .kgrid>.kc:not(:first-child) .im img{height:100%}
+html[data-ende=c] .kc,html[data-ende=c] .news,html[data-ende=c] .cas{border-radius:8px!important}
+html[data-ende=c] #faq .fq .n{color:var(--c-plum)!important;font-family:var(--fx);font-weight:800}
+}

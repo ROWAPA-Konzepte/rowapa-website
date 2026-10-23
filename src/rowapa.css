@@ -1163,3 +1163,35 @@ footer .fadr a{display:inline!important;padding:0!important;margin:0!important;b
 .fnl-form .btn{flex:none}
 .fnl-msg{margin:10px 0 0;color:var(--c-sea);font-size:.92rem}
 @media (max-width:767px){.fnl{grid-template-columns:1fr}}
+
+/* ===== Schriftskala (Entscheid 23.10.2026): Beschreibungen mind. 17 px, Labels 13 px, Buttons 15 px. Aktiv mit <html class="ts">. ===== */
+:root:root:root:root.ts .head .lead,:root:root:root:root.ts .lead{font-size:clamp(1.1rem,1.32vw,1.3rem)!important;line-height:1.55!important}
+:root:root:root:root.ts .vg-ds .d,:root:root:root:root.ts .vg-ds .d strong{font-size:clamp(1.02rem,1.2vw,1.12rem)!important;line-height:1.55!important}
+:root:root:root:root.ts .vg-ds b{font-size:clamp(1.15rem,1.4vw,1.3rem)!important}
+:root:root:root:root.ts .digi .dg-card p{font-size:clamp(.98rem,1.12vw,1.06rem)!important;line-height:1.5!important}
+:root:root:root:root.ts .dg-base .dg-bt span{font-size:clamp(1rem,1.15vw,1.08rem)!important}
+:root:root:root:root.ts .dg-base .dg-bt b{font-size:clamp(1.15rem,1.4vw,1.32rem)!important}
+:root:root:root:root.ts .ab-ci span:not(.suf){font-size:clamp(1.05rem,1.25vw,1.15rem)!important;max-width:28ch!important}
+:root:root:root:root.ts .tsl-card p{font-size:clamp(.98rem,1.1vw,1.04rem)!important}
+:root:root:root:root.ts .pcard p,:root:root:root:root.ts .cas p,:root:root:root:root.ts .news p,:root:root:root:root.ts .kc p,:root:root:root:root.ts .kc .bd p{font-size:clamp(1.04rem,1.2vw,1.12rem)!important;line-height:1.55!important}
+:root:root:root:root.ts .q blockquote{font-size:clamp(1.08rem,1.3vw,1.22rem)!important}
+:root:root:root:root.ts .fq .a p{font-size:clamp(1.04rem,1.2vw,1.12rem)!important}
+:root:root:root:root.ts .nl p,:root:root:root:root.ts .fnl-t span{font-size:1.02rem!important}
+:root:root:root:root.ts .kp-l,:root:root:root:root.ts .kp-l a,:root:root:root:root.ts .kp-i{font-size:1.06rem!important}
+:root:root:root:root.ts .team-g>figure span,:root:root:root:root.ts .q cite .fn,:root:root:root:root.ts .q cite{font-size:1rem!important}
+:root:root:root:root.ts .team-g>figure b{font-size:1.12rem!important}
+:root:root:root:root.ts footer a,:root:root:root:root.ts .fadr{font-size:1rem!important}
+:root:root:root:root.ts .facts span{font-size:.98rem!important}
+:root:root:root:root.ts .digi[data-dg] .dg-card h3{font-size:.8rem!important;letter-spacing:.14em!important}
+:root:root:root:root.ts .vg-stair .tag{font-size:.88rem!important}
+:root:root:root:root.ts .kc small,:root:root:root:root.ts .news .nk,:root:root:root:root.ts .badge,:root:root:root:root.ts .pcard .tag,:root:root:root:root.ts .kp-k,:root:root:root:root.ts .kp-cap span{font-size:.8rem!important}
+:root:root:root:root.ts footer h4{font-size:.8rem!important}
+:root:root:root:root.ts .btn,:root:root:root:root.ts .nav .cta{font-size:.94rem!important}
+:root:root:root:root.ts .lnk{font-size:.9rem!important}
+/* Kontrast: Beschreibungstexte kräftiger */
+:root:root:root:root.ts .sec,:root:root:root:root.ts .logos,:root:root:root:root.ts #antrieb,:root:root:root:root.ts #vorgehen,:root:root:root:root.ts #themen{--mute:color-mix(in srgb,var(--c-manganese) 82%,transparent)}
+:root:root:root:root.ts .digi .dg-card p,:root:root:root:root.ts .dg-base .dg-bt span{color:rgba(255,255,255,.84)!important}
+:root:root:root:root.ts #kontakt .kp-l,:root:root:root:root.ts #kontakt .kp-t{color:rgba(255,255,255,.86)}
+:root:root:root:root.ts footer a{color:rgba(255,255,255,.86)}
+:root:root:root:root.ts .vg-ds .d{color:color-mix(in srgb,var(--c-manganese) 82%,transparent)!important}
+:root:root:root:root.ts .digi[data-dg] .dg-card .sub{font-size:clamp(1.12rem,1.4vw,1.38rem)!important}
