@@ -1027,3 +1027,67 @@ footer{position:relative;overflow:hidden}
 /* Abschnittstitel in Plum (Kicker) grösser, 23.10.2026 */
 .kick{font-size:clamp(1.12rem,1.4vw,1.5rem)!important;letter-spacing:.13em!important;gap:14px!important}
 .kick::before{width:26px!important;height:20px!important}
+
+/* ===== CI-treue Fassung (abgenommen 23.10.2026, ohne diagonale Linien). Aktiv mit <html class="ci">. ===== */
+@font-face{font-family:"TASA Orbiter Display";src:url(../assets/fonts/tasa-orbiter-display/TASAOrbiterDisplay-Regular.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"TASA Orbiter Display";src:url(../assets/fonts/tasa-orbiter-display/TASAOrbiterDisplay-Medium.woff2) format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"TASA Orbiter Display";src:url(../assets/fonts/tasa-orbiter-display/TASAOrbiterDisplay-SemiBold.woff2) format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"TASA Orbiter Display";src:url(../assets/fonts/tasa-orbiter-display/TASAOrbiterDisplay-Bold.woff2) format("woff2");font-weight:700;font-style:normal;font-display:swap}
+
+
+html.ci{--f:"TASA Orbiter Display","TASA Orbiter","Segoe UI","Helvetica Neue",Arial,sans-serif}
+html.ci body{font-family:var(--f)}
+
+/* Flächen: 8 px statt 18 bis 28 px */
+html.ci .cas,html.ci .news,html.ci .kc,html.ci .nl,html.ci .video,html.ci .pcard,html.ci .prev,html.ci .mlogos .ml,
+html.ci .dg-card,html.ci .dg-base,html.ci .dg-tile .sq,html.ci .vlb iframe,html.ci .nl .w-form-done,html.ci .nl .w-form-fail,
+html.ci .mm .panel{border-radius:8px!important}
+html.ci .dg-card .ic0,html.ci .dg-base .dg-bi{border-radius:6px!important}
+
+/* Bedienelemente: 4 px statt Pillenform und Kreis */
+html.ci .btn,html.ci .nav .cta,html.ci .lang,html.ci .lang a,html.ci .mnav .row a,html.ci .badge,html.ci .nl input,
+html.ci .pcard .tag,html.ci .pcard li,html.ci .tsl-t .cta,html.ci .burger,html.ci .lnk .b,html.ci .ac,html.ci .fq .pl,
+html.ci .dg-base .dg-go i,html.ci .vlb-x,html.ci .vg-ds .n{border-radius:4px!important}
+html.ci .pcard .tag{border-radius:3px!important;text-transform:uppercase;letter-spacing:.1em;font-size:.68rem}
+
+/* Hauptbuttons: Versalien mit leicht erweiterter Laufweite */
+html.ci .btn,html.ci .nav .cta{text-transform:uppercase;letter-spacing:.09em!important;font-weight:600!important;font-size:.82rem!important}
+/* Zweit-Aktion: Textlink in Versalien mit Pfeil */
+html.ci .lnk{text-transform:uppercase;letter-spacing:.1em;font-size:.8rem;font-weight:600}
+
+/* Abspielknopf: Quadrat mit kleiner Rundung, ohne Leuchtschatten */
+html.ci .video .pbtn{border-radius:8px!important;width:84px!important;height:84px!important}
+html.ci .video .pbtn::before{border-radius:12px!important}
+
+/* Flach: keine weichen Schatten */
+html.ci .mm .panel,html.ci .pcard,html.ci .tsl-t:hover,html.ci .dg-tile .sq,html.ci .video .pbtn{box-shadow:none!important}
+html.ci .dg-tile.on .sq{box-shadow:0 0 0 3px color-mix(in srgb,var(--c-plum) 55%,transparent)!important}
+html.ci .pcard{outline:1px solid color-mix(in srgb,var(--c-manganese) 10%,transparent);outline-offset:-1px}
+
+/* Abschnittstitel: kurzer Plum-Strich über dem Titel statt Parallelogramm */
+html.ci .kick{display:flex!important;flex-direction:column;align-items:flex-start;gap:14px!important}
+html.ci .kick::before{width:36px!important;height:3px!important;clip-path:none!important}
+
+/* erzeugt: normale Laufweite statt enger Titel */
+html.ci h1,html.ci h2,html.ci h3,
+html.ci .h2,
+html.ci .q blockquote,
+html.ci .ctx h2,
+html.ci .hero h1,
+html.ci .pfb-nav li b,
+html.ci .fq .q2,
+html.ci .tsl-l h2,
+html.ci .tsl-ct h3,
+html.ci .tsl-t h3,
+html.ci .ab-rv,
+html.ci .ab-ci b,
+html.ci .vg-m h3,
+html.ci .dg-card h3,
+html.ci.fluid main .h2,
+html.ci.fluid .pcard h3,html.ci.fluid .cas h3,html.ci.fluid .tsl-ct h3,
+html.ci.fluid .news h3,html.ci.fluid .kc h3,html.ci.fluid .dg-card h3,html.ci.fluid .fq .q2,
+html.ci.fluid.dk main .h2,
+html.ci .q blockquote,
+html.ci .q .qk{letter-spacing:0!important}
+/* erzeugt: keine weichen Schatten (flach, CI) */
+{box-shadow:none!important}
