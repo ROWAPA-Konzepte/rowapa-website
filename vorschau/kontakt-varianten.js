@@ -10,3 +10,13 @@
  form.addEventListener("submit",e=>{e.preventDefault();send(inp.value)});
  log.querySelectorAll(".kv-quick button").forEach(b=>b.addEventListener("click",()=>send(b.textContent)));
 })();
+/* D · Buchungsfenster: in Webflow öffnet der Knopf das Buchungstool (Calendly oder Microsoft Bookings); hier ein Platzhalter */
+(function(){const bs=document.querySelectorAll("[data-book]");if(!bs.length)return;
+ const days=["Mo","Di","Mi","Do","Fr"],slots=["09:00","10:30","14:00","16:00"];
+ const m=document.createElement("div");m.className="kv-modal";m.hidden=true;m.setAttribute("role","dialog");m.setAttribute("aria-modal","true");m.setAttribute("aria-label","Erstgespräch buchen");
+ m.innerHTML='<div class="kv-modal-in"><button class="kv-x" type="button" aria-label="Schliessen">×</button><h3>Erstgespräch buchen</h3><p>30 Minuten mit Jennifer Boek. Wählen Sie einen freien Termin.</p><div class="kv-cal">'+days.map(d=>'<div><b>'+d+'</b>'+slots.map(s=>'<button type="button">'+s+'</button>').join("")+'</div>').join("")+'</div><p class="kv-note">Vorschau: Hier erscheint später der Kalender aus Calendly oder Microsoft Bookings.</p></div>';
+ document.body.appendChild(m);const close=()=>{m.hidden=true;if(window.R&&R.lenis)R.lenis.start()};
+ m.addEventListener("click",e=>{if(e.target===m||e.target.classList.contains("kv-x"))close()});addEventListener("keydown",e=>{if(e.key==="Escape")close()});
+ m.querySelectorAll(".kv-cal button").forEach(b=>b.addEventListener("click",()=>{m.querySelector(".kv-modal-in").innerHTML='<button class="kv-x" type="button" aria-label="Schliessen">×</button><h3>Danke, Ihr Termin ist reserviert.</h3><p>Sie erhalten gleich eine Bestätigung per E-Mail. (Vorschau)</p>'}));
+ bs.forEach(b=>b.addEventListener("click",e=>{e.preventDefault();m.hidden=false;if(window.R&&R.lenis)R.lenis.stop();const x=m.querySelector(".kv-x");if(x)x.focus()}));
+})();

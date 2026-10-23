@@ -71,3 +71,31 @@
 #kontakt .kv-mini{gap:12px}
 #kontakt .kv-person-row{margin-top:clamp(20px,3svh,34px)}
 @media (max-width:991px){#kontakt .kv-a,#kontakt .kv-b{grid-template-columns:1fr}#kontakt .kv-ways{grid-template-columns:1fr}#kontakt .kv-grid{grid-template-columns:1fr}}
+/* D · Nur Termin buchen */
+#kontakt[data-kv=d] .kv-d{display:grid}
+#kontakt .kv-d{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);align-items:center;min-height:min(70svh,640px)}
+#kontakt .kv-d .h2{font-size:clamp(2.6rem,5vw,4.6rem);line-height:1.02;margin:.3em 0 .25em}
+#kontakt .kv-d .kv-lead{font-size:clamp(1.1rem,1.4vw,1.35rem);margin-bottom:34px}
+#kontakt .kv-d .kv-book{font-size:.95rem!important;padding:18px 26px}
+#kontakt .kv-alt{margin:22px 0 0;color:rgba(255,255,255,.66);font-size:.95rem}
+#kontakt .kv-alt a{color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3)}
+#kontakt .kv-por{margin:0;justify-self:center;text-align:left;width:min(100%,340px)}
+#kontakt .kv-por img{width:100%;aspect-ratio:4/4.6;object-fit:cover;border-radius:8px;filter:url(#rw-duo) contrast(1.04);display:block}
+#kontakt .kv-por figcaption{text-align:left;margin-top:14px;border-left:3px solid var(--c-plum);padding-left:12px}
+#kontakt .kv-por b{display:block;font-size:1.1rem}
+#kontakt .kv-por span{color:rgba(255,255,255,.7);font-size:.92rem}
+@media (max-width:991px){#kontakt .kv-d{grid-template-columns:1fr;min-height:0}#kontakt .kv-por{justify-self:start;width:min(100%,260px)}}
+/* Buchungsfenster (Vorschau: Platzhalter für Calendly oder Microsoft Bookings) */
+.kv-modal{position:fixed;inset:0;z-index:1000;background:color-mix(in srgb,var(--c-manganese) 82%,transparent);display:grid;place-items:center;padding:20px}
+.kv-modal[hidden]{display:none}
+.kv-modal-in{background:#fff;color:var(--c-manganese);border-radius:8px;width:min(760px,100%);max-height:90svh;overflow:auto;padding:28px;position:relative}
+.kv-modal-in h3{margin:0 0 6px;font-size:1.4rem}
+.kv-modal-in p{margin:0 0 18px;color:color-mix(in srgb,var(--c-manganese) 70%,transparent)}
+.kv-cal{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.kv-cal div{border:1px solid color-mix(in srgb,var(--c-manganese) 14%,transparent);border-radius:4px;padding:10px;font-size:.85rem;display:grid;gap:6px}
+.kv-cal b{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em}
+.kv-cal button{font:inherit;font-size:.85rem;border:1px solid var(--c-serpent);color:var(--c-serpent);background:#fff;border-radius:4px;padding:6px;cursor:pointer}
+.kv-cal button:hover{background:var(--c-serpent);color:#fff}
+.kv-x{position:absolute;top:12px;right:12px;width:36px;height:36px;border:0;border-radius:4px;background:var(--c-snow);font-size:20px;cursor:pointer}
+.kv-note{margin-top:16px!important;font-size:.82rem}
+@media (max-width:600px){.kv-cal{grid-template-columns:repeat(2,1fr)}}
