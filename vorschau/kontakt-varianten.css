@@ -1,0 +1,73 @@
+/* Kontakt: drei Vorschläge. Aktiv über #kontakt[data-kv=a|b|c]; ohne Attribut bleibt der heutige Kontakt. */
+#kontakt .kv{display:none}
+#kontakt[data-kv=a] .kv-a,#kontakt[data-kv=b] .kv-b,#kontakt[data-kv=c] .kv-c{display:grid}
+#kontakt[data-kv] .wrap{display:block!important}
+#kontakt[data-kv] .wrap>:not(.kv){display:none!important}
+#kontakt .kv{width:100%}
+#kontakt[data-kv] .ksea{opacity:.55}
+#kontakt .kv{position:relative;z-index:2;gap:clamp(32px,5vw,80px);align-items:start;color:#fff;padding-block:clamp(10px,2svh,30px)}
+#kontakt .kv-a,#kontakt .kv-b{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+#kontakt .kv .h2{margin:.35em 0 .3em}
+#kontakt .kv-lead{color:rgba(255,255,255,.82);font-size:clamp(1.02rem,1.2vw,1.18rem);line-height:1.55;max-width:34ch;margin:0 0 28px}
+#kontakt .kv-person{display:flex;gap:16px;align-items:center;margin:0 0 22px}
+#kontakt .kv-person img{width:72px;height:72px;object-fit:cover;border-radius:8px;filter:url(#rw-duo) contrast(1.04);flex:none}
+#kontakt .kv-person b{display:block;font-size:1.1rem}
+#kontakt .kv-person span{display:block;color:rgba(255,255,255,.72);font-size:.92rem;line-height:1.45}
+#kontakt .kv-person a{color:#fff}
+#kontakt .kv-direct{list-style:none;margin:0 0 26px;padding:0;display:grid;gap:10px}
+#kontakt .kv-direct li{display:flex;align-items:center;gap:12px;font-size:1.05rem}
+#kontakt .kv-direct a{color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3)}
+#kontakt .kv-direct a:hover{border-color:var(--c-sea)}
+#kontakt .kv-direct em{font-style:normal;color:rgba(255,255,255,.6);font-size:.85rem}
+#kontakt .kv-ic,#kontakt .kv-wic{width:34px;height:34px;border-radius:4px;display:grid;place-items:center;background:rgba(255,255,255,.08);color:var(--c-sea);flex:none}
+#kontakt .kv-ic svg,#kontakt .kv-wic svg{width:17px;height:17px}
+#kontakt .kv-cal{color:#fff}
+/* Karte (hell auf dunklem Grund) */
+#kontakt .kv-card{background:#fff;color:var(--c-manganese);border-radius:8px;padding:clamp(22px,2.6vw,34px)}
+#kontakt .kv-form{display:grid;gap:16px}
+#kontakt .kv-topics{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+#kontakt .kv-topics legend{font-weight:600;margin-bottom:10px;font-size:.95rem}
+#kontakt .kv-topics label{cursor:pointer}
+#kontakt .kv-topics input{position:absolute;opacity:0;pointer-events:none}
+#kontakt .kv-topics span{display:inline-block;padding:8px 12px;border-radius:4px;border:1px solid color-mix(in srgb,var(--c-manganese) 22%,transparent);font-size:.88rem;transition:background .2s,color .2s,border-color .2s}
+#kontakt .kv-topics input:checked+span{background:var(--c-manganese);color:#fff;border-color:var(--c-manganese)}
+#kontakt .kv-topics input:focus-visible+span{outline:2px solid var(--c-plum);outline-offset:2px}
+#kontakt .kv-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+#kontakt .kv-f{display:grid;gap:6px;font-size:.88rem;font-weight:600}
+#kontakt .kv-f i{font-style:normal;font-weight:400;color:color-mix(in srgb,var(--c-manganese) 60%,transparent)}
+#kontakt .kv-f input,#kontakt .kv-f textarea,#kontakt .kv-input input{font:inherit;font-weight:400;font-size:1rem;color:var(--c-manganese);background:var(--c-snow);border:1px solid transparent;border-radius:4px;padding:12px 14px;width:100%;box-sizing:border-box;resize:vertical}
+#kontakt .kv-f input:focus,#kontakt .kv-f textarea:focus,#kontakt .kv-input input:focus{outline:none;border-color:var(--c-serpent);background:#fff}
+#kontakt .kv-ok{display:flex;gap:10px;align-items:flex-start;font-size:.82rem;line-height:1.45;color:color-mix(in srgb,var(--c-manganese) 75%,transparent)}
+#kontakt .kv-ok input{accent-color:var(--c-plum);margin-top:3px}
+#kontakt .kv-form .btn{justify-self:start}
+#kontakt .kv-done{margin:0;padding:12px 14px;border-radius:4px;background:color-mix(in srgb,var(--c-sea) 30%,#fff);font-weight:600}
+/* B · Chat */
+#kontakt .kv-chat{padding:0;overflow:hidden;display:flex;flex-direction:column;min-height:440px}
+#kontakt .kv-chat-h{display:flex;gap:12px;align-items:center;padding:16px 20px;background:var(--c-manganese);color:#fff;border-bottom:3px solid var(--c-plum)}
+#kontakt .kv-chat-h img{width:44px;height:44px;border-radius:6px;object-fit:cover;filter:url(#rw-duo) contrast(1.04)}
+#kontakt .kv-chat-h b{display:block}
+#kontakt .kv-chat-h span{font-size:.82rem;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:6px}
+#kontakt .kv-dot{width:8px;height:8px;border-radius:50%;background:#6fcf97;display:inline-block}
+#kontakt .kv-log{flex:1;padding:20px;display:flex;flex-direction:column;gap:12px;background:var(--c-snow);overflow:auto;max-height:420px}
+#kontakt .kv-msg{max-width:82%;padding:12px 14px;border-radius:8px;line-height:1.45;font-size:.98rem}
+#kontakt .kv-msg.them{background:#fff;border-top-left-radius:2px;align-self:flex-start}
+#kontakt .kv-msg.me{background:var(--c-manganese);color:#fff;border-top-right-radius:2px;align-self:flex-end}
+#kontakt .kv-quick{display:flex;flex-wrap:wrap;gap:8px}
+#kontakt .kv-quick button{font:inherit;font-size:.86rem;padding:8px 12px;border-radius:4px;border:1px solid var(--c-serpent);background:#fff;color:var(--c-serpent);cursor:pointer}
+#kontakt .kv-quick button:hover{background:var(--c-serpent);color:#fff}
+#kontakt .kv-input{display:flex;gap:8px;padding:14px;background:#fff;border-top:1px solid color-mix(in srgb,var(--c-manganese) 10%,transparent)}
+#kontakt .kv-input button{flex:none;width:46px;border:0;border-radius:4px;background:var(--c-plum);color:#fff;display:grid;place-items:center;cursor:pointer}
+#kontakt .kv-input button svg{width:18px;height:18px}
+#kontakt .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+/* C · Drei Wege */
+#kontakt .kv-c{grid-template-columns:1fr}
+#kontakt .kv-ways{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.6vw,24px);align-items:stretch}
+#kontakt .kv-way{display:flex;flex-direction:column;gap:12px}
+#kontakt .kv-way h3{margin:6px 0 0;font-size:1.35rem}
+#kontakt .kv-way p{margin:0;color:color-mix(in srgb,var(--c-manganese) 75%,transparent);line-height:1.5}
+#kontakt .kv-way .btn{margin-top:auto;align-self:flex-start}
+#kontakt .kv-way .kv-wic{background:color-mix(in srgb,var(--c-sea) 30%,#fff);color:var(--c-manganese)}
+#kontakt .kv-big{margin-top:auto;font-size:clamp(1.3rem,1.8vw,1.7rem);font-weight:700;color:var(--c-manganese);text-decoration:none}
+#kontakt .kv-mini{gap:12px}
+#kontakt .kv-person-row{margin-top:clamp(20px,3svh,34px)}
+@media (max-width:991px){#kontakt .kv-a,#kontakt .kv-b{grid-template-columns:1fr}#kontakt .kv-ways{grid-template-columns:1fr}#kontakt .kv-grid{grid-template-columns:1fr}}
