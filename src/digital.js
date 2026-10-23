@@ -84,8 +84,10 @@
   /* Aufbau beim Hereinscrollen (1:1 mit dem Scroll) */
   const sr=stage.getBoundingClientRect();let pb=mot?clamp((ih*.98-sr.top)/(ih*.62),0,1):1;
   let e=1,m=0;
+  /* zeitgesteuert (Entscheid 23.10.2026): Kugel und fünf Werkzeuge bauen sich von selbst auf, sobald sichtbar; nur das Verteilen in die Karten folgt dem Scroll */
+  if(R.timed&&mot){if(sec._t0==null&&sr.top<ih*.75)sec._t0=now;}const tE=(R.timed&&mot)?(sec._t0==null?0:(now-sec._t0)/1000):-1;
   if(mode==="b"){const hd=sec.querySelector(".dg-head");stage.style.setProperty("--st",(hd.offsetTop+hd.offsetHeight+6)+"px");const padT=parseFloat(getComputedStyle(sec).paddingTop)||0,rng=sp.offsetHeight||ih;const stT=parseFloat(getComputedStyle(lay).top)||72;const p=clamp((stT-(rr.top+padT))/rng,0,1);
-   /* durchgehend: erst bauen sich die Werkzeuge auf, ohne Pause fliegen sie danach in die Karten; kein toter Scrollweg */e=clamp(p/.46,0,1);m=sm(clamp((p-.46)/.54,0,1));pb=Math.max(pb,clamp((ih-rr.top-padT)/(ih*.7),0,1))}
+   /* durchgehend: erst bauen sich die Werkzeuge auf, ohne Pause fliegen sie danach in die Karten; kein toter Scrollweg */if(tE>=0){m=sm(clamp((p-.1)/.9,0,1));e=m>0?1:clamp(tE/2.8,0,1);pb=m>0?1:clamp(tE/1.3,0,1)}else{e=clamp(p/.46,0,1);m=sm(clamp((p-.46)/.54,0,1));pb=Math.max(pb,clamp((ih-rr.top-padT)/(ih*.7),0,1))}}
   for(let k=0;k<K;k++){const ee=mode==="b"?sm(clamp((e-k*.17)/.32,0,1)):1;ek[k]=ee;tk[k]=mode==="b"?Math.min(ee*1.6,1)*clamp((pb-.5)/.2,0,1):clamp((pb-.52-k*.06)/.16,0,1)}
   /* Drehung: A und B langsam umlaufend, C dreht das gewählte Werkzeug nach vorn */
   if(mode==="c"){const tg=Math.PI/2-.7-act*TAU/K;let d=((tg-th)%TAU+TAU*1.5)%TAU-TAU/2;th+=mot?d*Math.min(1,dt*3.2):d}

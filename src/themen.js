@@ -99,7 +99,7 @@ addEventListener("resize",()=>requestAnimationFrame(fitT));setTimeout(fitT,50);i
  R.loops.push(now=>{if(innerWidth<=860)return;
   const b=tsl.getBoundingClientRect();if(b.bottom<0||b.top>innerHeight)return;{/* beim Verlassen löst sich der Hintergrund weich in den Farbfluss auf */const tb=tw.getBoundingClientRect().bottom;bgEl.style.opacity=root.classList.contains("fluid")?clamp((tb-innerHeight*.3)/(innerHeight*.7),0,1).toFixed(3):"1"}
   /* Start, sobald der Zoom fertig ist; zurück im Header wird für das nächste Mal zurückgesetzt */
-  let nzE=-1;if(R.timed){if(tsl._t0==null&&b.top<innerHeight*.72)tsl._t0=now;nzE=tsl._t0==null?-1:(now-tsl._t0)/1000}
+  let nzE=-1;if(R.timed){if(tsl._t0==null&&(R.zoomP??1)>=.97&&b.top<innerHeight*.9)tsl._t0=now;nzE=tsl._t0==null?-1:(now-tsl._t0)/1000}
   const zp=R.zoomP??1,zs=R.zoomS??zp;/* Aufbau hängt 1:1 am Scroll: beginnt kurz vor Ende des Zooms, vorwärts baut es auf, rückwärts wieder ab */const KD=root.classList.contains("dk")?.72:1;const ZL=R.zoomLen||innerHeight*.9,BL=innerHeight*1.2*KD;const ready=zp>=.99;
   T=R.motion?clamp((scrollY-ZL*.88)/BL,0,1)*TMAX:(ready?TMAX:0);const sp=R.timed?(nzE<0?0:.15+nzE*.6):scrollY/(innerHeight*KD);if(R.timed){T=nzE<0?0:Math.min(1,nzE/2.6)*TMAX}const tt=now/1000;
   for(const el of sts){const w=AW[el.dataset.st];const q=R.motion?clamp((sp-w[0])/w[1],0,1):((ready||R.timed)?1:0);const k=q*q*(3-2*q);el.style.setProperty("--o",k.toFixed(3))}

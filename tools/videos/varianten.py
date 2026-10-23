@@ -42,6 +42,7 @@ VARIANTEN = {
  'female-v1': dict(xf=.6, shots=[(WWS,29.95,32.8,170,''),(WWS,36.9,39.65,330,''),(FUE,12.0,14.9,470,'')], info='Teilnehmerin nachdenklich, Frau im Gespräch, Jennifer Boek'),
  'female-v2': dict(xf=.6, shots=[(FUE,14.6,17.3,470,''),(FUE,22.76,24.9,380,''),(WWS,36.9,39.65,330,GW)], info='Jennifer Boek, Frau im Gespräch'),
 }
+AKTIV_LOOK = 'natur'   # Bildlook auf der Seite (data-foto), Entscheid 23.10.2026
 AKTIV = {'privat': 'privat-v5', 'broker': 'broker-v8', 'female': 'female-v1'}
 
 LOOK = os.environ.get('RW_LOOK', 'duo')          # duo | weich | natur (wie die Foto-Filter im Code)
@@ -72,7 +73,7 @@ def rechne(key):
 def aktiv():
     for k, key in AKTIV.items():
         for ext in ('mp4', 'webm'):
-            shutil.copy(os.path.join(OUT, f'{key}.{ext}'), os.path.join(REPO, 'assets/video', f'rw-weg-{k}.{ext}'))
+            shutil.copy(os.path.join(OUT, f'{key}{"" if AKTIV_LOOK == "duo" else "-" + AKTIV_LOOK}.{ext}'), os.path.join(REPO, 'assets/video', f'rw-weg-{k}.{ext}'))
         print(k, '<-', key)
 
 if __name__ == '__main__':

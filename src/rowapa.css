@@ -1092,13 +1092,8 @@ html.ci .q .qk{letter-spacing:0!important}
 /* erzeugt: keine weichen Schatten (flach, CI) */
 {box-shadow:none!important}
 
-/* ===== Zeitgesteuerte Animationen ohne Scroll-Kopplung (Entscheid 23.10.2026, html.nz) ===== */
+/* ===== Zeitgesteuerte Animationen ohne Scroll-Kopplung (Entscheid 23.10.2026, html.nz). Der Header-Zoom bleibt. ===== */
 @media (min-width:861px){
- :root.nz #hzoom .hero{position:relative!important;clip-path:none!important}
- :root.nz #hzoom .hero .hcard{display:none!important}
- :root.nz #hzoom #themen{margin-top:0!important}
- :root.nz .tw{height:auto!important}
- :root.nz .tw-pin{position:relative!important;top:auto!important;height:auto!important;min-height:min(100svh,920px);padding-block:clamp(70px,10svh,120px)!important}
  :root.nz .antrieb .ab-pin{position:relative!important;top:auto!important}
  :root.nz .antrieb .ab-sp,:root.nz .vorgehen .vg-sp{display:none!important}
 }
