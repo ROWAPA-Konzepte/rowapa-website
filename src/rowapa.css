@@ -1104,7 +1104,7 @@ html.ci .q .qk{letter-spacing:0!important}
 
 /* ===== 23.10.2026 Abend ===== */
 /* Vorgehen: Markierung als flaches Symbol */
-.vg-pinic{position:absolute;z-index:3;width:26px;height:39px;pointer-events:none;opacity:0;transform:translate(-50%,-100%);transform-origin:50% 100%;will-change:left,top}
+.vg-pinic{position:absolute;z-index:3;width:36px;height:54px;pointer-events:none;opacity:0;transform:translate(-50%,-100%);transform-origin:50% 100%;will-change:left,top}
 .vg-pinic svg{display:block;width:100%;height:100%}
 /* Kontakt: Ring etwas grösser, Name darunter */
 #kontakt.has-cap .wrap{align-items:center}
@@ -1144,3 +1144,4 @@ footer .fadr a{display:inline!important;padding:0!important;margin:0!important;b
 
 .team-h .lnk{align-self:end}
 .ab-ci b .suf{font-size:.55em;margin-left:.06em;vertical-align:.35em}
+.ab-ci b .suf{display:inline!important;color:inherit!important;font-size:.5em!important;max-width:none!important;margin:0 0 0 .06em!important;line-height:1}
