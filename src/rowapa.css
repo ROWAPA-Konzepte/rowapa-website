@@ -1149,8 +1149,8 @@ footer .fadr a{display:inline!important;padding:0!important;margin:0!important;b
 /* ROWAPA Digital: Bereich gross, Werkzeugname klein darüber (Entscheid 23.10.2026) */
 .dg-card{display:flex;flex-direction:column}
 .dg-card .ic0{order:0}
-.digi .dg-card h3{order:1;margin-top:20px!important;font-family:var(--fx)!important;font-weight:800!important;font-size:.7rem!important;letter-spacing:.16em!important;text-transform:uppercase;color:var(--c-sea)!important;line-height:1.3!important}
-.digi .dg-card .sub{order:2;margin-top:6px!important;font-family:var(--f)!important;font-weight:700!important;font-size:clamp(1.02rem,1.22vw,1.28rem)!important;letter-spacing:-.01em!important;text-transform:none!important;color:#fff!important;line-height:1.15!important;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+:root:root:root:root .digi[data-dg] .dg-card h3,html:root .digi[data-dg] .dg-card h3,:root.fluid .digi .dg-card h3,:root .digi .dg-card h3{order:1;margin-top:20px!important;font-family:var(--fx)!important;font-weight:800!important;font-size:.7rem!important;letter-spacing:.16em!important;text-transform:uppercase;color:var(--c-sea)!important;line-height:1.3!important}
+:root:root:root:root .digi[data-dg] .dg-card .sub,html:root .digi[data-dg] .dg-card .sub,:root.fluid .digi .dg-card .sub,:root .digi .dg-card .sub{order:2;margin-top:6px!important;font-family:var(--f)!important;font-weight:700!important;font-size:clamp(1.02rem,1.22vw,1.28rem)!important;letter-spacing:-.01em!important;text-transform:none!important;color:#fff!important;line-height:1.15!important;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
 .dg-card p{order:3}
 @media (max-width:600px){.dg-card{display:grid}.dg-card .ic0{grid-row:1/4}}
 /* Footer: Impulse abonnieren */
