@@ -1023,3 +1023,7 @@ footer{position:relative;overflow:hidden}
 .video:hover .pbtn,.video:focus-visible .pbtn{background:color-mix(in srgb,var(--c-plum) 88%,#fff)}
 /* Wege: Parallaxe-Zoom etwas höher verankern, damit Köpfe oben nicht angeschnitten werden */
 .pcard .im img,.pcard .im video.hv{transform-origin:50% 35%}
+
+/* Abschnittstitel in Plum (Kicker) grösser, 23.10.2026 */
+.kick{font-size:clamp(1.12rem,1.4vw,1.5rem)!important;letter-spacing:.13em!important;gap:14px!important}
+.kick::before{width:26px!important;height:20px!important}

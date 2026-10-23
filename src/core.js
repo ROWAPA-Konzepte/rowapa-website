@@ -64,7 +64,11 @@ return R})();
 (function(){const R=window.R,root=document.documentElement;const {clamp}=R;
  const isTouch=matchMedia("(hover:none)").matches;
  const speed=Math.min(1,Math.max(.04,R.cfg(document.querySelector("[data-scroll-speed]"),"data-scroll-speed","scroll-weichheit",.16)));
- function startLenis(){if(R.lenis||!window.Lenis||isTouch||!R.motion)return;try{R.lenis=new Lenis({lerp:speed})}catch(e){R.lenis=null}}
+ /* Beim Öffnen und Neuladen immer oben beginnen (ausser ein Sprungziel #… ist in der Adresse) */
+ if("scrollRestoration" in history)history.scrollRestoration="manual";
+ const toTop=()=>{if(location.hash&&location.hash.length>1)return;scrollTo(0,0);if(R.lenis)R.lenis.scrollTo(0,{immediate:true,force:true})};
+ toTop();addEventListener("pageshow",e=>{if(e.persisted)toTop()});
+ function startLenis(){if(R.lenis||!window.Lenis||isTouch||!R.motion)return;try{R.lenis=new Lenis({lerp:speed});if(!location.hash||location.hash.length<2)R.lenis.scrollTo(0,{immediate:true,force:true})}catch(e){R.lenis=null}}
  startLenis();
  const nav=document.getElementById("nav"),mm=document.getElementById("mm");let openKey=null,tO=0,tC=0;R.nav=nav;
  if(nav&&mm){
