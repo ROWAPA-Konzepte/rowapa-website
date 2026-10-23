@@ -44,18 +44,25 @@ VARIANTEN = {
 }
 AKTIV = {'privat': 'privat-v5', 'broker': 'broker-v8', 'female': 'female-v1'}
 
+LOOK = os.environ.get('RW_LOOK', 'duo')          # duo | weich | natur (wie die Foto-Filter im Code)
+LOOKS = {'weich': (.6, .62, .38), 'natur': (.72, .22, .78)}   # Sättigung Original, Anteil Duoton, Anteil Original
 def rechne(key):
     v = VARIANTEN[key]; shots = v['shots']; XF = v.get('xf', .6); cb = v.get('crf', 0)
     ins, fg = [], []
     for i, (f, a, b, x, g) in enumerate(shots):
         ins += ['-ss', str(a), '-t', str(b - a), '-i', V + f]
-        fg.append(f"[{i}:v]fps=25,crop={CW}:1080:{x}:0,scale={W}:{H}:flags=lanczos,setsar=1{g},format=rgb24,{DUO},format=yuv420p,settb=1/25,setpts=PTS-STARTPTS[s{i}]")
+        base_ = f"[{i}:v]fps=25,crop={CW}:1080:{x}:0,scale={W}:{H}:flags=lanczos,setsar=1{g},format=rgb24"
+        if LOOK in LOOKS:
+            sat, kd, ko = LOOKS[LOOK]
+            fg.append(f"{base_},split[a{i}][b{i}];[a{i}]{DUO},format=gbrp[d{i}];[b{i}]hue=s={sat},format=gbrp[o{i}];[d{i}][o{i}]blend=all_expr='A*{kd}+B*{ko}',format=yuv420p,settb=1/25,setpts=PTS-STARTPTS[s{i}]")
+        else:
+            fg.append(f"{base_},{DUO},format=yuv420p,settb=1/25,setpts=PTS-STARTPTS[s{i}]")
     cur = 's0'; L = shots[0][2] - shots[0][1]
     for i in range(1, len(shots)):
         fg.append(f"[{cur}][s{i}]xfade=transition=fade:duration={XF}:offset={L-XF:.3f}[c{i}]"); cur = f'c{i}'; L += shots[i][2] - shots[i][1] - XF
     fg.append(f"[{cur}]split[m][n];[n]trim=0:{XF},setpts=PTS-STARTPTS[h];[m][h]xfade=transition=fade:duration={XF}:offset={L-XF:.3f},trim=start={XF},setpts=PTS-STARTPTS[o]")
     base = ['ffmpeg', '-v', 'error', '-y', *ins, '-filter_complex', ';'.join(fg), '-map', '[o]', '-an']
-    o = os.path.join(OUT, key)
+    o = os.path.join(OUT, key + ('' if LOOK == 'duo' else '-' + LOOK))
     subprocess.run(base + ['-c:v','libx264','-preset','slow','-crf',str(28+cb),'-profile:v','high','-pix_fmt','yuv420p','-movflags','+faststart', o+'.mp4'], check=True)
     for extra in (0, 4, 8):   # WebM soll kleiner sein als MP4, sonst stärker komprimieren
         subprocess.run(base + ['-c:v','libvpx-vp9','-b:v','0','-crf',str(40+cb+extra),'-row-mt','1','-deadline','good','-cpu-used','2', o+'.webm'], check=True)

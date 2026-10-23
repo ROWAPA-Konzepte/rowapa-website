@@ -1102,3 +1102,7 @@ html.ci .q .qk{letter-spacing:0!important}
  :root.nz .antrieb .ab-pin{position:relative!important;top:auto!important}
  :root.nz .antrieb .ab-sp,:root.nz .vorgehen .vg-sp{display:none!important}
 }
+
+/* ===== Bildlook der Fotos: <html data-foto="duo|weich|natur"> (Standard: duo) ===== */
+:root[data-foto=weich].duo .pcard .im img,:root[data-foto=weich].duo .cas img,:root[data-foto=weich].duo .video img,:root[data-foto=weich].duo .kc .im img,:root[data-foto=weich].duo .prev img,:root[data-foto=weich].duo #kontakt img{filter:url(#rw-duo-weich) contrast(1.03)!important}
+:root[data-foto=natur].duo .pcard .im img,:root[data-foto=natur].duo .cas img,:root[data-foto=natur].duo .video img,:root[data-foto=natur].duo .kc .im img,:root[data-foto=natur].duo .prev img,:root[data-foto=natur].duo #kontakt img{filter:url(#rw-duo-natur) contrast(1.02)!important}

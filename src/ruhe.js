@@ -11,7 +11,10 @@
  const lo=hx(R.c("var(--c-manganese)","#1D3149")),mid=hx(R.c(R.MX("var(--c-serpent)",62,"var(--c-snow)"),"#7E95B6")),hi=hx(R.c(R.MX("var(--c-sea)",22,"#fff"),"#E9F1F8"));
  const tv=k=>[lo[k],mid[k],hi[k]].map(v=>v.toFixed(3)).join(" ");
  const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");svg.setAttribute("aria-hidden","true");svg.setAttribute("width","0");svg.setAttribute("height","0");svg.style.cssText="position:absolute;width:0;height:0;overflow:hidden";
- svg.innerHTML=`<filter id="rw-duo" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values=".2126 .7152 .0722 0 0 .2126 .7152 .0722 0 0 .2126 .7152 .0722 0 0 0 0 0 1 0"/><feComponentTransfer><feFuncR type="table" tableValues="${tv(0)}"/><feFuncG type="table" tableValues="${tv(1)}"/><feFuncB type="table" tableValues="${tv(2)}"/></feComponentTransfer></filter>`;
+ const duo=(o="")=>`<feColorMatrix in="SourceGraphic" type="matrix" values=".2126 .7152 .0722 0 0 .2126 .7152 .0722 0 0 .2126 .7152 .0722 0 0 0 0 0 1 0"${o?"":""}/><feComponentTransfer result="d"><feFuncR type="table" tableValues="${tv(0)}"/><feFuncG type="table" tableValues="${tv(1)}"/><feFuncB type="table" tableValues="${tv(2)}"/></feComponentTransfer>`;
+ /* Bildlook: «duo» volles CI-Duoton, «weich» Duoton mit rund einem Drittel Originalfarbe (CI Option B), «natur» fast Originalfarben, leicht entsättigt und kühl getönt (CI Option A) */
+ const mix=(id,sat,kd,ko)=>`<filter id="${id}" color-interpolation-filters="sRGB">${duo()}<feColorMatrix in="SourceGraphic" type="saturate" values="${sat}" result="o"/><feComposite in="d" in2="o" operator="arithmetic" k1="0" k2="${kd}" k3="${ko}" k4="0"/></filter>`;
+ svg.innerHTML=`<filter id="rw-duo" color-interpolation-filters="sRGB">${duo()}</filter>`+mix("rw-duo-weich",.6,.62,.38)+mix("rw-duo-natur",.72,.22,.78);
  document.body.appendChild(svg);root.classList.add("duo")})();
 
 /* ---------- 2 · Wege: ruhige Varianten ---------- */
