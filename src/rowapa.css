@@ -1240,3 +1240,12 @@ html[data-ende=a] #wissen[data-nl] .nl{border-radius:8px!important}
 :root:root:root:root .nav .cta{font-size:.78rem!important;letter-spacing:.1em!important;padding:.52em 1.05em!important;line-height:1.2;background:var(--c-plum)!important;color:#fff!important;border-radius:4px!important}
 :root:root:root:root .nav .cta:hover,:root:root:root:root .nav .cta:focus-visible{background:#fff!important;color:var(--c-manganese)!important}
 :root:root:root:root .nav .cta:focus-visible{outline:2px solid var(--c-sea);outline-offset:2px}
+/* Kundenstimmen: Navigation mit Zähler und Pfeilen (html.qz, Vorschau 23.10.2026) */
+.qnav.qz-nav{display:grid;grid-template-columns:auto auto auto;justify-content:start;align-items:center;gap:6px 14px;margin-top:22px}
+.qz-nav .qz-b{width:40px;height:40px;display:grid;place-items:center;padding:0;border:1px solid color-mix(in srgb,var(--c-manganese) 22%,transparent);border-radius:4px;background:transparent;color:var(--c-plum);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.qz-nav .qz-b:hover{background:var(--c-plum);border-color:var(--c-plum);color:#fff}
+.qz-nav .qz-b:focus-visible{outline:2px solid var(--c-serpent);outline-offset:2px}
+.qz-nav .qz-c{font-variant-numeric:tabular-nums;font-size:1rem;color:var(--mute);min-width:3.6em;text-align:center}
+.qz-nav .qz-c b{color:var(--fg);font-weight:700}
+.qz-nav .qz-bar{grid-column:1/-1;height:2px;background:var(--line);position:relative;overflow:hidden}
+.qz-nav .qz-bar i{position:absolute;inset:0;background:var(--c-plum);transform-origin:left;transform:scaleX(0)}

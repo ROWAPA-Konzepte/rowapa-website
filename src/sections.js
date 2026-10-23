@@ -59,9 +59,14 @@ document.querySelectorAll(".fqs .fq").forEach((f,i)=>{const n=f.querySelector(".
 /* ---------- Kundenstimmen: wechseln von selbst, Punkte zum Springen ---------- */
 (function(){const box=document.getElementById("qs");if(!box)return;const qs=[...box.querySelectorAll(".q")];if(!qs.length)return;const qnav=document.getElementById("qnav");const IV=R.cfg(box,"data-interval","zitat-wechsel-sekunden",6.5);
  qs.forEach((q,i)=>q.classList.toggle("on",i===0));
- if(qnav)qnav.innerHTML=qs.map((_,i)=>`<button type="button" aria-label="Zitat ${i+1}" aria-pressed="${i===0}"><i></i></button>`).join("");
- const qb=qnav?[...qnav.children]:[];let qI=0,qT=0;
- function showQ(i){qI=i;qT=0;qs.forEach((q,j)=>q.classList.toggle("on",j===i));qb.forEach((b,j)=>b.setAttribute("aria-pressed",String(j===i)))}
+ /* Variante «Zähler» (html.qz): Pfeile und «3 / 8» statt Striche; nach eigenem Blättern kein automatischer Wechsel mehr */
+ const QZ=document.documentElement.classList.contains("qz");const CH=d=>`<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${d?"m9 18 6-6-6-6":"m15 18-6-6 6-6"}"/></svg>`;
+ if(qnav)qnav.innerHTML=QZ?`<button type="button" class="qz-b" data-d="-1" aria-label="Vorherige Kundenstimme">${CH(0)}</button><span class="qz-c" aria-live="polite"><b>1</b> / ${qs.length}</span><button type="button" class="qz-b" data-d="1" aria-label="Nächste Kundenstimme">${CH(1)}</button><span class="qz-bar" aria-hidden="true"><i></i></span>`:qs.map((_,i)=>`<button type="button" aria-label="Zitat ${i+1}" aria-pressed="${i===0}"><i></i></button>`).join("");
+ if(QZ&&qnav)qnav.classList.add("qz-nav");
+ const qb=qnav&&!QZ?[...qnav.children]:[];let qI=0,qT=0,qMan=false;const qc=QZ&&qnav?qnav.querySelector(".qz-c b"):null,qbar=QZ&&qnav?qnav.querySelector(".qz-bar i"):null;
+ function showQ(i){qI=(i+qs.length)%qs.length;qT=0;qs.forEach((q,j)=>q.classList.toggle("on",j===qI));qb.forEach((b,j)=>b.setAttribute("aria-pressed",String(j===qI)));if(qc)qc.textContent=qI+1}
  qb.forEach((b,i)=>b.addEventListener("click",()=>showQ(i)));
- R.loops.push(()=>{if(!qb.length)return;if(!R.motion){qb[qI].style.setProperty("--qp",1);return}qT+=R.dt||.016;qb[qI].style.setProperty("--qp",Math.min(1,qT/IV).toFixed(3));if(qT>IV)showQ((qI+1)%qs.length)})})();
+ if(QZ&&qnav)qnav.querySelectorAll(".qz-b").forEach(b=>b.addEventListener("click",()=>{qMan=true;showQ(qI+ +b.dataset.d);if(qbar)qbar.style.transform="scaleX(0)"}));
+ R.loops.push(()=>{if(QZ){if(qMan||!R.motion)return;qT+=R.dt||.016;if(qbar)qbar.style.transform=`scaleX(${Math.min(1,qT/IV).toFixed(3)})`;if(qT>IV)showQ(qI+1);return}
+  if(!qb.length)return;if(!R.motion){qb[qI].style.setProperty("--qp",1);return}qT+=R.dt||.016;qb[qI].style.setProperty("--qp",Math.min(1,qT/IV).toFixed(3));if(qT>IV)showQ((qI+1)%qs.length)})})();
 })();
