@@ -35,7 +35,7 @@
   const N=P.length,pos=new Float32Array(N*3),col=new Float32Array(N*3),rnd=new Float32Array(N),sz=new Float32Array(N),St=new Float32Array(N*3);
   P.forEach((q,i)=>{rnd[i]=q.s;const a=Rn()*TAU,u=Rn()*2-1,s2=Math.sqrt(1-u*u),rr=6+Rn()*6;St.set([rr*s2*Math.cos(a),rr*u*.6-2,rr*s2*Math.sin(a)],i*3)});
   const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.BufferAttribute(pos,3));g.setAttribute("color",new THREE.BufferAttribute(col,3));g.setAttribute("rnd",new THREE.BufferAttribute(rnd,1));g.setAttribute("sz",new THREE.BufferAttribute(sz,1));
-  const mat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,uniforms:{uS:{value:40*DPR},uT:{value:0}},
+  const mat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,uniforms:{uS:{value:40*DPR*Math.sqrt(R.dot)},uT:{value:0}},
    vertexShader:`attribute vec3 color;attribute float rnd;attribute float sz;uniform float uS,uT;varying vec3 vC;varying float vA;void main(){vec3 p=position+.012*vec3(sin(uT*1.1+rnd*40.),cos(uT*.9+rnd*30.),sin(uT*.7+rnd*20.));vec4 mv=modelViewMatrix*vec4(p,1.);gl_Position=projectionMatrix*mv;gl_PointSize=uS*(.55+rnd*.45)/-mv.z*max(sz,.0001);vC=color;vA=min(1.,sz*1.2);}`,
    fragmentShader:`varying vec3 vC;varying float vA;void main(){vec2 q=gl_PointCoord-.5;float d=length(q);if(d>.5)discard;gl_FragColor=vec4(vC*vA,vA*smoothstep(.5,.15,d));}`});
   grp.add(new THREE.Points(g,mat));

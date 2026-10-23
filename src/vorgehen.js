@@ -36,9 +36,9 @@ if(vgM&&!vgM.children.length)vgM.innerHTML=S.map((s,i)=>`<li data-i="${i}"><span
   const N=all.length,pos=new Float32Array(N*3),col=new Float32Array(N*3),rnd=new Float32Array(N),sz=new Float32Array(N),T=new Float32Array(N*3),St=new Float32Array(N*3);
   all.forEach((q,i)=>{T.set([q[0],q[1],q[2]],i*3);St.set([q[0]+(Rn()-.5)*3,q[1]-2.5-Rn()*3,q[2]+(Rn()-.5)*3],i*3);rnd[i]=Rn()});
   const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.BufferAttribute(pos,3));g.setAttribute("color",new THREE.BufferAttribute(col,3));g.setAttribute("rnd",new THREE.BufferAttribute(rnd,1));g.setAttribute("sz",new THREE.BufferAttribute(sz,1));
-  const mat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,uniforms:{uS:{value:30*DPR},uT:{value:0}},
+  const mat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,uniforms:{uS:{value:30*DPR*R.dot},uT:{value:0}},
    vertexShader:`attribute vec3 color;attribute float rnd;attribute float sz;uniform float uS,uT;varying vec3 vC;varying float vA;void main(){vec3 p=position+.015*vec3(sin(uT*1.1+rnd*40.),cos(uT*.9+rnd*30.),sin(uT*.7+rnd*20.));vec4 mv=modelViewMatrix*vec4(p,1.);gl_Position=projectionMatrix*mv;gl_PointSize=uS*(.55+rnd*.45)/-mv.z*sz;vC=color;vA=min(1.,sz*1.4);}`,
-   fragmentShader:`varying vec3 vC;varying float vA;void main(){vec2 q=gl_PointCoord-.5;float d=length(q);if(d>.5)discard;gl_FragColor=vec4(vC,vA*smoothstep(.5,.25,d));}`});
+   fragmentShader:`varying vec3 vC;varying float vA;void main(){vec2 q=gl_PointCoord-.5;float d=length(q);if(d>.5)discard;gl_FragColor=vec4(vC,min(1.,vA*1.15)*smoothstep(.5,.34,d));}`});
   grp.add(new THREE.Points(g,mat));
   const C=[R.c("var(--c-manganese)"),R.c("var(--c-serpent)"),R.c(R.MX("var(--c-serpent)",31,"var(--c-sea)")),R.c("var(--c-plum)")].map(h=>new THREE.Color(h)),Cdim=new THREE.Color(R.c(R.MX("var(--c-serpent)",38,"var(--c-snow)")));
   let mx=0,my=0,smx=0,smy=0;cv.addEventListener("pointermove",e=>{const b=cv.getBoundingClientRect();mx=(e.clientX-b.left)/b.width-.5;my=(e.clientY-b.top)/b.height-.5});cv.addEventListener("pointerleave",()=>{mx=my=0});
@@ -66,19 +66,25 @@ if(vgM&&!vgM.children.length)vgM.innerHTML=S.map((s,i)=>`<li data-i="${i}"><span
     grp.updateMatrixWorld();tags.forEach((tg,k)=>{pv.set(tops[k][0],B,W/2).applyMatrix4(grp.matrixWorld).project(cam);tg.style.left=((pv.x*.5+.5)*w).toFixed(1)+"px";tg.style.top=((-pv.y*.5+.5)*h+22).toFixed(1)+"px";tg.style.opacity=bk[k]>.85?(k===ai?1:.7):0;tg.classList.toggle("on",k===ai)})}};
  }catch(e){D3=null}}
  const tagsD=[...vgD.querySelectorAll(".tag")];const setL=i=>{dL=i;dss.forEach((e,k)=>{e.classList.toggle("on",k===i);e.classList.toggle("done",k<i)})};setL(0);
- dss.forEach((e,i)=>{e.addEventListener("mouseenter",()=>setL(i));e.addEventListener("focus",()=>setL(i));e.addEventListener("click",()=>setL(i))});
+ let vgT0=null,vgMan=false;const man=i=>{vgMan=true;setL(i)};
+ dss.forEach((e,i)=>{e.addEventListener("mouseenter",()=>man(i));e.addEventListener("focus",()=>man(i));e.addEventListener("click",()=>man(i))});
  const vpin=sec.querySelector(".vg-pin");let vsp=sec.querySelector(".vg-sp");if(vpin&&!vsp){vsp=document.createElement("div");vsp.className="vg-sp";vsp.setAttribute("aria-hidden","true");vpin.after(vsp)}
  const vgPinOK=()=>root.classList.toggle("vg-pin-on",false);vgPinOK();addEventListener("resize",vgPinOK);
  const mls=vgM?[...vgM.querySelectorAll("li[data-i]")]:[];
  R.loops.push(()=>{if(sec.offsetParent===null)return;const r=sec.getBoundingClientRect(),ih=innerHeight;if(r.bottom<-50||r.top>ih+50)return;
-  if(innerWidth<=860){mls.forEach(li=>{const q=li.getBoundingClientRect();li.classList.toggle("on",q.top<ih*.62)});return}
+  if(innerWidth<=860){if(R.timed){if(vgT0===null&&r.top<ih*.7)vgT0=performance.now();const e=vgT0===null?-1:(performance.now()-vgT0)/1000;mls.forEach((li,k)=>li.classList.toggle("on",!R.motion||e>=k*.45))}else mls.forEach(li=>{const q=li.getBoundingClientRect();li.classList.toggle("on",q.top<ih*.62)});return}
   const now=performance.now(),dt=Math.min(.05,(now-dT)/1000);dT=now;
   /* Halt: der Abschnitt bleibt stehen, während die vier Phasen nacheinander aktiv werden; danach läuft er weiter.
      Länge über die Webflow-Variable «Halt Vorgehen» (0 = kein Halt). */
   const pinned=root.classList.contains("vg-pin-on")&&vsp&&vsp.offsetHeight>20;
   if(pinned){const ph=vpin.offsetHeight,tp=ph<ih-72?72+(ih-72-ph)*.5:ih-ph;vpin.style.top=tp.toFixed(0)+"px";
    if(R.motion){const p=clamp((tp-r.top)/vsp.offsetHeight,0,1);const si=Math.min(3,Math.floor(p*4.0001));if(si!==dS){dS=si;setL(si)}}}
+  else if(R.timed){if(vpin)vpin.style.top="";}
   else if(R.motion){if(vpin)vpin.style.top="";let si=0;dss.forEach((d,k)=>{if(d.getBoundingClientRect().top<ih*.58)si=k});if(si!==dS){dS=si;setL(si)}}
-  const gb=vgD.getBoundingClientRect();const pb=R.motion?clamp((ih*.92-gb.top)/(ih*.55),0,1):1;const tl=dL===3?1:0;bl+=Math.max(-dt*2.4,Math.min(dt*1.4,tl-bl));if(!R.motion)bl=tl;
+  const gb=vgD.getBoundingClientRect();let pb;
+  if(R.timed){if(vgT0===null&&gb.top<ih*.62)vgT0=now;const e=vgT0===null?-1:(now-vgT0)/1000;pb=!R.motion?1:(e<0?0:clamp(e/2.4,0,1));
+   /* Phasen nacheinander: Analysieren, Verstehen, Handeln, Messen; danach schliesst sich der Kreis */
+   if(!vgMan&&R.motion&&e>=0){const si=Math.min(3,Math.floor(Math.max(0,e-1.2)/2.2));if(si!==dS){dS=si;setL(si)}}}
+  else pb=R.motion?clamp((ih*.92-gb.top)/(ih*.55),0,1):1;const tl=dL===3?1:0;bl+=Math.max(-dt*2.4,Math.min(dt*1.4,tl-bl));if(!R.motion)bl=tl;
   if(D3)D3.draw(pb,dL,bl,now,dt,tagsD);sec.classList.toggle("vg-done",bl>.95)});
 })();

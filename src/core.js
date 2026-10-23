@@ -14,6 +14,10 @@ R.num=(el,attr,def)=>{const v=el&&el.getAttribute(attr);const n=parseFloat(v);re
 R.c=(x,fb="#1D3149")=>{try{const e=document.createElement("i");e.style.cssText="position:absolute;visibility:hidden;color:"+x;document.body.appendChild(e);const v=getComputedStyle(e).color;e.remove();let m=v.match(/rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)/),r;if(m)r=[+m[1],+m[2],+m[3]];else{m=v.match(/color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)/);if(m)r=[m[1]*255,m[2]*255,m[3]*255]}if(!r)return fb;return"#"+r.map(n=>Math.round(n).toString(16).padStart(2,"0")).join("")}catch(_){return fb}};
 const MX=(a,p,b)=>`color-mix(in srgb,${a} ${p}%,${b})`;R.MX=MX;
 R.cfg=(el,attr,v,def)=>{const a=parseFloat(el&&el.getAttribute(attr));if(isFinite(a))return a;const c=parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--_rowapa-startseite---"+v));return isFinite(c)?c:def};
+/* Punktgrafiken: Stärke der Punkte (1 = fein wie bisher), Webflow-Variable «Punktstaerke» oder data-punkte an <html> */
+R.dot=R.cfg(document.documentElement,"data-punkte","punktstaerke",1.45);
+/* Animationen laufen zeitgesteuert, sobald der Abschnitt sichtbar wird, statt am Scrollweg zu hängen (Entscheid 23.10.2026) */
+R.timed=!document.documentElement.classList.contains("scrollfx");if(R.timed)document.documentElement.classList.add("nz");
 /* Grundzustand: eigenständige Startseite im Farbfluss, kompakte Dichte */
 root.classList.add("fluid","sl");
 root.classList.add("dk");

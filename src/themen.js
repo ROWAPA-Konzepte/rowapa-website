@@ -55,9 +55,9 @@ function shots(){if(shotsDone||innerWidth>860||!R.HAS3D||!mob)return;shotsDone=t
  const pos=new Float32Array(N*3),col=new Float32Array(N*3),rnd=new Float32Array(N);for(let i=0;i<N;i++)rnd[i]=Math.random();
  const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.BufferAttribute(pos,3));g.setAttribute("color",new THREE.BufferAttribute(col,3));g.setAttribute("rnd",new THREE.BufferAttribute(rnd,1));g.setAttribute("sz",new THREE.BufferAttribute(new Float32Array(N).fill(1),1));
  const DPR=Math.min(devicePixelRatio||1,2);
- const mat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,uniforms:{uS:{value:31*DPR},uT:{value:0}},
+ const mat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,uniforms:{uS:{value:31*DPR*R.dot},uT:{value:0}},
   vertexShader:`attribute vec3 color;attribute float rnd;attribute float sz;uniform float uS,uT;varying vec3 vC;varying float vA;void main(){vec4 mv=modelViewMatrix*vec4(position,1.);gl_Position=projectionMatrix*mv;float dz=clamp((-mv.z-8.)/5.,0.,1.);gl_PointSize=uS*(.55+rnd*.45)*(1.15-.35*dz)/-mv.z*sz;vC=color;vA=(1.-.4*dz);}`,
-  fragmentShader:`varying vec3 vC;varying float vA;void main(){vec2 q=gl_PointCoord-.5;float d=length(q);if(d>.5)discard;gl_FragColor=vec4(vC,vA*smoothstep(.5,.25,d));}`});
+  fragmentShader:`varying vec3 vC;varying float vA;void main(){vec2 q=gl_PointCoord-.5;float d=length(q);if(d>.5)discard;gl_FragColor=vec4(vC,min(1.,vA*1.15)*smoothstep(.5,.34,d));}`});
  const pts=new THREE.Points(g,mat),grp=new THREE.Group();grp.add(pts);sc.add(grp);
  {let y0=1e9,y1=-1e9;const P0=SH[0].P;for(let i=1;i<P0.length;i+=3){if(P0[i]<y0)y0=P0[i];if(P0[i]>y1)y1=P0[i]}pts.position.y=-(y0+y1)/2}
  const PAL=[R.c("var(--c-manganese)"),R.c("var(--c-serpent)"),R.c(R.MX("var(--c-serpent)",53,"var(--c-sea)")),R.c("var(--c-plum)")].map(h=>new THREE.Color(h));
@@ -77,7 +77,7 @@ addEventListener("resize",()=>requestAnimationFrame(fitT));setTimeout(fitT,50);i
  const SH=R.makeShapes();const figs=[...tsl.querySelectorAll(".tsl-fig")];
  const PALL=["#FFFFFF",R.c("var(--c-sea)"),R.c(R.MX("var(--c-serpent)",31,"var(--c-sea)")),R.c(R.MX("var(--c-plum)",80,"#fff"))].map(h=>new THREE.Color(h)),PALD=[R.c("var(--c-manganese)"),R.c("var(--c-serpent)"),R.c(R.MX("var(--c-serpent)",53,"var(--c-sea)")),R.c("var(--c-plum)")].map(h=>new THREE.Color(h));
  const VS=`attribute vec3 color;attribute float rnd;attribute float sz;uniform float uS,uT;varying vec3 vC;varying float vA;void main(){vec3 p=position+.018*vec3(sin(uT*1.1+rnd*40.),cos(uT*.9+rnd*30.),sin(uT*.7+rnd*20.));vec4 mv=modelViewMatrix*vec4(p,1.);gl_Position=projectionMatrix*mv;float dz=clamp((-mv.z-8.)/5.,0.,1.);gl_PointSize=uS*(.55+rnd*.45)*(1.15-.35*dz)/-mv.z*sz;vC=color;vA=(1.-.4*dz)*min(sz*1.6,1.);}`;
- const FS=`varying vec3 vC;varying float vA;void main(){vec2 q=gl_PointCoord-.5;float d=length(q);if(d>.5)discard;gl_FragColor=vec4(vC,vA*smoothstep(.5,.25,d));}`;
+ const FS=`varying vec3 vC;varying float vA;void main(){vec2 q=gl_PointCoord-.5;float d=length(q);if(d>.5)discard;gl_FragColor=vec4(vC,min(1.,vA*1.15)*smoothstep(.5,.34,d));}`;
  const F=figs.map((el,k)=>{const big=k===0;const n=big?(innerWidth>1200?5200:4200):1500;const S=SH[k],NS=S.K.length;
   const tgt=new Float32Array(n*3),st=new Float32Array(n*3),ctl=new Float32Array(n*3),pos=new Float32Array(n*3),col=new Float32Array(n*3),rnd=new Float32Array(n),sz=new Float32Array(n),dl=new Float32Array(n);
   let y0=1e9,y1=-1e9;for(let i=1;i<S.P.length;i+=3){y0=Math.min(y0,S.P[i]);y1=Math.max(y1,S.P[i])}const cy=(y0+y1)/2;const PAL=big?PALL:PALD;
@@ -87,7 +87,7 @@ addEventListener("resize",()=>requestAnimationFrame(fitT));setTimeout(fitT,50);i
    ctl.set([(sx+x)/2+(Math.random()-.5)*3,Math.max(sy,y)+1+Math.random()*2.5,(sz0+z)/2],i*3);
    const c=PAL[S.K[j]];col.set([c.r,c.g,c.b],i*3);rnd[i]=Math.random();dl[i]=Math.pow(Math.random(),1.3)*.9+(y-y0+cy)/(y1-y0+1e-6)*.25}
   pos.set(st);const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.BufferAttribute(pos,3));g.setAttribute("color",new THREE.BufferAttribute(col,3));g.setAttribute("rnd",new THREE.BufferAttribute(rnd,1));g.setAttribute("sz",new THREE.BufferAttribute(sz,1));
-  const mat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,uniforms:{uS:{value:(big?30:22)*DPR},uT:{value:0}},vertexShader:VS,fragmentShader:FS});
+  const mat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,uniforms:{uS:{value:(big?30:22)*DPR*R.dot},uT:{value:0}},vertexShader:VS,fragmentShader:FS});
   const sc=new THREE.Scene(),grp=new THREE.Group();grp.add(new THREE.Points(g,mat));sc.add(grp);const cam=new THREE.PerspectiveCamera(34,1,.1,100);
   return{el,host:el.parentElement,n,tgt,st,ctl,pos,sz,dl,g,mat,grp,cam,sc,big,delay:big?.4:.6,mx:0,my:0,smx:0,smy:0,lastLt:-9}});
  let T=0;const MOVE=1.25,DONE=MOVE+1.2;
@@ -99,13 +99,14 @@ addEventListener("resize",()=>requestAnimationFrame(fitT));setTimeout(fitT,50);i
  R.loops.push(now=>{if(innerWidth<=860)return;
   const b=tsl.getBoundingClientRect();if(b.bottom<0||b.top>innerHeight)return;{/* beim Verlassen löst sich der Hintergrund weich in den Farbfluss auf */const tb=tw.getBoundingClientRect().bottom;bgEl.style.opacity=root.classList.contains("fluid")?clamp((tb-innerHeight*.3)/(innerHeight*.7),0,1).toFixed(3):"1"}
   /* Start, sobald der Zoom fertig ist; zurück im Header wird für das nächste Mal zurückgesetzt */
+  let nzE=-1;if(R.timed){if(tsl._t0==null&&b.top<innerHeight*.72)tsl._t0=now;nzE=tsl._t0==null?-1:(now-tsl._t0)/1000}
   const zp=R.zoomP??1,zs=R.zoomS??zp;/* Aufbau hängt 1:1 am Scroll: beginnt kurz vor Ende des Zooms, vorwärts baut es auf, rückwärts wieder ab */const KD=root.classList.contains("dk")?.72:1;const ZL=R.zoomLen||innerHeight*.9,BL=innerHeight*1.2*KD;const ready=zp>=.99;
-  T=R.motion?clamp((scrollY-ZL*.88)/BL,0,1)*TMAX:(ready?TMAX:0);const sp=scrollY/(innerHeight*KD);const tt=now/1000;
-  for(const el of sts){const w=AW[el.dataset.st];const q=R.motion?clamp((sp-w[0])/w[1],0,1):(ready?1:0);const k=q*q*(3-2*q);el.style.setProperty("--o",k.toFixed(3))}
+  T=R.motion?clamp((scrollY-ZL*.88)/BL,0,1)*TMAX:(ready?TMAX:0);const sp=R.timed?(nzE<0?0:.15+nzE*.6):scrollY/(innerHeight*KD);if(R.timed){T=nzE<0?0:Math.min(1,nzE/2.6)*TMAX}const tt=now/1000;
+  for(const el of sts){const w=AW[el.dataset.st];const q=R.motion?clamp((sp-w[0])/w[1],0,1):((ready||R.timed)?1:0);const k=q*q*(3-2*q);el.style.setProperty("--o",k.toFixed(3))}
   const w=Math.round(b.width),h=Math.round(b.height);if(w!==W||h!==H){W=w;H=h;r.setSize(w,h,false)}
   r.setScissor(0,0,w,h);r.setViewport(0,0,w,h);r.clear();
   for(const f of F){const fb=f.el.getBoundingClientRect();const x=fb.left-b.left,y=fb.top-b.top,fw=fb.width,fh=fb.height;if(fw<2||fh<2)continue;
-   const fwn=FW[f.big?0:1];const lt=R.motion?(sp<=fwn[0]?-1:(sp-fwn[0])/fwn[1]*DONE):(ready?99:-1);
+   const fwn=FW[f.big?0:1];const lt=R.motion?(sp<=fwn[0]?-1:(sp-fwn[0])/fwn[1]*DONE):((ready||R.timed)?99:-1);
    if(!(lt>=DONE&&f.lastLt>=DONE)){f.lastLt=lt;const P=f.pos,S=f.st,C=f.ctl,T=f.tgt;
     for(let i=0;i<f.n;i++){const k0=lt<0?0:clamp((lt-f.dl[i])/MOVE,0,1),k=k0*k0*(3-2*k0),a=(1-k)*(1-k),bb=2*(1-k)*k,c=k*k,ix=i*3;
      P[ix]=a*S[ix]+bb*C[ix]+c*T[ix];P[ix+1]=a*S[ix+1]+bb*C[ix+1]+c*T[ix+1];P[ix+2]=a*S[ix+2]+bb*C[ix+2]+c*T[ix+2];f.sz[i]=lt<0?0:Math.min(1,k0*3)}
