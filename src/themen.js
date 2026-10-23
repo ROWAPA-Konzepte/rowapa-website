@@ -99,14 +99,15 @@ addEventListener("resize",()=>requestAnimationFrame(fitT));setTimeout(fitT,50);i
  R.loops.push(now=>{if(innerWidth<=860)return;
   const b=tsl.getBoundingClientRect();if(b.bottom<0||b.top>innerHeight)return;{/* beim Verlassen löst sich der Hintergrund weich in den Farbfluss auf */const tb=tw.getBoundingClientRect().bottom;bgEl.style.opacity=root.classList.contains("fluid")?clamp((tb-innerHeight*.3)/(innerHeight*.7),0,1).toFixed(3):"1"}
   /* Start, sobald der Zoom fertig ist; zurück im Header wird für das nächste Mal zurückgesetzt */
-  let nzE=-1;if(R.timed){if(tsl._t0==null&&(R.zoomP??1)>=.97&&b.top<innerHeight*.9)tsl._t0=now;nzE=tsl._t0==null?-1:(now-tsl._t0)/1000}
+  let nzE=-1;if(R.timed){if(tsl._t0==null&&(R.zoomP??1)>=.88&&b.top<innerHeight*.9)tsl._t0=now;nzE=tsl._t0==null?-1:(now-tsl._t0)/1000}
   const zp=R.zoomP??1,zs=R.zoomS??zp;/* Aufbau hängt 1:1 am Scroll: beginnt kurz vor Ende des Zooms, vorwärts baut es auf, rückwärts wieder ab */const KD=root.classList.contains("dk")?.72:1;const ZL=R.zoomLen||innerHeight*.9,BL=innerHeight*1.2*KD;const ready=zp>=.99;
-  T=R.motion?clamp((scrollY-ZL*.88)/BL,0,1)*TMAX:(ready?TMAX:0);const sp=R.timed?(nzE<0?0:.15+nzE*.6):scrollY/(innerHeight*KD);if(R.timed){T=nzE<0?0:Math.min(1,nzE/2.6)*TMAX}const tt=now/1000;
+  T=R.motion?clamp((scrollY-ZL*.88)/BL,0,1)*TMAX:(ready?TMAX:0);const sp=R.timed?(nzE<0?0:.15+nzE*1.15):scrollY/(innerHeight*KD);if(R.timed){T=nzE<0?0:Math.min(1,nzE/1.5)*TMAX}
+  /* grosse Grafik (Vertriebsperformance) baut sich am Scroll fertig auf; der Abschnitt geht erst weiter, wenn sie steht */const qBig=R.timed?clamp((scrollY-ZL*.92)/(innerHeight*.36),0,1):0;const tt=now/1000;
   for(const el of sts){const w=AW[el.dataset.st];const q=R.motion?clamp((sp-w[0])/w[1],0,1):((ready||R.timed)?1:0);const k=q*q*(3-2*q);el.style.setProperty("--o",k.toFixed(3))}
   const w=Math.round(b.width),h=Math.round(b.height);if(w!==W||h!==H){W=w;H=h;r.setSize(w,h,false)}
   r.setScissor(0,0,w,h);r.setViewport(0,0,w,h);r.clear();
   for(const f of F){const fb=f.el.getBoundingClientRect();const x=fb.left-b.left,y=fb.top-b.top,fw=fb.width,fh=fb.height;if(fw<2||fh<2)continue;
-   const fwn=FW[f.big?0:1];const lt=R.motion?(sp<=fwn[0]?-1:(sp-fwn[0])/fwn[1]*DONE):((ready||R.timed)?99:-1);
+   const fwn=FW[f.big?0:1];const lt=(R.timed&&R.motion&&f.big)?(qBig<=0?-1:qBig*DONE):R.motion?(sp<=fwn[0]?-1:(sp-fwn[0])/fwn[1]*DONE):((ready||R.timed)?99:-1);
    if(!(lt>=DONE&&f.lastLt>=DONE)){f.lastLt=lt;const P=f.pos,S=f.st,C=f.ctl,T=f.tgt;
     for(let i=0;i<f.n;i++){const k0=lt<0?0:clamp((lt-f.dl[i])/MOVE,0,1),k=k0*k0*(3-2*k0),a=(1-k)*(1-k),bb=2*(1-k)*k,c=k*k,ix=i*3;
      P[ix]=a*S[ix]+bb*C[ix]+c*T[ix];P[ix+1]=a*S[ix+1]+bb*C[ix+1]+c*T[ix+1];P[ix+2]=a*S[ix+2]+bb*C[ix+2]+c*T[ix+2];f.sz[i]=lt<0?0:Math.min(1,k0*3)}

@@ -103,5 +103,7 @@
 
 /* ---------- 6 · Kontakt: Porträt der Ansprechperson in der Mitte des Werte-Rings ---------- */
 (function(){const k=document.getElementById("kontakt");if(!k)return;const ph=k.querySelector(".kp-photo"),sp=k.querySelector(".spin");if(!ph||!sp)return;
- const put=()=>{if(ph.parentElement!==sp){sp.appendChild(ph);sp.classList.add("has-photo")}};put();setTimeout(put,400)})();
+ const put=()=>{if(ph.parentElement!==sp){sp.appendChild(ph);sp.classList.add("has-photo")}};put();setTimeout(put,400);
+ /* Name direkt unter dem Ring, damit klar ist, wer die Ansprechpartnerin ist */
+ if(!k.querySelector(".kp-cap")){const nm=(k.querySelector(".kp-name")||{}).textContent||"",rl=(k.querySelector(".kp-k")||{}).textContent||"Ihre Ansprechpartnerin";if(nm.trim()){const c=document.createElement("div");c.className="kp-cap";c.innerHTML=`<b>${nm.trim()}</b><span>${rl.trim()}</span>`;sp.after(c);k.classList.add("has-cap")}}})();
 })();

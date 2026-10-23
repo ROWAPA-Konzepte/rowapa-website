@@ -1101,3 +1101,43 @@ html.ci .q .qk{letter-spacing:0!important}
 /* ===== Bildlook der Fotos: <html data-foto="duo|weich|natur"> (Standard: duo) ===== */
 :root[data-foto=weich].duo .pcard .im img,:root[data-foto=weich].duo .cas img,:root[data-foto=weich].duo .video img,:root[data-foto=weich].duo .kc .im img,:root[data-foto=weich].duo .prev img,:root[data-foto=weich].duo #kontakt img{filter:url(#rw-duo-weich) contrast(1.03)!important}
 :root[data-foto=natur].duo .pcard .im img,:root[data-foto=natur].duo .cas img,:root[data-foto=natur].duo .video img,:root[data-foto=natur].duo .kc .im img,:root[data-foto=natur].duo .prev img,:root[data-foto=natur].duo #kontakt img{filter:url(#rw-duo-natur) contrast(1.02)!important}
+
+/* ===== 23.10.2026 Abend ===== */
+/* Vorgehen: Markierung als flaches Symbol */
+.vg-pinic{position:absolute;z-index:3;width:30px;height:39px;pointer-events:none;opacity:0;transform:translate(-50%,-100%);transform-origin:50% 100%;will-change:left,top}
+.vg-pinic svg{display:block;width:100%;height:100%}
+/* Kontakt: Ring etwas grösser, Name darunter */
+#kontakt.has-cap .wrap{align-items:center}
+.ctx .spin{width:min(100%,430px)}
+#kontakt .kp-cap{grid-column:2;justify-self:center;text-align:center;margin-top:clamp(-6px,-1vw,0px);color:#fff;position:relative;z-index:2}
+#kontakt .kp-cap b{display:block;font-size:clamp(1.25rem,1.6vw,1.55rem);font-weight:700;letter-spacing:0}
+#kontakt .kp-cap span{display:block;margin-top:4px;font-family:var(--fx);font-weight:800;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--c-sea)}
+#kontakt .kp-cap::before{content:"";display:block;width:36px;height:3px;background:var(--c-plum);margin:0 auto 12px}
+#kontakt.has-cap .kp-k,#kontakt.has-cap .kp-name,#kontakt.has-cap .kp-f{display:none}
+@media (max-width:860px){#kontakt .kp-cap{grid-column:1}}
+/* Team: Die Menschen hinter ROWAPA (unter den Kundenstimmen) */
+.team{margin-top:clamp(56px,9svh,110px);padding-top:clamp(28px,4svh,44px);border-top:1px solid var(--line)}
+.team-h{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(20px,3svh,32px)}
+.team-h h3{margin:10px 0 0;font-size:clamp(1.5rem,2.2vw,2.1rem);line-height:1.15}
+.team-g{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(12px,1.5vw,22px)}
+.team-p{margin:0}
+.team-p img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 22%;border-radius:8px;display:block}
+.team-p figcaption{margin-top:12px}
+.team-p b{display:block;font-size:1.02rem}
+.team-p span{display:block;color:var(--mute);font-size:.88rem;line-height:1.4;margin-top:2px}
+:root.duo .team-p img{filter:url(#rw-duo) contrast(1.04)}
+:root[data-foto=weich].duo .team-p img{filter:url(#rw-duo-weich) contrast(1.03)!important}
+:root[data-foto=natur].duo .team-p img{filter:url(#rw-duo-natur) contrast(1.02)!important}
+@media (max-width:991px){.team-g{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:600px){.team-g{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* Footer: Adresse und Kontakt */
+.fadr{font-style:normal;margin-top:18px;line-height:1.65;color:rgba(255,255,255,.78);font-size:.95rem}
+.fadr a{color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.25)}
+.fadr a:hover{border-color:var(--c-sea)}
+#kontakt.has-cap .wrap>div:first-child{grid-row:1/3}
+#kontakt.has-cap .spin{align-self:end}
+#kontakt.has-cap .kp-cap{align-self:start}
+@media (max-width:860px){#kontakt.has-cap .wrap>div:first-child{grid-row:auto}}
+footer .fadr a{display:inline!important;padding:0!important;margin:0!important;border-bottom:1px solid rgba(255,255,255,.25)!important}
+.lgi img[alt="Die Post"]{height:42px!important;max-height:42px}
+#kontakt .kp-cap{margin-top:-14px}

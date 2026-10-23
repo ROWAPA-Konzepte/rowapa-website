@@ -47,20 +47,30 @@ if(vgM&&!vgM.children.length)vgM.innerHTML=S.map((s,i)=>`<li data-i="${i}"><span
   const pinPts=[];for(let i=0;i<120;i++)pinPts.push([(Rn()-.5)*.04,Rn()*.62,(Rn()-.5)*.04,1]);for(let i=0;i<280;i++){const u=Rn()*2-1,th=Rn()*TAU,s2=Math.sqrt(1-u*u),rr=.17*Math.cbrt(Rn());pinPts.push([rr*s2*Math.cos(th),.78+rr*u,rr*s2*Math.sin(th),3])}
   const PN=pinPts.length,pg=new THREE.BufferGeometry(),pp=new Float32Array(PN*3),pc=new Float32Array(PN*3),pr=new Float32Array(PN),ps=new Float32Array(PN).fill(1);pinPts.forEach((q,i)=>{pp.set([q[0],q[1],q[2]],i*3);const c=C[q[3]];pc.set([c.r,c.g,c.b],i*3);pr[i]=Rn()});
   pg.setAttribute("position",new THREE.BufferAttribute(pp,3));pg.setAttribute("color",new THREE.BufferAttribute(pc,3));pg.setAttribute("rnd",new THREE.BufferAttribute(pr,1));pg.setAttribute("sz",new THREE.BufferAttribute(ps,1));
-  const pin=new THREE.Points(pg,mat);grp.add(pin);
+  const pin=new THREE.Points(pg,mat);grp.add(pin);pin.visible=false;
+  /* Markierung als echtes, flaches Symbol (Kontrast zu den Punkten): Stecknadel, oder Stift mit data-vgpin="stift" am Abschnitt */
+  const PINS={pin:'<svg viewBox="0 0 40 52" aria-hidden="true"><path d="M20 51C20 51 4 32.5 4 20a16 16 0 0 1 32 0c0 12.5-16 31-16 31Z" fill="var(--c-plum)"/><circle cx="20" cy="20" r="6.5" fill="#fff"/></svg>',
+   stift:'<svg viewBox="0 0 40 52" aria-hidden="true"><g transform="rotate(35 20 26)"><rect x="14" y="2" width="12" height="9" fill="var(--c-manganese)"/><rect x="14" y="11" width="12" height="27" fill="var(--c-plum)"/><path d="M14 38h12l-6 12Z" fill="#E8C9A8"/><path d="M18 46h4l-2 4Z" fill="var(--c-manganese)"/></g></svg>'};
+  const pinEl=document.createElement("span");pinEl.className="vg-pinic";pinEl.setAttribute("aria-hidden","true");pinEl.innerHTML=PINS[sec.dataset.vgpin==="stift"?"stift":"pin"];(cv.parentElement||vgD).appendChild(pinEl);
+  /* Säule der aktiven Phase färbt sich Plum */
+  const colF=new Uint8Array(N);all.forEach((q,i)=>{const k=q[4];if(k<4&&q[1]<=B+H*(k+1)+.06)colF[i]=1});const actW=[0,0,0,0];
+  const Cp=C[3],Cs=C[1];
   const lift=[0,0,0,0];let from=0,to=0,hop=1,pinS=0;const pv=new THREE.Vector3();
   D3={draw(pb,ai,bl,now,dt,tags){const w=cv.clientWidth,h=cv.clientHeight;if(!w||!h)return;if(cv.width!==Math.round(w*DPR)){r.setSize(w,h,false)}cam.aspect=w/h;const d=15.5*Math.max(1,1.15/cam.aspect);cam.position.set(0,1.2,d);cam.lookAt(0,.2,0);cam.updateProjectionMatrix();
     const t=now/1000;mat.uniforms.uT.value=R.motion?t:0;smx+=(mx-smx)*.06;smy+=(my-smy)*.06;/* frontal: alle Säulen auf einer Flucht, die Maus kippt nur leicht */grp.rotation.y=smx*.22;grp.rotation.x=.06+smy*.12;
     const bk=[0,1,2,3].map(k=>clamp(pb*1.7-k*.22,0,1));
     for(let k=0;k<4;k++){const tg=k===ai?.22:0;lift[k]+=(tg-lift[k])*(R.motion?Math.min(1,dt*7):1)}
+    for(let k=0;k<4;k++){const tw=k===ai&&bk[k]>.85?1:0;actW[k]+=(tw-actW[k])*(R.motion?Math.min(1,dt*5):1)}
     for(let i=0;i<N;i++){const q=all[i],k=q[4];let b;if(k<4){b=sm(clamp(bk[k]*1.35-q[5]*.35,0,1))}else{b=clamp(bl*1.4-q[5]*.4,0,1)}
      const ix=i*3,u=1-b,ly=k<4?lift[k]:0;pos[ix]=St[ix]*u+T[ix]*b;pos[ix+1]=St[ix+1]*u+(T[ix+1]+ly)*b;pos[ix+2]=St[ix+2]*u+T[ix+2]*b;sz[i]=b<=0?0:Math.min(1,b*2.2);
+     if(k<4&&colF[i]){const a=actW[k],b0=k===ai?Cs:Cdim;col[ix]=b0.r+(Cp.r-b0.r)*a;col[ix+1]=b0.g+(Cp.g-b0.g)*a;col[ix+2]=b0.b+(Cp.b-b0.b)*a;continue}
      let c=C[q[3]];if(k<4&&k!==ai&&q[3]===3)c=C[1];if(k<4&&k!==ai&&q[3]===1)c=Cdim;col[ix]=c.r;col[ix+1]=c.g;col[ix+2]=c.b}
     g.attributes.position.needsUpdate=true;g.attributes.color.needsUpdate=true;g.attributes.sz.needsUpdate=true;
     /* Markierung: Sprung im Bogen zur aktiven Stufe */
     if(ai!==to){from=to;to=ai;hop=0}hop=Math.min(1,hop+(R.motion?dt/.55:1));const e=sm(hop);const A=tops[from],Bt=tops[to];
     pin.position.set(A[0]+(Bt[0]-A[0])*e,A[1]+lift[from]*(1-e)+(Bt[1]+lift[to]-A[1]-lift[from]*(1-e))*e+Math.sin(Math.PI*hop)*.9*(from!==to?1:0),A[2]);
     pinS+=((bk[ai]>.9?1:0)-pinS)*Math.min(1,dt*6);pin.scale.setScalar(Math.max(.001,pinS));
+    {pv.copy(pin.position).applyMatrix4(grp.matrixWorld).project(cam);pinEl.style.left=((pv.x*.5+.5)*w).toFixed(1)+"px";pinEl.style.top=((-pv.y*.5+.5)*h).toFixed(1)+"px";pinEl.style.opacity=pinS.toFixed(3);pinEl.style.transform=`translate(-50%,-100%) scale(${(.6+.4*pinS).toFixed(3)})`}
     r.render(sc,cam);
     /* Beschriftungen an den Stufen */
     grp.updateMatrixWorld();tags.forEach((tg,k)=>{pv.set(tops[k][0],B,W/2).applyMatrix4(grp.matrixWorld).project(cam);tg.style.left=((pv.x*.5+.5)*w).toFixed(1)+"px";tg.style.top=((-pv.y*.5+.5)*h+22).toFixed(1)+"px";tg.style.opacity=bk[k]>.85?(k===ai?1:.7):0;tg.classList.toggle("on",k===ai)})}};
