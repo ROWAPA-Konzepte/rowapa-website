@@ -9,7 +9,7 @@
 const toned=[...document.querySelectorAll("[data-tone]")].filter(e=>e!==root);let tone="";
 /* Grundfarben aus den CI-Variablen; Manganese Black ist die Masterfarbe, Tiefsee und Creme sind daraus abgeleitet */
 const hx=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
-const COL={white:[255,255,255],snow:hx(R.c("var(--c-snow)","#E8E9E9")),sea:hx(R.c("var(--c-sea)","#A0C4DF")),ink:hx(R.c("var(--c-manganese)")),deep:hx(R.c("var(--c-tiefsee)","#111D2C")),plum:hx(R.c("var(--c-plum)","#AA1351")),serpent:hx(R.c("var(--c-serpent)","#486EA3")),cream:hx(R.c(R.MX("var(--c-manganese)",4,"#fff"),"#F7F7F5"))};
+const COL={white:[255,255,255],snow:hx(R.c("var(--c-snow)","#E8E9E9")),sea:hx(R.c("var(--c-sea)","#A0C4DF")),ink:hx(R.c("var(--c-manganese)")),deep:hx(R.c("var(--c-tiefsee)","#111D2C")),plum:hx(R.c("var(--c-plum)","#AA1351")),serpent:hx(R.c("var(--c-serpent)","#486EA3")),seal:hx(R.c(R.MX("var(--c-sea)",45,"#fff"),"#D5E5F1")),cream:hx(R.c(R.MX("var(--c-manganese)",4,"#fff"),"#F7F7F5"))};
 /* Übergang hell/dunkel nicht über Grau, sondern über einen Blauton aus Sea Cliff und Great Serpent */
 const MID=hx(R.c(R.MX("var(--c-sea)",75,"var(--c-serpent)"),"#8AAED0")),lum=c=>.2126*c[0]+.7152*c[1]+.0722*c[2];
 const mixFlow=(a,b,k)=>{if(Math.abs(lum(a)-lum(b))<110)return a.map((v,j)=>v+(b[j]-v)*k);const u=1-k;return a.map((v,j)=>{const M=2*MID[j]-(v+b[j])/2;return Math.max(0,Math.min(255,u*u*v+2*u*k*M+k*k*b[j]))})};
@@ -22,7 +22,7 @@ R.loops.push(()=>{const ih=innerHeight,c=ih*.5;
  const G=[];S.forEach(s=>{const r=s.getBoundingClientRect(),col=COL[toneOf(s)]||COL.white;const L=G[G.length-1];
   if(L&&(r.height<ih*.35||L.col===col)){L.bot=Math.max(L.bot,r.bottom)}else G.push({top:r.top,bot:r.bottom,col})});
  /* hell/dunkel wechselt zügiger (Text bleibt lesbar), ähnliche Töne fliessen langsam */
- const Zp=(a,b)=>Math.abs(lum(a)-lum(b))>110?ih*.2:ih*.45,st=[];G.forEach((g,i)=>{const h=g.bot-g.top;const wi=i?Math.min(Zp(G[i-1].col,g.col),h*.45,(G[i-1].bot-G[i-1].top)*.45):0,wo=G[i+1]?Math.min(Zp(g.col,G[i+1].col),h*.45,(G[i+1].bot-G[i+1].top)*.45):0;st.push([g.top+wi,g.col],[g.bot-wo,g.col])});
+ const Zp=(a,b)=>Math.abs(lum(a)-lum(b))>110?ih*.28:ih*.45,st=[];G.forEach((g,i)=>{const h=g.bot-g.top;const wi=i?Math.min(Zp(G[i-1].col,g.col),h*.45,(G[i-1].bot-G[i-1].top)*.45):0,wo=G[i+1]?Math.min(Zp(g.col,G[i+1].col),h*.45,(G[i+1].bot-G[i+1].top)*.45):0;st.push([g.top+wi,g.col],[g.bot-wo,g.col])});
  /* am Seitenende muss der letzte Übergang abgeschlossen sein (Kontakt und Footer ganz in ihrer Farbe) */
  if(st.length>=4){const lim=document.scrollingElement.scrollHeight-scrollY-ih*.5-ih*.06,n=st.length;if(st[n-2][0]>lim){st[n-2][0]=lim;st[n-3][0]=Math.min(st[n-3][0],lim-ih*.55)}}
  let m=st.length?st[0][1]:COL.white;

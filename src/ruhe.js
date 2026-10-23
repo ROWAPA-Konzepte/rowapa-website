@@ -50,7 +50,7 @@
 
 /* ---------- 3 · Ab «Aktuelles»: ruhige Tiefe ---------- */
 (function(){const host=document.querySelector("[data-late]");const mode=()=>(document.querySelector("[data-late]")||{dataset:{}}).dataset.late||"depth";
- const SEL=["#ergebnisse .head","#ergebnisse .rgrid>div:first-child","#ergebnisse .video","#cas .head","#cas .cas","#cas .news","#wissen .head","#wissen .kc","#wissen .nl","#faq .head","#faq .fq","#kontakt .wrap>div:first-child"];
+ const SEL=["#ergebnisse .head","#ergebnisse .rgrid>div:first-child","#ergebnisse .video","#cas .head","#cas .cas","#cas .news","#wissen .head","#wissen .kc","#wissen .nl","#faq .head","#faq .fq","#kontakt .wrap>div:first-child","#ergebnisse .erf","#ergebnisse .team","#branche .head","#branche .marks","#cas .bp-in","#wissen .ins-l","#wissen .ins-r"];
  const els=[];SEL.forEach(s=>document.querySelectorAll(s).forEach(e=>{if(!els.includes(e))els.push(e)}));if(!els.length)return;
  els.forEach(e=>{e.classList.add("dz");e.classList.remove("pre")});
  /* kleine Staffelung innerhalb einer Reihe */
@@ -59,7 +59,9 @@
  R.loops.push(()=>{const m=mode();if(m!==last){last=m;root.dataset.lateFx=m;els.forEach(e=>{e.style.transform="";e.style.opacity="";e.style.filter="";e.style.removeProperty("--e")})}
   if(m==="off"||!R.motion)return;const ih=innerHeight;
   els.forEach(e=>{const r=e.getBoundingClientRect();if(r.top>ih*1.1||r.bottom<-ih*.2)return;
-   const st=Math.min(rowIdx.get(e),4)*.06;const p=clamp((ih*(1-st)-r.top)/(ih*.5),0,1),t=ease(p);
+   const st=Math.min(rowIdx.get(e),4)*.06;let p;
+   /* zeitgesteuert (Entscheid 23.10.2026): einmal einblenden, sobald sichtbar, nicht am Scroll */
+   if(R.timed){if(e._t0==null&&r.top<ih*.9)e._t0=performance.now()+st*2400;p=e._t0==null?0:clamp((performance.now()-e._t0)/750,0,1)}else p=clamp((ih*(1-st)-r.top)/(ih*.5),0,1);const t=ease(p);
    if(m==="depth"){e.style.transform=`translateY(${((1-t)*36).toFixed(1)}px) scale(${(.93+.07*t).toFixed(4)})`;e.style.opacity=(.15+.85*t).toFixed(3);e.style.setProperty("--e",t.toFixed(3))}
    else if(m==="focus"){e.style.filter=t<.999?`blur(${((1-t)*9).toFixed(2)}px)`:"";e.style.transform=`scale(${(1.025-.025*t).toFixed(4)})`;e.style.opacity=(.2+.8*t).toFixed(3)}
    else if(m==="lines"){e.style.setProperty("--e",t.toFixed(3));e.style.opacity=(.2+.8*clamp(t*1.4-.2,0,1)).toFixed(3);e.style.transform=`translateY(${((1-t)*14).toFixed(1)}px)`}})})})();

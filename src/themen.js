@@ -92,7 +92,7 @@ addEventListener("resize",()=>requestAnimationFrame(fitT));setTimeout(fitT,50);i
   return{el,host:el.parentElement,n,tgt,st,ctl,pos,sz,dl,g,mat,grp,cam,sc,big,delay:big?.4:.6,mx:0,my:0,smx:0,smy:0,lastLt:-9}});
  let T=0;const MOVE=1.25,DONE=MOVE+1.2;
  /* Ablauf wie die Referenz: zuerst Titel und Textfelder, dann die Kästen rechts von oben nach unten, dann bauen sich die Grafiken auf */
- /* links und rechts gleichzeitig: Titel links mit dem ersten Kasten rechts, Beschrieb links mit den unteren Kästen *//* Fenster in Bildschirmhöhen Scrollweg [Start, Dauer]: links und rechts bauen sich schon während des Zooms auf, die Karte nach dem Zoom */const AW={0:[.19,.43],2:[.22,.43],3:[.28,.43],4:[.34,.43],5:[.4,.43],6:[.38,.43],1:[.76,.22],7:[.84,.22]};const FW=[[.79,.8],[.47,.77]];const TMAX=.6+.9+1.25+.05;const sts=[...tsl.querySelectorAll("[data-st]")];
+ /* links und rechts gleichzeitig: Titel links mit dem ersten Kasten rechts, Beschrieb links mit den unteren Kästen *//* Fenster in Bildschirmhöhen Scrollweg [Start, Dauer]: links und rechts bauen sich schon während des Zooms auf, die Karte nach dem Zoom */const AW={0:[.19,.43],2:[.22,.43],3:[.28,.43],4:[.34,.43],5:[.4,.43],6:[.38,.43],1:[.76,.22],7:[.84,.22]};const FW=[[.79,.8],[.47,.77]];const AZ={0:[0,.3],1:[.15,.35],2:[.25,.3],4:[.25,.3],3:[.5,.3],5:[.5,.3],6:[.65,.3],7:[.7,.3]};const TMAX=.6+.9+1.25+.05;const sts=[...tsl.querySelectorAll("[data-st]")];
  tsl.addEventListener("pointermove",e=>{for(const f of F){const b=f.host.getBoundingClientRect();if(e.clientX>=b.left&&e.clientX<=b.right&&e.clientY>=b.top&&e.clientY<=b.bottom){f.mx=(e.clientX-b.left)/b.width-.5;f.my=(e.clientY-b.top)/b.height-.5}else{f.mx=f.my=0}}});
  tsl.addEventListener("pointerleave",()=>F.forEach(f=>f.mx=f.my=0));
  let W=0,H=0;
@@ -103,11 +103,12 @@ addEventListener("resize",()=>requestAnimationFrame(fitT));setTimeout(fitT,50);i
   const zp=R.zoomP??1,zs=R.zoomS??zp;/* Aufbau hängt 1:1 am Scroll: beginnt kurz vor Ende des Zooms, vorwärts baut es auf, rückwärts wieder ab */const KD=root.classList.contains("dk")?.72:1;const ZL=R.zoomLen||innerHeight*.9,BL=innerHeight*1.2*KD;const ready=zp>=.99;
   T=R.motion?clamp((scrollY-ZL*.88)/BL,0,1)*TMAX:(ready?TMAX:0);const sp=R.timed?(nzE<0?0:.15+nzE*1.15):scrollY/(innerHeight*KD);if(R.timed){T=nzE<0?0:Math.min(1,nzE/1.5)*TMAX}
   /* grosse Grafik (Vertriebsperformance) baut sich am Scroll fertig auf; der Abschnitt geht erst weiter, wenn sie steht */const qBig=R.timed?clamp((scrollY-ZL*.92)/(innerHeight*.36),0,1):0;const tt=now/1000;
-  for(const el of sts){const w=AW[el.dataset.st];const q=R.motion?clamp((sp-w[0])/w[1],0,1):((ready||R.timed)?1:0);const k=q*q*(3-2*q);el.style.setProperty("--o",k.toFixed(3))}
+  /* Variante 2 | 1 | 2 (html.t212): Titel, Karte und Kacheln blenden mit dem Zoom ein, paarweise von oben nach unten (Entscheid 23.10.2026) */const Z212=root.classList.contains("t212"),zq=clamp((zp-.45)/.55,0,1);
+  for(const el of sts){const w=AW[el.dataset.st];const zw=AZ[el.dataset.st];const q=R.motion?(Z212&&zw?clamp((zq-zw[0])/zw[1],0,1):clamp((sp-w[0])/w[1],0,1)):((ready||R.timed)?1:0);const k=q*q*(3-2*q);el.style.setProperty("--o",k.toFixed(3))}
   const w=Math.round(b.width),h=Math.round(b.height);if(w!==W||h!==H){W=w;H=h;r.setSize(w,h,false)}
   r.setScissor(0,0,w,h);r.setViewport(0,0,w,h);r.clear();
   for(const f of F){const fb=f.el.getBoundingClientRect();const x=fb.left-b.left,y=fb.top-b.top,fw=fb.width,fh=fb.height;if(fw<2||fh<2)continue;
-   const fwn=FW[f.big?0:1];const lt=(R.timed&&R.motion&&f.big)?(qBig<=0?-1:qBig*DONE):R.motion?(sp<=fwn[0]?-1:(sp-fwn[0])/fwn[1]*DONE):((ready||R.timed)?99:-1);
+   const fwn=FW[f.big?0:1];const lt=(R.timed&&R.motion&&f.big)?(qBig<=0?-1:qBig*DONE):(Z212&&R.motion&&!f.big)?(zq<=.45?-1:(zq-.45)/.55*DONE):R.motion?(sp<=fwn[0]?-1:(sp-fwn[0])/fwn[1]*DONE):((ready||R.timed)?99:-1);
    if(!(lt>=DONE&&f.lastLt>=DONE)){f.lastLt=lt;const P=f.pos,S=f.st,C=f.ctl,T=f.tgt;
     for(let i=0;i<f.n;i++){const k0=lt<0?0:clamp((lt-f.dl[i])/MOVE,0,1),k=k0*k0*(3-2*k0),a=(1-k)*(1-k),bb=2*(1-k)*k,c=k*k,ix=i*3;
      P[ix]=a*S[ix]+bb*C[ix]+c*T[ix];P[ix+1]=a*S[ix+1]+bb*C[ix+1]+c*T[ix+1];P[ix+2]=a*S[ix+2]+bb*C[ix+2]+c*T[ix+2];f.sz[i]=lt<0?0:Math.min(1,k0*3)}

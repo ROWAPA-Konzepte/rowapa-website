@@ -1249,3 +1249,24 @@ html[data-ende=a] #wissen[data-nl] .nl{border-radius:8px!important}
 .qz-nav .qz-c b{color:var(--fg);font-weight:700}
 .qz-nav .qz-bar{grid-column:1/-1;height:2px;background:var(--line);position:relative;overflow:hidden}
 .qz-nav .qz-bar i{position:absolute;inset:0;background:var(--c-plum);transform-origin:left;transform:scaleX(0)}
+
+/* ===== Standard 23.10.2026: Farbstufe «Sea Cliff hell» für den Verlauf ===== */
+:root[data-tone=seal]{--bg:color-mix(in srgb,var(--c-sea) 45%,#fff);--fg:var(--c-manganese);--mute:color-mix(in srgb,var(--c-manganese) 80%,transparent);--line:color-mix(in srgb,var(--c-manganese) 16%,transparent);--card:rgba(255,255,255,.7);--acc:var(--c-plum)}
+/* ===== Standard 23.10.2026: Schrift-Untergrenzen (Fliesstext ≥ 16 px, Links/Buttons ≥ 15 px, Labels ≥ 13,5 px) ===== */
+:root:root:root:root.ts .lnk,:root:root:root:root.ts .tsl-lb .lnk{font-size:.95rem!important}
+:root:root:root:root.ts .tsl-t p,:root:root:root:root.ts .tsl-card p{font-size:clamp(1rem,1.08vw,1.06rem)!important;line-height:1.45!important}
+:root:root:root:root.ts .vg-ds .t,:root:root:root:root.ts .vg-t{font-size:clamp(1.06rem,1.2vw,1.15rem)!important}
+:root:root:root:root.ts .vg-stair .tag{font-size:.9rem!important}
+:root:root:root:root.ts .vg-loop,:root:root:root:root.ts .vg-dloop{font-size:.95rem!important}
+:root:root:root:root.ts .digi[data-dg] .dg-card h3,:root:root:root:root.ts .dg-core{font-size:.86rem!important}
+:root:root:root:root.ts .pcard .tag,:root:root:root:root.ts .kp-k,:root:root:root:root.ts footer h4,:root:root:root:root.ts .kp-cap span,:root:root:root:root.ts .kc small,:root:root:root:root.ts .news .nk,:root:root:root:root.ts .badge{font-size:.86rem!important}
+:root:root:root:root.ts .menu a,:root:root:root:root.ts .menu>li>a,:root:root:root:root.ts .nav .menu a{font-size:.98rem!important}
+:root:root:root:root.ts footer a,:root:root:root:root.ts footer p,:root:root:root:root.ts .fadr,:root:root:root:root.ts .fnl-t span{font-size:1rem!important}
+:root:root:root:root.ts .btn,:root:root:root:root.ts .nav .cta,:root:root:root:root.ts footer .btn{font-size:.96rem!important}
+:root:root:root:root.ts .team-g>figure span,:root:root:root:root.ts .q cite .fn{font-size:1rem!important}
+/* ROWAPA Digital: auf Laptops höher ansetzen, damit unter der Grafik Luft bleibt */
+@media (min-width:861px){:root.dg-pin-on .digi[data-dg=b] .dg-stage{bottom:clamp(24px,6svh,64px)!important}}
+@media (min-width:861px) and (max-height:900px){:root.dg-pin-on .digi[data-dg=b] .dg-in{padding-top:4px!important}:root.dg-pin-on .digi[data-dg=b] .dg-head .lead{margin-top:4px!important}}
+:root:root:root:root.ts .digi .dg-card p{font-size:clamp(1rem,1.12vw,1.06rem)!important}
+:root:root:root:root.ts .tsl-bar span{font-size:.86rem!important}
+:root:root:root:root.ts footer span,:root:root:root:root.ts footer small{font-size:.88rem!important}
