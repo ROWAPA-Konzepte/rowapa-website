@@ -1,6 +1,6 @@
 const { chromium } = require('playwright');const fs=require('fs');const RP='/home/claude/rowapa-website/';
 (async()=>{const b=await chromium.launch({args:['--use-gl=swiftshader'],proxy:process.env.HTTPS_PROXY?{server:process.env.HTTPS_PROXY}:undefined});const p=await b.newPage({viewport:{width:1280,height:720}});const errs=[];p.on('pageerror',e=>errs.push(e.message));
-await p.route(/rowapa-website@[0-9a-f]+\/(dist|assets)\/.*/,r=>{const u=new URL(r.request().url());const f=decodeURIComponent(u.pathname.replace(/^.*rowapa-website@[0-9a-f]+\//,''));r.fulfill({status:200,contentType:f.endsWith('.js')?'application/javascript':f.endsWith('.css')?'text/css':'application/octet-stream',body:fs.readFileSync(RP+f)})});
+
 await p.goto('https://rowapa-2027.webflow.io/?v='+Date.now(),{waitUntil:'networkidle',timeout:90000});await p.waitForTimeout(1500);
 const d=await p.evaluate(()=>document.getElementById('digi').getBoundingClientRect().top+scrollY);
 await p.addInitScript(()=>{document.addEventListener('DOMContentLoaded',()=>document.documentElement.classList.add('hz'))});const rd=()=>p.evaluate(()=>{const c=document.querySelector('.dg-card');return {q:+(+getComputedStyle(c).getPropertyValue('--q')||0).toFixed(2),lay:Math.round(document.querySelector('.dg-lay').getBoundingClientRect().top)}});
