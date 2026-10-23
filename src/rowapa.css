@@ -1198,13 +1198,13 @@ footer .fadr a{display:inline!important;padding:0!important;margin:0!important;b
 
 /* ===== Abschluss der Startseite: Variante A «Editorial» (freigegeben 23.10.2026), aktiv über html[data-ende=a] ===== */
 @media (min-width:992px){
-html[data-ende=a] #ergebnisse .rgrid{grid-template-columns:minmax(0,1.3fr) minmax(0,.9fr);align-items:start}
-html[data-ende=a] #ergebnisse .qs{min-height:470px}
+html[data-ende=a] #ergebnisse .rgrid{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);align-items:start}
+html[data-ende=a] #ergebnisse .qs{min-height:400px}
 html[data-ende=a] .q .qk{font-size:clamp(2.3rem,3.5vw,3.5rem)!important;line-height:1.06!important;max-width:19ch!important;margin-bottom:28px!important}
 html[data-ende=a] .q .qk::before{content:"«";color:var(--c-plum);margin-right:.06em}
 html[data-ende=a] .q .qk::after{content:"»";color:var(--c-plum);margin-left:.04em}
 html[data-ende=a] .q blockquote{max-width:46ch;border-left:3px solid var(--c-plum);padding-left:20px}
-html[data-ende=a] #ergebnisse .video{aspect-ratio:4/3;max-height:62svh;width:100%}
+html[data-ende=a] #ergebnisse .video{aspect-ratio:16/10;max-height:60svh;width:100%}
 html[data-ende=a] #branche .marks.mlogos{display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr));gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
 html[data-ende=a] #branche .mlogos .ml{background:transparent!important;border-radius:0!important;border-right:1px solid var(--line);border-bottom:1px solid var(--line);height:120px}
 html[data-ende=a] #cas .agrid{grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:clamp(24px,3vw,48px)}
