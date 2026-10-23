@@ -1236,3 +1236,7 @@ html[data-ende=a] #wissen[data-nl] .nl .w-form-done{background:#fff;color:var(--
 #digi{overflow-x:clip}
 @media (max-width:600px){footer .fnl,footer .fnl>*{min-width:0;max-width:100%}footer .fnl{flex-wrap:wrap}}
 html[data-ende=a] #wissen[data-nl] .nl{border-radius:8px!important}
+/* Navigation: Kontakt-Button kompakter und in CI-Akzentfarbe (Plum), Höhe wie der Sprachumschalter (23.10.2026) */
+:root:root:root:root .nav .cta{font-size:.78rem!important;letter-spacing:.1em!important;padding:.52em 1.05em!important;line-height:1.2;background:var(--c-plum)!important;color:#fff!important;border-radius:4px!important}
+:root:root:root:root .nav .cta:hover,:root:root:root:root .nav .cta:focus-visible{background:#fff!important;color:var(--c-manganese)!important}
+:root:root:root:root .nav .cta:focus-visible{outline:2px solid var(--c-sea);outline-offset:2px}
