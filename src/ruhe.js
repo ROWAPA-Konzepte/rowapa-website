@@ -106,4 +106,7 @@
  const put=()=>{if(ph.parentElement!==sp){sp.appendChild(ph);sp.classList.add("has-photo")}};put();setTimeout(put,400);
  /* Name direkt unter dem Ring, damit klar ist, wer die Ansprechpartnerin ist */
  if(!k.querySelector(".kp-cap")){const nm=(k.querySelector(".kp-name")||{}).textContent||"",rl=(k.querySelector(".kp-k")||{}).textContent||"Ihre Ansprechpartnerin";if(nm.trim()){const c=document.createElement("div");c.className="kp-cap";c.innerHTML=`<b>${nm.trim()}</b><span>${rl.trim()}</span>`;sp.after(c);k.classList.add("has-cap")}}})();
+
+/* ---------- 7 · Textlinks: Pfeil-Symbol ergänzen, wo Webflow es nicht speichern kann ---------- */
+document.querySelectorAll("a.lnk").forEach(a=>{if(!a.querySelector(".b")){const b=document.createElement("span");b.className="b";b.innerHTML=R.icon("arrow-right");a.prepend(b)}});
 })();

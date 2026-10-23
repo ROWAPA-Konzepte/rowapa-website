@@ -50,7 +50,7 @@ R.reveal(".fx");
   else{if(abPin)abPin.style.removeProperty("top");p=R.motion?clamp((ih*.9-r.top)/(ih*.8),0,1):1}
   const a0=.04,a1=.72,fw=.12;ws.forEach((w,i)=>{const s=a0+(a1-a0-fw)*i/Math.max(1,n-1);const q=clamp((p-s)/fw,0,1);w.style.setProperty("--o",(.14+.86*sm(q)).toFixed(3))});
   const W=[[a0,a0+(a1-a0)*.5],[a0+(a1-a0)*.25,a0+(a1-a0)*.75],[a0+(a1-a0)*.5,a1]];
-  nums.forEach((b,k)=>{if(!b)return;const w=W[Math.min(k,2)];const q=clamp((p-w[0])/(w[1]-w[0]),0,1);const v=String(Math.round(+b.dataset.to*sm(q)));if(b.textContent!==v)b.textContent=v;cis[k].style.setProperty("--o",sm(clamp(q*1.6,0,1)).toFixed(3))});
+  nums.forEach((b,k)=>{if(!b)return;const w=W[Math.min(k,2)];const q=clamp((p-w[0])/(w[1]-w[0]),0,1);const v=String(Math.round(+b.dataset.to*sm(q)));const sf=b.dataset.suf||"";if(b.dataset.cur!==v){b.dataset.cur=v;b.innerHTML=v+(sf?`<span class="suf">${sf}</span>`:"")}cis[k].style.setProperty("--o",sm(clamp(q*1.6,0,1)).toFixed(3))});
   if(n20){const v=String(n20.dataset.to);if(n20.textContent!==v)n20.textContent=v}})})();
 
 /* ---------- FAQ: Nummern 01, 02, … ---------- */

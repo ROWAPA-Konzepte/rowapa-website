@@ -49,7 +49,7 @@ if(vgM&&!vgM.children.length)vgM.innerHTML=S.map((s,i)=>`<li data-i="${i}"><span
   pg.setAttribute("position",new THREE.BufferAttribute(pp,3));pg.setAttribute("color",new THREE.BufferAttribute(pc,3));pg.setAttribute("rnd",new THREE.BufferAttribute(pr,1));pg.setAttribute("sz",new THREE.BufferAttribute(ps,1));
   const pin=new THREE.Points(pg,mat);grp.add(pin);pin.visible=false;
   /* Markierung als echtes, flaches Symbol (Kontrast zu den Punkten): Stecknadel, oder Stift mit data-vgpin="stift" am Abschnitt */
-  const PINS={pin:'<svg viewBox="0 0 40 52" aria-hidden="true"><path d="M20 51C20 51 4 32.5 4 20a16 16 0 0 1 32 0c0 12.5-16 31-16 31Z" fill="var(--c-plum)"/><circle cx="20" cy="20" r="6.5" fill="#fff"/></svg>',
+  const PINS={pin:'<svg viewBox="0 0 40 60" aria-hidden="true"><rect x="18.5" y="22" width="3" height="38" rx="1.5" fill="var(--c-manganese)"/><circle cx="20" cy="14" r="12" fill="var(--c-plum)"/><circle cx="16" cy="10" r="3.2" fill="#fff" opacity=".55"/></svg>',
    stift:'<svg viewBox="0 0 40 52" aria-hidden="true"><g transform="rotate(35 20 26)"><rect x="14" y="2" width="12" height="9" fill="var(--c-manganese)"/><rect x="14" y="11" width="12" height="27" fill="var(--c-plum)"/><path d="M14 38h12l-6 12Z" fill="#E8C9A8"/><path d="M18 46h4l-2 4Z" fill="var(--c-manganese)"/></g></svg>'};
   const pinEl=document.createElement("span");pinEl.className="vg-pinic";pinEl.setAttribute("aria-hidden","true");pinEl.innerHTML=PINS[sec.dataset.vgpin==="stift"?"stift":"pin"];(cv.parentElement||vgD).appendChild(pinEl);
   /* Säule der aktiven Phase färbt sich Plum */

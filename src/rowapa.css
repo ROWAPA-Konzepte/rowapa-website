@@ -1104,7 +1104,7 @@ html.ci .q .qk{letter-spacing:0!important}
 
 /* ===== 23.10.2026 Abend ===== */
 /* Vorgehen: Markierung als flaches Symbol */
-.vg-pinic{position:absolute;z-index:3;width:30px;height:39px;pointer-events:none;opacity:0;transform:translate(-50%,-100%);transform-origin:50% 100%;will-change:left,top}
+.vg-pinic{position:absolute;z-index:3;width:26px;height:39px;pointer-events:none;opacity:0;transform:translate(-50%,-100%);transform-origin:50% 100%;will-change:left,top}
 .vg-pinic svg{display:block;width:100%;height:100%}
 /* Kontakt: Ring etwas grösser, Name darunter */
 #kontakt.has-cap .wrap{align-items:center}
@@ -1120,14 +1120,14 @@ html.ci .q .qk{letter-spacing:0!important}
 .team-h{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(20px,3svh,32px)}
 .team-h h3{margin:10px 0 0;font-size:clamp(1.5rem,2.2vw,2.1rem);line-height:1.15}
 .team-g{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(12px,1.5vw,22px)}
-.team-p{margin:0}
-.team-p img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 22%;border-radius:8px;display:block}
-.team-p figcaption{margin-top:12px}
-.team-p b{display:block;font-size:1.02rem}
-.team-p span{display:block;color:var(--mute);font-size:.88rem;line-height:1.4;margin-top:2px}
-:root.duo .team-p img{filter:url(#rw-duo) contrast(1.04)}
-:root[data-foto=weich].duo .team-p img{filter:url(#rw-duo-weich) contrast(1.03)!important}
-:root[data-foto=natur].duo .team-p img{filter:url(#rw-duo-natur) contrast(1.02)!important}
+.team-g>figure{margin:0}
+.team-g>figure img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 22%;border-radius:8px;display:block}
+.team-g>figure figcaption{margin-top:12px}
+.team-g>figure b{display:block;font-size:1.02rem}
+.team-g>figure span{display:block;color:var(--mute);font-size:.88rem;line-height:1.4;margin-top:2px}
+:root.duo .team-g>figure img{filter:url(#rw-duo) contrast(1.04)}
+:root[data-foto=weich].duo .team-g>figure img{filter:url(#rw-duo-weich) contrast(1.03)!important}
+:root[data-foto=natur].duo .team-g>figure img{filter:url(#rw-duo-natur) contrast(1.02)!important}
 @media (max-width:991px){.team-g{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:600px){.team-g{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* Footer: Adresse und Kontakt */
@@ -1141,3 +1141,6 @@ html.ci .q .qk{letter-spacing:0!important}
 footer .fadr a{display:inline!important;padding:0!important;margin:0!important;border-bottom:1px solid rgba(255,255,255,.25)!important}
 .lgi img[alt="Die Post"]{height:42px!important;max-height:42px}
 #kontakt .kp-cap{margin-top:-14px}
+
+.team-h .lnk{align-self:end}
+.ab-ci b .suf{font-size:.55em;margin-left:.06em;vertical-align:.35em}
