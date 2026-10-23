@@ -1,0 +1,18 @@
+const { chromium } = require('playwright');const fs=require('fs');const RP='/home/claude/rowapa-website/';const IMG='/tmp/claude-0/-home-claude/9363aa6e-333b-592b-a1e5-50a0aa69243f/scratchpad/erf/out/';
+const only=process.argv[2];
+(async()=>{const b=await chromium.launch({args:['--use-gl=swiftshader'],proxy:process.env.HTTPS_PROXY?{server:process.env.HTTPS_PROXY}:undefined});
+for(const vp of [{width:1414,height:782},{width:1280,height:720},{width:390,height:844}]){if(only&&+only!==vp.width)continue;const p=await b.newPage({viewport:vp});const errs=[];p.on('pageerror',e=>errs.push(e.message));
+await p.route(/rowapa-website@[0-9a-f]+\/(dist|assets)\/.*/,r=>{const u=new URL(r.request().url());const f=decodeURIComponent(u.pathname.replace(/^.*rowapa-website@[0-9a-f]+\//,''));const ct=f.endsWith('.js')?'application/javascript':f.endsWith('.css')?'text/css':f.endsWith('.woff2')?'font/woff2':'application/octet-stream';r.fulfill({status:200,contentType:ct,body:fs.readFileSync(RP+f)})});
+await p.route(/\/_pv\/.*/,r=>{const f=new URL(r.request().url()).pathname.split('/').pop();r.fulfill({status:200,contentType:'image/jpeg',body:fs.readFileSync(IMG+f)})});
+await p.route(/rowapa-2027\.webflow\.io\/(\?.*)?$/,async r=>{const res=await r.fetch();let h=await res.text();
+const CSS=fs.readFileSync(RP+'vorschau/abschluss2.css','utf8'),JS=fs.readFileSync(RP+'vorschau/abschluss2.js','utf8');h=h.replace('</head>',()=>'<style>'+CSS+'</style></head>');
+h=h.replace(/<script src="https:\/\/cdn\.jsdelivr\.net\/gh\/ROWAPA/,()=>'<script>'+JS+'</script><script src="https://cdn.jsdelivr.net/gh/ROWAPA');
+r.fulfill({status:200,contentType:'text/html',body:h})});
+await p.goto('https://rowapa-2027.webflow.io/?v='+Date.now(),{waitUntil:'networkidle',timeout:90000});if(errs.length)console.log('EARLY',errs);await p.evaluate(()=>{const b=document.querySelector('.w-webflow-badge');if(b)b.remove()});await p.waitForTimeout(2000);
+const W=vp.width;console.log('LEAD',await p.evaluate(()=>[...document.querySelectorAll('.hz-line')].map(e=>e.closest('section').id+':'+getComputedStyle(e).fontSize)));if(process.env.Q)continue;const top=id=>p.evaluate(id=>document.getElementById(id).getBoundingClientRect().top+scrollY,id);
+const shot=async(id,off,n)=>{await p.evaluate(y=>R.lenis.scrollTo(y,{immediate:true}),(await top(id))+off);await p.waitForTimeout(1400);await p.screenshot({path:`wf/fb/ab_${n}_${W}.png`})};
+await shot('vorgehen',0,'vg');await shot('digi',-40,'dg');await shot('ergebnisse',0,'erf');
+if(W>500){await p.click('.erf-b[data-d="1"]');await p.waitForTimeout(900);await p.screenshot({path:`wf/fb/ab_erf2_${W}.png`})}
+await shot('ergebnisse',650,'team');await shot('branche',0,'br');await shot('pfade',0,'pf');await shot('cas',-60,'cas');await shot('wissen',0,'ins');await shot('wissen',650,'nl');await shot('faq',0,'faq');await shot('kontakt',0,'kt');
+console.log(W,await p.evaluate(()=>({sw:document.documentElement.scrollWidth,erf:document.querySelectorAll('.erf-s').length,ins:document.querySelectorAll('.ins-c').length,more:[...document.querySelectorAll('.ins-more a')].map(a=>a.textContent)})),errs.slice(0,3));await p.close()}
+await b.close()})();

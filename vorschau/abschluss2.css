@@ -1,0 +1,78 @@
+/* Vorschau 23.10.2026 · Überschriften-Logik (html.hz), Unsere Erfolge, CAS-Band, Neueste Insights */
+/* Überschriften: Plum-Strich bleibt, kleiner Titel entfällt, grosser Titel prominent, höchstens eine Zeile darunter */
+html.hz .sec .head .kick,html.hz #vorgehen .vg-head .kick,html.hz #digi .dg-head .kick,html.hz #kontakt .kick,html.hz .team-h .kick{font-size:0!important;letter-spacing:0!important;gap:0!important;line-height:0!important}
+html.hz .sec .head .h2,html.hz #vorgehen .vg-head .h2,html.hz #digi .dg-head .h2,html.hz #kontakt .h2,html.hz .ins .h2,html.hz .casb .h2{font-size:clamp(2.5rem,4.4vw,4.4rem)!important;line-height:1.02!important;letter-spacing:-.02em!important;text-wrap:balance}
+html.hz .hz-line,:root:root:root:root:root.hz .lead.hz-line{font-size:clamp(1.25rem,1.75vw,1.65rem)!important;line-height:1.3!important;color:var(--fg)!important;opacity:.86;font-weight:400!important;max-width:36ch!important;margin-top:14px!important}
+html.hz #kontakt .hz-line,:root:root:root:root:root.hz #kontakt .lead.hz-line{color:#fff!important;margin-bottom:26px!important}
+html.hz #digi .dg-head .hz-line,:root:root:root:root:root.hz #digi .lead.hz-line{color:#fff!important}
+/* Unsere Erfolge */
+.erf{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);gap:clamp(32px,5.5vw,84px);align-items:start;margin-top:clamp(28px,3vw,44px)}
+.erf-im{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--c-manganese);max-height:62svh}
+.erf-im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s ease}
+.erf-im img.on{opacity:1}
+:root[data-foto=natur] .erf-im img,:root[data-foto=natur] .casb-im{filter:saturate(.78) contrast(1.02)}
+.erf-nav{display:flex;align-items:center;gap:6px;margin-bottom:clamp(20px,3vw,40px)}
+.erf-b{width:34px;height:34px;display:grid;place-items:center;padding:0;border:0;background:transparent;color:var(--c-plum);cursor:pointer;border-radius:4px;transition:background .2s}
+.erf-b:hover{background:color-mix(in srgb,var(--c-plum) 10%,transparent)}
+.erf-b:focus-visible,.erf-btn:focus-visible,.casb-btn:focus-visible,.ins-b:focus-visible,.ins-c:focus-visible,.ins-row:focus-visible{outline:2px solid var(--c-serpent);outline-offset:3px}
+.erf-c{font-size:1.15rem;font-variant-numeric:tabular-nums;color:var(--fg);min-width:3.2em;text-align:center}
+.erf-c b{font-weight:400}
+.erf-st{display:grid}
+.erf-s{grid-area:1/1;opacity:0;visibility:hidden;transition:opacity .45s ease,visibility 0s .45s}
+.erf-s.on{opacity:1;visibility:visible;transition:opacity .45s ease .1s,visibility 0s}
+.erf-s h3{margin:0;font-weight:400!important;font-size:clamp(1.75rem,2.7vw,2.6rem)!important;line-height:1.18!important;letter-spacing:-.005em;color:var(--fg)!important;hyphens:auto;-webkit-hyphens:auto;text-wrap:balance}
+.erf-bar{display:block;width:clamp(140px,14vw,194px);height:5px;background:var(--c-manganese);margin:clamp(20px,2.4vw,30px) 0}
+.erf-s p{margin:0;font-size:clamp(1rem,1.15vw,1.12rem);line-height:1.6;color:var(--fg);max-width:52ch}
+.erf-who{margin-top:16px!important;display:grid;gap:2px}
+.erf-who b{font-weight:700}.erf-who span{color:var(--mute);font-size:.95rem}
+.erf-btn,.casb-btn{display:inline-flex;align-items:center;gap:22px;margin-top:clamp(24px,3vw,40px);padding:13px 16px;border:1.5px solid var(--c-manganese);border-radius:4px;color:var(--c-manganese);font-weight:700;font-size:1rem;text-decoration:none;transition:background .2s,color .2s,border-color .2s}
+.erf-btn:hover{background:var(--c-manganese);color:#fff}
+.team-links{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center}
+/* CAS-Band «Aktuell» */
+#cas.casx{padding:0!important;background:var(--c-manganese)}
+.casb{position:relative;min-height:clamp(460px,62svh,620px);display:flex;align-items:center;overflow:hidden;isolation:isolate}
+.casb-im{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.casb-sh{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,color-mix(in srgb,var(--c-manganese) 94%,transparent) 0%,color-mix(in srgb,var(--c-manganese) 86%,transparent) 42%,color-mix(in srgb,var(--c-manganese) 25%,transparent) 72%,transparent 100%)}
+.casb-sh::after{content:"";position:absolute;right:0;bottom:0;width:38%;height:46%;background:var(--c-plum);opacity:.9;clip-path:polygon(62% 0,100% 0,100% 100%,0 100%)}
+.casb-in{position:relative;padding-block:clamp(56px,8vw,110px);color:#fff;width:100%}
+.casb-in>*{max-width:640px}
+.casb-k{margin:0 0 16px;font-family:var(--fx);font-weight:800;font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--c-sea)}
+.casb .h2{color:#fff!important;margin:0}
+.casb-tx{margin:18px 0 0;font-size:clamp(1.08rem,1.3vw,1.25rem);line-height:1.55;color:rgba(255,255,255,.88)}
+.casb-f{display:flex;gap:40px;margin:26px 0 0;padding:0}
+.casb-f dt{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--c-sea);font-weight:700}
+.casb-f dd{margin:4px 0 0;font-size:1.1rem;font-weight:700;color:#fff}
+.casb-b{display:flex;flex-wrap:wrap;gap:12px 16px}
+.casb-btn.pl{background:var(--c-plum);border-color:var(--c-plum);color:#fff}.casb-btn.pl:hover{background:#fff;border-color:#fff;color:var(--c-manganese)}
+.casb-btn.ol{border-color:rgba(255,255,255,.75);color:#fff}.casb-btn.ol:hover{background:#fff;color:var(--c-manganese)}
+.casb-btn.ol.dk{border-color:var(--c-manganese);color:var(--c-manganese)}.casb-btn.ol.dk:hover{background:var(--c-manganese);color:#fff}
+/* Neueste Insights */
+#wissen.insx{position:relative;overflow:hidden}
+#wissen.insx::before{content:"";position:absolute;z-index:0;top:clamp(20px,3vw,40px);right:0;width:52%;height:min(640px,78%);background:color-mix(in srgb,var(--c-sea) 72%,var(--c-snow));clip-path:polygon(0 0,100% 0,100% 100%,52% 100%);pointer-events:none}
+#wissen.insx .wrap{position:relative;z-index:1}
+.ins{display:grid;grid-template-columns:minmax(220px,.82fr) minmax(0,3fr);gap:clamp(28px,4vw,64px);align-items:start;padding-top:clamp(40px,5vw,72px)}
+.ins-l{display:grid;gap:22px;align-content:start;padding-top:4px}
+.ins-l .h2{margin:0}
+.ins-tx{margin:0;font-size:1.08rem;line-height:1.55;color:var(--fg)}
+.ins-l .casb-btn{margin-top:4px;justify-self:start}
+.ins-more{display:flex;flex-wrap:wrap;gap:6px 18px;margin:4px 0 0}
+.ins-more a{font-size:.95rem;color:var(--fg);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--c-manganese) 35%,transparent)}
+.ins-more a:hover{color:var(--c-plum);border-color:var(--c-plum)}
+.ins-r{position:relative;min-width:0;margin-right:calc((100vw - min(100vw,var(--maxw,1360px)))/-2 - 20px)}
+.ins-row{display:flex;gap:28px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 40px 8px 0;overscroll-behavior-x:contain}
+.ins-row::-webkit-scrollbar{display:none}
+.ins-c{flex:0 0 clamp(240px,22vw,300px);scroll-snap-align:start;display:grid;align-content:start;gap:12px;color:var(--fg);text-decoration:none}
+.ins-im{aspect-ratio:5/6;overflow:hidden;background:var(--c-snow)}
+.ins-im img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.ins-c:hover .ins-im img{transform:scale(1.04)}
+.ins-m{display:flex;align-items:center;gap:6px;margin:6px 0 0;font-size:.88rem;color:var(--fg);font-variant-numeric:tabular-nums}
+.ins-c h3{margin:0;font-size:clamp(1.2rem,1.45vw,1.42rem)!important;line-height:1.22!important;font-weight:700!important;hyphens:auto;-webkit-hyphens:auto}
+.ins-c:hover h3{color:var(--c-plum)}
+.ins-tg{margin:0}.ins-tg span{font-size:.86rem;border-bottom:1px solid color-mix(in srgb,var(--c-manganese) 45%,transparent)}
+.ins-b{position:absolute;top:0;width:44px;height:44px;display:grid;place-items:center;padding:0;border:1px solid var(--c-plum);background:#fff;color:var(--c-plum);cursor:pointer;border-radius:4px;z-index:2}
+.ins-b[data-d="1"]{right:clamp(20px,3vw,48px)}.ins-b[data-d="-1"]{left:0}
+.ins-b:hover{background:var(--c-plum);color:#fff}
+#wissen.insx .nl{margin-top:clamp(48px,5vw,72px)}
+@media (max-width:991px){.erf{grid-template-columns:1fr}.ins{grid-template-columns:1fr}.ins-r{margin-right:-20px}#wissen.insx::before{width:80%;height:55%;top:auto;bottom:30%}.casb-sh{background:linear-gradient(180deg,color-mix(in srgb,var(--c-manganese) 70%,transparent),color-mix(in srgb,var(--c-manganese) 94%,transparent))}.casb-sh::after{display:none}}
+@media (max-width:600px){.ins-c{flex-basis:78%}.ins-b{display:none}.casb-f{gap:24px}}
+.ins-b[hidden]{display:none!important}
